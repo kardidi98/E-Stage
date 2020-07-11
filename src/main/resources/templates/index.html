@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Home</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+<!-- Select -->
+<link rel="stylesheet"
+	th:href="@{assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.css}"
+	href="../static/assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.css">
+<!-- Favicons -->
+<link href="../static/assets/img/favicon.png"
+	th:href="@{assets/img/favicon.png}" rel="icon">
+<link href="../static/assets/img/apple-touch-icon.png"
+	th:href="@{assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,400,500,700"
+	rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link th:href="@{assets/vendor/bootstrap/css/bootstrap.min.css}"
+	href="../static/assets/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link th:href="@{assets/vendor/font-awesome/css/font-awesome.min.css}"
+	href="../static/assets/vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet">
+<link th:href="@{assets/vendor/ionicons/css/ionicons.min.css}"
+	href="../static/assets/vendor/ionicons/css/ionicons.min.css"
+	rel="stylesheet">
+<link
+	th:href="@{assets/vendor/owl.carousel/assets/owl.carousel.min.css}"
+	rel="stylesheet">
+<link th:href="@{assets/vendor/venobox/venobox.css}"
+	href="../static/assets/vendor/venobox/venobox.css" rel="stylesheet">
+<link th:href="@{assets/vendor/aos/aos.css}"
+	href="../static/assets/vendor/aos/aos.css" rel="stylesheet">
+
+<!--  Main CSS File -->
+<link th:href="@{assets/css/style.css}"
+	href="../static/assets/css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container">
+
+      <div class="logo float-left">
+       
+        <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+      </div>
+
+      <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="index.html">Home</a></li>
+          
+          <li><a href="#services">Services</a></li>
+          
+          <li class="drop-down"><a href="">Drop Down</a>
+            <ul>
+              <li><a href="#">Drop Down 1</a></li>
+              <li class="drop-down"><a href="#">Drop Down 2</a>
+                <ul>
+                  <li><a href="#">Deep Drop Down 1</a></li>
+                  <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li>
+              <li><a href="#">Drop Down 5</a></li>
+            </ul>
+          </li>
+          <li><a href="about_us.html">About Us</a></li>
+          <li><a href="contact_us.html">Contact Us</a></li>
+          <li class="drop-down notification" data-aos="zoom-out-down">
+          	<a href="#" >
+          		<i class="fa fa-bell" ></i>
+          		<span class="counter counter-lg">10</span>
+          	</a>
+            <ul>
+              <li><a href="#">Notification 1</a></li>
+              <hr>
+              <li><a href="#">Notification 2</a></li>
+              <hr>
+              <li><a href="#">Notification 3</a></li>
+              <hr>
+              <li><a href="#">Notification 4</a></li>
+            </ul>
+          </li>
+          <!-- <li class="btns_request rounded"><a href="DemandeStage.html"><span class="mr-2">+</span> Add an Internship Request</a></li> -->
+          <li class="btns_login rounded"  ><a href="login.html"  > Log In</a></li>
+        </ul>
+      </nav><!-- .main-nav -->
+
+    </div>
+  </header><!-- #header -->
+
+  <!-- ======= Intro Section ======= -->
+  <section id="intro" class="clearfix">
+    <div class="container" data-aos="fade-up">
+
+      <div class="intro-img" data-aos="zoom-out" data-aos-delay="200">
+        <img src="assets/img/we-create.png" alt="" class="img-fluid">
+      </div>
+
+      <div class="intro-info" data-aos="zoom-in" data-aos-delay="100">
+        <h2>Send your<br><span> Internship Request</span><br> more easily!</h2>
+        <div>
+          <a href="DemandeStage.html" class="btn-get-started scrollto"><span class="mr-2">+</span> Add an Internship Request</a>
+          <a href="#services" class="btn-services scrollto">Our Services</a>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Intro Section -->
+
+  <main id="main">
+
+
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <h3>Services</h3>
+          <p>Laudem latine persequeris id sed, ex fabulas delectus quo. No vel partiendo abhorreant vituperatoribus.</p>
+        </header>
+
+        <div class="row justify-content-center">
+
+          <div class="col-md-6 col-lg-5" data-aos="zoom-in" data-aos-delay="100">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #ff689b;"></i></div>
+              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-5" data-aos="zoom-in" data-aos-delay="200">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-bookmarks-outline" style="color: #e9bf06;"></i></div>
+              <h4 class="title"><a href="">Dolor Sitema</a></h4>
+              <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-5" data-aos="zoom-in" data-aos-delay="100">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-paper-outline" style="color: #3fcdc7;"></i></div>
+              <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
+              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-5" data-aos="zoom-in" data-aos-delay="200">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-speedometer-outline" style="color:#41cf2e;"></i></div>
+              <h4 class="title"><a href="">Magni Dolores</a></h4>
+              <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-5" data-aos="zoom-in" data-aos-delay="100">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-world-outline" style="color: #d6ff22;"></i></div>
+              <h4 class="title"><a href="">Nemo Enim</a></h4>
+              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-5" data-aos="zoom-in" data-aos-delay="200">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-clock-outline" style="color: #4680ff;"></i></div>
+              <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
+              <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us">
+      <div class="container" data-aos="fade-up">
+        <header class="section-header">
+          <h3>Why choose us?</h3>
+          <p>Laudem latine persequeris id sed, ex fabulas delectus quo. No vel partiendo abhorreant vituperatoribus.</p>
+        </header>
+
+        <div class="row row-eq-height justify-content-center">
+
+          <div class="col-lg-4 mb-4">
+            <div class="card" data-aos="zoom-in" data-aos-delay="100">
+              <i class="fa fa-diamond"></i>
+              <div class="card-body">
+                <h5 class="card-title">Corporis dolorem</h5>
+                <p class="card-text">Deleniti optio et nisi dolorem debitis. Aliquam nobis est temporibus sunt ab inventore officiis aut voluptatibus.</p>
+                
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mb-4">
+            <div class="card" data-aos="zoom-in" data-aos-delay="200">
+              <i class="fa fa-language"></i>
+              <div class="card-body">
+                <h5 class="card-title">Voluptates dolores</h5>
+                <p class="card-text">Voluptates nihil et quis omnis et eaque omnis sint aut. Ducimus dolorum aspernatur.</p>
+                
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mb-4">
+            <div class="card" data-aos="zoom-in" data-aos-delay="300">
+              <i class="fa fa-object-group"></i>
+              <div class="card-body">
+                <h5 class="card-title">Eum ut aspernatur</h5>
+                <p class="card-text">Autem quod nesciunt eos ea aut amet laboriosam ab. Eos quis porro in non nemo ex. </p>
+               
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+       
+
+      </div>
+    </section><!-- End Why Us Section -->
+
+   
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="section-bg">
+      <div class="container" data-aso="zoom-in">
+
+        <header class="section-header">
+          <h3>What People Say About Us</h3>
+        </header>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+
+            <div class="owl-carousel testimonials-carousel">
+
+              <div class="testimonial-item">
+                <img src="assets/img/testimonial-1.jpg" class="testimonial-img" alt="">
+                <h3>Saul Goodman</h3>
+                <h4>Ceo &amp; Founder</h4>
+                <p>
+                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                </p>
+              </div>
+
+              <div class="testimonial-item">
+                <img src="assets/img/testimonial-2.jpg" class="testimonial-img" alt="">
+                <h3>Sara Wilsson</h3>
+                <h4>Designer</h4>
+                <p>
+                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                </p>
+              </div>
+
+              <div class="testimonial-item">
+                <img src="assets/img/testimonial-3.jpg" class="testimonial-img" alt="">
+                <h3>Jena Karlis</h3>
+                <h4>Store Owner</h4>
+                <p>
+                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                </p>
+              </div>
+
+              <div class="testimonial-item">
+                <img src="assets/img/testimonial-4.jpg" class="testimonial-img" alt="">
+                <h3>Matt Brandon</h3>
+                <h4>Freelancer</h4>
+                <p>
+                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                </p>
+              </div>
+
+              <div class="testimonial-item">
+                <img src="assets/img/testimonial-5.jpg" class="testimonial-img" alt="">
+                <h3>John Larson</h3>
+                <h4>Entrepreneur</h4>
+                <p>
+                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
+
+    
+
+
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6 footer-info">
+            <h3>INTERNSHIP</h3>
+            <p>With our service, you can send your internship requests more easily. The processing of requests will therefore be easier and the response will also be sent to you in a shorter time.</p>
+          </div>
+          <div class="col-lg-1 col-md-6 "></div>
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="contact_us.html">Contact us</a></li>
+              <li><a href="about_us.html">About us</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-1 col-md-6 "></div>
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Contact Us</h4>
+            <p>
+              A108 Adam Street, NY 535022<br>
+              <strong>Phone:</strong> +212 65 895 54 88<br>
+              <strong>Email:</strong> InternshipTeam@gmail.com<br>
+            </p>
+
+            <div class="social-links">
+              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+            </div>
+
+          </div>
+
+         
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+       
+        <a href="#">internship Team</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+	<!-- Vendor JS Files -->
+	<script th:src="@{assets/vendor/jquery/jquery.min.js}"
+		src="../static/assets/vendor/jquery/jquery.min.js"></script>
+	<script th:src="@{assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"
+		src="../static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script th:src="@{assets/vendor/jquery.easing/jquery.easing.min.js}"
+		src="../static/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+	<script th:src="@{assets/vendor/php-email-form/validate.js}"
+		src="../static/assets/vendor/php-email-form/validate.js"></script>
+	<script th:src="@{assets/vendor/counterup/counterup.min.js}"
+		src="../static/assets/vendor/counterup/counterup.min.js"></script>
+	<script th:src="@{assets/vendor/isotope-layout/isotope.pkgd.min.js}"
+		src="../static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script th:src="@{assets/vendor/owl.carousel/owl.carousel.min.js}"
+		src="../static/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+	<script th:src="@{assets/vendor/waypoints/jquery.waypoints.min.js}"
+		src="../static/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+	<script th:src=" @{assets/vendor/venobox/venobox.min.js}"
+		src="../static/assets/vendor/venobox/venobox.min.js"></script>
+	<script th:src="@{assets/vendor/aos/aos.js}"
+		src="../static/assets/vendor/aos/aos.js"></script>
+	<!-- Select2 -->
+	<script
+		th:src="@{assets/vendor/bootstrap-select-1.13.14/dist/js/bootstrap-select.js}"
+		src="../static/assets/vendor/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
+	<!--  Main JS File -->
+	<script th:src="@{assets/js/main.js}" src="../static/assets/js/main.js"></script>
+
+</body>
+
+</html>

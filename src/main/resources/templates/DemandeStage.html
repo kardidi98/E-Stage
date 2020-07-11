@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+	<title>Internship Request</title>
+	<meta content="" name="description">
+	<meta content="" name="keywords">
+
+	<!-- Select -->
+	<link rel="stylesheet" href="assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.css">
+
+
+	<!-- Select -->
+<link rel="stylesheet"
+	th:href="@{assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.css}"
+	href="../static/assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.css">
+<!-- Favicons -->
+<link href="../static/assets/img/favicon.png"
+	th:href="@{assets/img/favicon.png}" rel="icon">
+<link href="../static/assets/img/apple-touch-icon.png"
+	th:href="@{assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,400,500,700"
+	rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link th:href="@{assets/vendor/bootstrap/css/bootstrap.min.css}"
+	href="../static/assets/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link th:href="@{assets/vendor/font-awesome/css/font-awesome.min.css}"
+	href="../static/assets/vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet">
+<link th:href="@{assets/vendor/ionicons/css/ionicons.min.css}"
+	href="../static/assets/vendor/ionicons/css/ionicons.min.css"
+	rel="stylesheet">
+<link
+	th:href="@{assets/vendor/owl.carousel/assets/owl.carousel.min.css}"
+	rel="stylesheet">
+<link th:href="@{assets/vendor/venobox/venobox.css}"
+	href="../static/assets/vendor/venobox/venobox.css" rel="stylesheet">
+<link th:href="@{assets/vendor/aos/aos.css}"
+	href="../static/assets/vendor/aos/aos.css" rel="stylesheet">
+
+<!--  Main CSS File -->
+<link th:href="@{assets/css/style.css}"
+	href="../static/assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<header id="header" class="fixed-top">
+		<div class="container">
+
+			<div class="logo float-left">
+
+				<a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+			</div>
+
+			<nav class="main-nav float-right d-none d-lg-block">
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li class="drop-down"><a href="">Drop Down</a>
+						<ul>
+							<li><a href="#">Drop Down 1</a></li>
+							<li class="drop-down"><a href="#">Drop Down 2</a>
+								<ul>
+									<li><a href="#">Deep Drop Down 1</a></li>
+									<li><a href="#">Deep Drop Down 2</a></li>
+									<li><a href="#">Deep Drop Down 3</a></li>
+									<li><a href="#">Deep Drop Down 4</a></li>
+									<li><a href="#">Deep Drop Down 5</a></li>
+								</ul>
+							</li>
+							<li><a href="#">Drop Down 3</a></li>
+							<li><a href="#">Drop Down 4</a></li>
+							<li><a href="#">Drop Down 5</a></li>
+						</ul>
+					</li>
+
+					<li><a href="about_us.html">About Us</a></li>
+					<li><a href="contact_us.html">Contact Us</a></li>
+					<li class="drop-down notification">
+			            <a href="#" >
+			              <i class="fa fa-bell" ></i>
+			              <span class="counter counter-lg">10</span>
+			            </a>
+			            <ul>
+			              <li><a href="#">Notification 1</a></li>
+			              <hr>
+			              <li><a href="#">Notification 2</a></li>
+			              <hr>
+			              <li><a href="#">Notification 3</a></li>
+			              <hr>
+			              <li><a href="#">Notification 4</a></li>
+			            </ul>
+			          </li>
+				</ul>
+			</nav><!-- .main-nav -->
+
+		</div>
+	</header><!-- #header -->
+
+	<main id="main">
+
+		<!-- ======= Breadcrumbs Section ======= -->
+		<section class="breadcrumbs" id="Request">
+			<div class="container">
+
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>Internship Request</h2>
+					<ol>
+						<li><a href="index.html">Home</a></li>
+						<li>Internship Request</li>
+					</ol>
+				</div>
+
+			</div>
+		</section><!-- End Breadcrumbs Section -->
+
+		<section class="pt-5" data-aos="fade-up">
+			<div class="container">
+				<div style="text-align:center;margin-bottom:40px;" id="steps">
+					<span class=""><i class="step fa fa-calendar-check-o" style="padding: 20px 20px;"></i></span>
+					<span class=""><i class="step fa fa-id-card-o" style="padding: 20px 20px;"></i></span>
+					<span class=""><i class="step fa fa-graduation-cap" style="padding: 20px 20px;"></i></span>
+					<span class=""><i class="step fa fa-briefcase"></i></span>
+					<span class=""><i class="step fa fa-puzzle-piece"></i></span>
+					<span class=""><i class="step fa fa-envelope"></i></span>
+					<span class=""><i class="step fa fa-file-text"></i></span>
+				</div>
+				<form class="p-4 border rounded requestForms" id="requestForms" method="post">
+
+
+					<fieldset class="fieldset">
+						<h3 class="text-black mb-5 border-bottom pb-2">Choose a Domaine & Specify The Period</h3>
+						<div class="row justify-content-center">
+							<div class="container col-lg-4 col-md-4">
+								<div class=" form-group">
+								
+									<label for="domaine">Domaine</label>
+									<select class="selectpicker border rounded " id="domaine"  data-style="btn-black" data-width="100%" data-live-search="true" title="Select Domaine" required="required" >
+											<option value="Finance">Finance</option>
+											<option value="Commerce">Commerce</option>
+											<option value="Computer Science">Computer Science</option>
+											<option value="Industry">Industry</option>
+									</select>
+								
+							</div>
+							<div class=" form-group">
+								
+								
+									<label for="stageDateDeb">Start Day</label>
+									<input type="text" class="form-control p-3" id="stageDateDeb" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
+								
+							</div>
+							<div class=" form-group">
+								
+								
+									<label for="stageDateFin">End Day</label>
+									<input type="text" class="form-control p-3" id="stageDateFin" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
+								
+
+							</div>
+							</div>
+						</div>
+							
+							
+
+						
+					</fieldset>
+
+					<fieldset class="fieldset">
+						<h3 class="text-black mb-5 border-bottom pb-2">Personal Information</h3>
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="form-group">
+
+
+									<div class="wrapper">
+										<div class="file-upload" style="border: 10px solid #DEE2E6;box-shadow: 0 0 10px #DEE2E6;">
+											<input type="file" id="picture" />
+											<i class="fa fa-user" ></i>
+
+										</div>
+
+									</div>
+									<div align="center">Select a picture</div>
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="row form-group">
+									<div class="col-lg-6 col-md-6">
+										<label for="prenom">First Name</label>
+										<input type="text" class="form-control p-3" id="prenom" placeholder="First Name" required="required">
+									</div>
+									<div class="col-lg-6 col-md-6">
+										<label for="nom">Last Name</label>
+										<input type="text" class="form-control p-3" id="nom" placeholder="Last Name" required="required">
+									</div>
+
+								</div>
+								<div class="row form-group">
+									<div class="col-lg-6 col-md-6">
+										<label for="email">Email</label>
+										<input type="email" class="form-control p-3" id="email" placeholder="Email Address" required="required">
+									</div>
+									<div class="col-lg-6 col-md-6">
+										<label for="numTel">Phone Number</label>
+										<input type="text" class="form-control p-3" id="numTel" placeholder="Phone Number" required="required">
+									</div>
+
+								</div>
+								<div class="row form-group">
+									<div class="col-lg-6 col-md-6">
+										<label for="pays">Country</label>
+										<select class="selectpicker border rounded " id="pays"  data-style="btn-black" data-width="100%" data-live-search="true" title="Select Country" required="required">
+											<option value="AL">Alabama</option>
+											<option value="WY">Wyoming</option>
+										</select>
+									</div>
+									<div class="col-lg-6 col-md-6">
+										<label for="ville">City</label>
+										<select class="selectpicker border rounded " id="ville" data-style="btn-black" data-width="100%" data-live-search="true" title="Select City" required="required">
+											<option>Part Time</option>
+											<option>Full Time</option>
+										</select>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="row form-group">
+							<div class="col-lg-6 col-md-6">
+								<label for="adresse">Address</label>
+								<input type="text" class="form-control p-3" id="adresse" placeholder="Address">
+							</div>
+
+							<div class="col-lg-6 col-md-6">
+								<label for="codePostal">Postal Code</label>
+								<input type="text" class="form-control p-3" id="codePostal" placeholder="Postal Code">
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label for="profile">Profile</label>
+							<textarea class="form-control" id="profile" name="profile" rows="5" data-rule="required" data-msg="Write something about you" placeholder="Write.." required="required"></textarea>
+							<div class="validate"></div>
+						</div>
+
+					</fieldset>
+
+
+
+					<fieldset class="fieldset">
+						<h3 class="text-black mb-5 border-bottom pb-2">Education</h3>
+						<div id="EducationSection">
+							<div class="row form-group">
+								<div class="col-lg-6 col-md-6">
+									<label for="formationTitle">Title</label>
+									<input type="text" class="form-control p-3" id="formationTitle" placeholder="Title" required="required">
+								</div>
+								<div class="col-lg-6 col-md-6">
+									<label for="Institution">Institution</label>
+									<input type="text" class="form-control p-3" id="Institution" placeholder="Institution" required="required">
+								</div>
+
+							</div>
+							<div class="row form-group">
+								<div class="col-lg-6 col-md-6">
+									<label for="formationDateDeb">Start Day</label>
+									<input type="text" class="form-control p-3" id="formationDateDeb" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
+								</div>
+								<div class="col-lg-6 col-md-6">
+									<label for="formationDateFin">End Day</label>
+									<input type="text" class="form-control p-3" id="formationDateFin" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
+								</div>
+
+							</div>
+
+							<div class="form-group">
+								<label for="formationDescription">Description</label>
+								<textarea class="form-control" id="formationDescription" name="formationDescription" rows="5" data-rule="required" data-msg="Write something about this education" placeholder="Write.." required="required"></textarea>
+								<div class="validate"></div>
+							</div>
+						</div>
+
+						&nbsp;
+						<div id="addEducationSection" data-toggle="tooltip" data-placement="top" title="Add An Other Section"><i class="fa fa-plus"></i></div>
+
+					</fieldset>
+
+
+					<fieldset class="fieldset">
+						<h3 class="text-black mb-5 border-bottom pb-2">Experiences</h3>
+						<div id="ExperienceSection">
+							<div class="row form-group">
+								<div class="col-lg-6 col-md-6">
+									<label for="experienceTitle">Title</label>
+									<input type="text" class="form-control p-3" id="experienceTitle" placeholder="Title" required="required">
+								</div>
+								<div class="col-lg-6 col-md-6">
+									<label for="entreprise">Company</label>
+									<input type="text" class="form-control p-3" id="entreprise" placeholder="Company" required="required">
+								</div>
+
+							</div>
+							<div class="row form-group">
+								<div class="col-lg-6 col-md-6">
+									<label for="experienceDateDeb">Start Day</label>
+									<input type="text" class="form-control p-3" id="experienceDateDeb" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
+								</div>
+								<div class="col-lg-6 col-md-6">
+									<label for="experienceDateFin">End Day</label>
+									<input type="text" class="form-control p-3" id="experienceDateFin" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
+								</div>
+
+							</div>
+
+							<div class="form-group">
+								<label for="experienceDescription">Description</label>
+								<textarea class="form-control" id="experienceDescription" name="formationDescription" rows="5" data-rule="required" data-msg="Write something about this experience" placeholder="Write.." required="required"></textarea>
+								<div class="validate"></div>
+							</div>
+
+					</div>
+					&nbsp;
+						<div id="addExperienceSection" data-toggle="tooltip" data-placement="top" title="Add An Other Section"><i class="fa fa-plus"></i></div>
+
+					</fieldset>
+
+					<fieldset class="fieldset">
+						<h3 class="text-black mb-5 border-bottom pb-2">Hobbies</h3>
+						<label for="hobbies">Specify Your Hobbies</label>
+						<textarea class="form-control" id="hobbies" name="hobbies" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Lecture, Music..." required="required"></textarea>
+						<div class="validate"></div>
+
+					</fieldset>
+
+					<fieldset class="fieldset">
+						<h3 class="text-black mb-5 border-bottom pb-2">Cover Letter (Write or Upload it)</h3>
+
+						<div class="row form-group">
+							<div class="col-lg-6 col-md-6">
+
+								<textarea class="form-control" id="coverLetter" name="coverLetter" rows="9" data-rule="required" data-msg="Write your letter." placeholder="Write.."></textarea>
+								<div class="validate"></div>
+							</div>
+
+							<div class="col-lg-1 col-md-1" align="center"><strong>OR</strong></div>
+
+							<div class="col-lg-5 col-md-5 " >
+
+								<div class="choose-file text-center rounded"
+								style="border: 2px dashed #DCDCDC;padding: 50px;">
+								<label for="file-upload"> <span
+									class="d-block font-weight-bold text-dark">Drop
+								the letter to upload</span> <span class="d-block">or</span> <span
+								class="d-block btn bg-primary text-white my-3 select-files">Select
+							the letter</span> <input
+							name="picture" type="file" class="form-control-file d-none"
+							id="file-upload" required="required">
+						</label>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+
+
+		<fieldset class="fieldset">
+			<h3 class="text-black mb-5 border-bottom pb-2">Other Administrative Documents</h3>
+			<div id="AdministartiveDocSection">
+				<div class=" form-group" >
+				<div class="choose-file text-center py-1 rounded" style="border: 2px dashed #DCDCDC;">
+				<label for="file-upload" class="LabelDocsUpload">
+					<div> 
+						<div class="d-block font-weight-bold text-dark">
+							Drop the document to upload
+						</div> 
+						<div class="d-block">or</div> 
+						<div class="d-block btn bg-primary text-white select-files">
+							Select the document
+						</div>
+					</div> 
+					<input name="picture" type="file" class="form-control-file d-none" id="file-upload" >
+				</label>
+			</div>
+		</div>
+			</div>
+			
+		&nbsp;
+		<div id="AddAdministartiveDocSection" data-toggle="tooltip" data-placement="top" title="Add An Other Section"><i class="fa fa-plus"></i></div>
+
+
+	</fieldset>
+
+
+
+	&nbsp;
+	<div >
+		<div style="float:right;">
+			<a href="#Request"><button type="button" id="prevBtn" class="btn btn-secondary" onclick="nextPrev(-1);">Previous</button></a>
+			<a href="#Request"><button type="button" id="nextBtn" class="btn btn-primary" onclick="nextPrev(1);">Next</button></a>
+		</div>
+	</div>
+	&nbsp;
+</form>
+&nbsp;
+</div>
+
+</section>
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+	<div class="footer-top">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-4 col-md-6 footer-info">
+					<h3>INTERNSHIP</h3>
+					<p>With our service, you can send your internship requests more easily. The processing of requests will therefore be easier and the response will also be sent to you in a shorter time.</p>
+				</div>
+				<div class="col-lg-1 col-md-6 "></div>
+				<div class="col-lg-2 col-md-6 footer-links">
+					<h4>Useful Links</h4>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="index.html">Services</a></li>
+						<li><a href="contact_us.html">Contact us</a></li>
+						<li><a href="about_us.html">About us</a></li>
+					</ul>
+				</div>
+				<div class="col-lg-1 col-md-6 "></div>
+				<div class="col-lg-3 col-md-6 footer-contact">
+					<h4>Contact Us</h4>
+					<p>
+						A108 Adam Street, NY 535022<br>
+						<strong>Phone:</strong> +212 65 895 54 88<br>
+						<strong>Email:</strong> InternshipTeam@gmail.com<br>
+					</p>
+
+					<div class="social-links">
+						<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+						<a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+						<a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+						<a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+						<a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="copyright">
+			&copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>. All Rights Reserved
+		</div>
+		<div class="credits">
+
+			<a href="#">internship Team</a>
+		</div>
+	</div>
+</footer><!-- End Footer -->
+
+<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+	<!-- Vendor JS Files -->
+	<script th:src="@{assets/vendor/jquery/jquery.min.js}"
+		src="../static/assets/vendor/jquery/jquery.min.js"></script>
+	<script th:src="@{assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"
+		src="../static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script th:src="@{assets/vendor/jquery.easing/jquery.easing.min.js}"
+		src="../static/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+	<script th:src="@{assets/vendor/php-email-form/validate.js}"
+		src="../static/assets/vendor/php-email-form/validate.js"></script>
+	<script th:src="@{assets/vendor/counterup/counterup.min.js}"
+		src="../static/assets/vendor/counterup/counterup.min.js"></script>
+	<script th:src="@{assets/vendor/isotope-layout/isotope.pkgd.min.js}"
+		src="../static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script th:src="@{assets/vendor/owl.carousel/owl.carousel.min.js}"
+		src="../static/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+	<script th:src="@{assets/vendor/waypoints/jquery.waypoints.min.js}"
+		src="../static/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+	<script th:src=" @{assets/vendor/venobox/venobox.min.js}"
+		src="../static/assets/vendor/venobox/venobox.min.js"></script>
+	<script th:src="@{assets/vendor/aos/aos.js}"
+		src="../static/assets/vendor/aos/aos.js"></script>
+	<!-- Select2 -->
+	<script
+		th:src="@{assets/vendor/bootstrap-select-1.13.14/dist/js/bootstrap-select.js}"
+		src="../static/assets/vendor/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
+	<!--  Main JS File -->
+	<script th:src="@{assets/js/main.js}" src="../static/assets/js/main.js"></script>
+
+
+
+<script>
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("fieldset");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  if (n == 0) {
+  	document.getElementById("prevBtn").style.display = "none";
+  } else {
+  	document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+  	document.getElementById("nextBtn").innerHTML = "Send Request";
+  } else {
+  	document.getElementById("nextBtn").innerHTML = "Next";
+  }
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("fieldset");
+  
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form...
+  if (currentTab >= x.length) {
+    // ... the form gets submitted:
+    document.getElementById("requestForms").submit();
+    return false;
+}
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+  	x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class on the current step:
+  x[n].className += " active";
+}
+
+
+
+</script>
+</body>
+
+</html>
