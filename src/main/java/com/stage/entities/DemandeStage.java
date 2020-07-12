@@ -3,6 +3,7 @@ package com.stage.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class DemandeStage {
 	private Date dateDeb;
 	private Date dateFin;
 	
-	@OneToMany(mappedBy = "demandeStage")
+	@OneToMany(mappedBy = "demandeStage",cascade = CascadeType.ALL)
 	private List<Notification> notifications;
 	
 	@OneToOne

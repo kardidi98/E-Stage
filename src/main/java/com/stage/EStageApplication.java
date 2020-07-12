@@ -22,10 +22,9 @@ public class EStageApplication {
 
 	
 	@Bean
-	public CommandLineRunner demo(StagiaireRepository sr) {
+	public CommandLineRunner demo(StagiaireRepository sr, UtilisateurRepository ur) {
 		return args->{
 			
-			sr.save(new Stagiaire("Kardidi","Abdellatif","abdokd","abdokardidi@gmail.com","123456"));
 			};
 	}
 
