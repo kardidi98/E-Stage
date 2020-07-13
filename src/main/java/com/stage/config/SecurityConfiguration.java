@@ -28,7 +28,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
+		
 		DaoAuthenticationProvider auth=new DaoAuthenticationProvider();
+		
 		auth.setUserDetailsService(userService);
 		auth.setPasswordEncoder(passwordEncoder());
 		return auth;
@@ -37,17 +39,39 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+//		 auth.inMemoryAuthentication()
+//	      .withUser("Role_ResponsableStage@gmail.com").password(passwordEncoder().encode("Role_ResponsableStage"))
+//	      .authorities("Role_ResponsableStage","Role_Utilisateur")
+//	      .and().withUser("Role_ResponsableDomaine@gmail.com").password(passwordEncoder().encode("Role_ResponsableDomaine"))
+//	      .authorities("Role_ResponsableDomaine","Role_Utilisateur");
 		auth.authenticationProvider(authenticationProvider());
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests().antMatchers(
-				"/**",
+				"/login",
+				"/register",
+				"/home",
+				"/about",
+				"/contact",
 				"/assets/js/**",
 				"/assets/css/**",
-				"/assets/img/**"
+				"/assets/img/**",
+				"/assets/vendor/**"
 				).permitAll()
+		      .and()
+		      .authorizeRequests()
+		      .antMatchers("/request")
+		      .hasAuthority("Role_Stagiaire")
+		      .and()
+		      .authorizeRequests()
+		      .antMatchers("/changeStatus")
+		      .hasAuthority("Role_ResponsableStage")
+		      .and()
+		      .authorizeRequests()
+		      .antMatchers("/makeDecision")
+		      .hasAuthority("Role_ResponsableDomaine")
 		      .anyRequest().authenticated()
 		      .and()
 		      .formLogin()
@@ -59,7 +83,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		      .clearAuthentication(true)
 		      .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		      .logoutSuccessUrl("/login?logout")
-		      .permitAll();
+		      .permitAll()
+		      .and()
+		      .exceptionHandling()
+		      .accessDeniedPage("/403")
+		      
+		      ;
+		
+		
+		
 		      
 		
 	}

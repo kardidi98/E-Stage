@@ -38,14 +38,19 @@ public class UserServiceImpl implements UserService {
 	public Utilisateur save(UserRegistrationDto registrationDto) {
 		Stagiaire stagiaire=new Stagiaire(registrationDto.getNom(), registrationDto.getPrenom(),
 				registrationDto.getLogin(), registrationDto.getEmail(),
-				passwordEncoder.encode(registrationDto.getPassword()), Arrays.asList(new Role("Role_Stagiaire")));
+				passwordEncoder.encode(registrationDto.getPassword()), Arrays.asList(new Role("Role_Stagiaire"),new Role("Role_Utilisateur")));
+		
+		
 		return stagiaireRepository.save(stagiaire);
+		
+		
+		
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Utilisateur user= userRepository.findByEmail(username);
-		System.out.println(username);
+		
 		
 		if(user.equals(null)) {
 			throw new UsernameNotFoundException("Invalid email or password !");

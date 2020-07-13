@@ -7,5 +7,7 @@ import com.stage.web.dto.UserRegistrationDto;
 
 public interface UserService extends UserDetailsService{
 	public Utilisateur save(UserRegistrationDto registrationDto);
+	
+	
 
 }

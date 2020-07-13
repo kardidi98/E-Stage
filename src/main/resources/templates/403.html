@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Inner Page - NewBiz Bootstrap Template</title>
+  <title>403 - Access Denied</title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
 
@@ -83,6 +83,29 @@
 
           <li><a th:href="@{about}">About Us</a></li>
           <li><a th:href="@{contact}">Contact Us</a></li>
+          <li sec:authorize="isAuthenticated()" class="drop-down notification" data-aos="zoom-out-down">
+          	<a href="#" >
+          		<i class="fa fa-bell" ></i>
+          		<span class="counter counter-lg">10</span>
+          	</a>
+            <ul>
+              <li><a href="#">Notification 1</a></li>
+              <hr>
+              <li><a href="#">Notification 2</a></li>
+              <hr>
+              <li><a href="#">Notification 3</a></li>
+              <hr>
+              <li><a href="#">Notification 4</a></li>
+            </ul>
+          </li>
+          <li sec:authorize="isAuthenticated()"  class="drop-down notification rounded" style="border: 2px solid #1545B3;box-shadow:0 0 10px rgba(21, 69, 179,0.4); background-color: #1545B3 ;"><a style="color:#fff;" th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}" href=""></a>
+            <ul>
+              <li><a th:href="@{logout}">Log out</a></li>
+             
+              
+            </ul>
+          </li>
+          <li sec:authorize="isAnonymous()" class="btns_login rounded"  ><a th:href="@{/login}"  > Log In</a></li>
         </ul>
       </nav><!-- .main-nav -->
 
@@ -96,10 +119,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Inner Page</h2>
+          <h2>403</h2>
           <ol>
             <li><a th:href="@{home}">Home</a></li>
-            <li>Inner Page</li>
+            <li>403</li>
           </ol>
         </div>
 
@@ -107,11 +130,15 @@
     </section><!-- End Breadcrumbs Section -->
 
     <section class="inner-page pt-4">
-      <div class="container">
-        <p>
-          Example inner page template
-        </p>
+        <div class="container">
+        <h1 align="center" style="font-size: 100px;">
+          403
+        </h1>
+        <h3 align="center">
+          You're not allowed to access !
+        </h3>
       </div>
+    </section>
     </section>
 
   </main><!-- End #main -->

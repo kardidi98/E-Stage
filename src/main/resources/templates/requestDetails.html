@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -47,47 +47,42 @@
 <link th:href="@{assets/css/style.css}"
 	href="../static/assets/css/style.css" rel="stylesheet">
 
+
 </head>
 
 <body>
 
-  <!-- ======= Header ======= -->
+   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
     <div class="container">
 
       <div class="logo float-left">
-
-        <a th:href="@{home}"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+       
+        <a th:href="@{home}"><img src="../assets/img/logo.png" alt="" class="img-fluid"></a>
       </div>
 
       <nav class="main-nav float-right d-none d-lg-block">
         <ul>
-          <li><a th:href="@{home}">Home</a></li>
-          <li class="drop-down"><a href="">Drop Down</a>
+          <li class="active"><a th:href="@{home}">Home</a></li>
+          
+        
+          
+          <li sec:authorize="hasAuthority('Role_ResponsableDomaine') or hasAuthority('Role_ResponsableStage')" class="drop-down"><a href="">Received Requests</a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
-              <li class="drop-down"><a href="#">Drop Down 2</a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
+             
               <li><a href="#">Drop Down 3</a></li>
               <li><a href="#">Drop Down 4</a></li>
               <li><a href="#">Drop Down 5</a></li>
             </ul>
           </li>
-
           <li><a th:href="@{about}">About Us</a></li>
           <li><a th:href="@{contact}">Contact Us</a></li>
-          <li class="drop-down notification">
-            <a href="#" >
-              <i class="fa fa-bell" ></i>
-              <span class="counter counter-lg">10</span>
-            </a>
+          <li sec:authorize="isAuthenticated()" class="drop-down notification" data-aos="zoom-out-down">
+          	<a href="#" >
+          		<i class="fa fa-bell" ></i>
+          		<span class="counter counter-lg">10</span>
+          	</a>
             <ul>
               <li><a href="#">Notification 1</a></li>
               <hr>
@@ -98,6 +93,14 @@
               <li><a href="#">Notification 4</a></li>
             </ul>
           </li>
+          <li sec:authorize="isAuthenticated()"  class="drop-down notification rounded" style="border: 2px solid #1545B3;box-shadow:0 0 10px rgba(21, 69, 179,0.4); background-color: #1545B3 ;"><a style="color:#fff;" th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}" href=""></a>
+            <ul>
+              <li><a th:href="@{logout}">Log out</a></li>
+             
+              
+            </ul>
+          </li>
+          <li sec:authorize="isAnonymous()" class="btns_login rounded"  ><a th:href="@{/login}"  > Log In</a></li>
         </ul>
       </nav><!-- .main-nav -->
 
@@ -121,7 +124,91 @@
       </div>
     </section><!-- End Breadcrumbs Section -->
 
-    <section class="pt-4" style="display: flex;justify-content: center;margin-bottom: 10px;">
+    <section sec:authorize="hasAuthority('Role_ResponsableStage')" class="pt-4" style="display: flex;justify-content: center;margin-bottom: 10px;">
+      <button class="btn btn-primary" data-toggle="modal" data-target="#statusModal">Change Status</button>&nbsp;
+      <button class="btn btn-secondary" data-toggle="modal" data-target="#AssignmentModal">Assign to a reasponsible</button>
+
+      <!-- Statut Modal -->
+      <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Change Status</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method="post" class="p-4  rounded">
+
+                <fieldset>
+                  <div class=" form-group container">
+                    <div >
+                      <label for="statut">Status</label>
+                      <select class="selectpicker border rounded " id="statut"  data-style="btn-black" data-width="100%" data-live-search="true" title="Select Status" required="required">
+                        <option value="Waiting">Waiting</option>
+                        <option value="Incomplete">Incomplete</option>
+                        <option value="Transmitted">Transmitted</option>
+                        <option value="Outside the domain">Outside the domain</option>
+                        <option value="Refused">Refused</option>
+                        <option value="Accepted">Accepted</option>
+                      </select>
+                    </div>
+
+
+                  </div>
+                  <hr>
+                  <input type="submit" class="btn btn-primary" value="Save changes" style="float: right;">
+                </fieldset>
+
+              </form> 
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Assignment Modal -->
+      <div class="modal fade" id="AssignmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Assignment</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method="post" class="p-4  rounded">
+
+                <fieldset>
+                  <div class="form-group container">
+
+                    <div >
+                      <label for="responsableDomaine">Responsible</label>
+                      <select class="selectpicker border rounded " id="ville" data-style="btn-black" data-width="100%" data-live-search="true" title="Assign to a reasponsible" required="required">
+                        <option value="Responsible 1">Responsible 1</option>
+                        <option value="Responsible 2">Responsible 2</option>
+                        <option value="Responsible 3">Responsible 3</option>
+                      </select>
+                    </div>
+
+                  </div>
+                  <hr>
+                  <input type="submit" class="btn btn-primary" value="Save changes" style="float: right;">
+                </fieldset>
+
+              </form> 
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+<section sec:authorize="hasAuthority('Role_ResponsableDomaine')"  class="pt-4" style="display: flex;justify-content: center;margin-bottom: 10px;">
       <button class="btn btn-primary" data-toggle="modal" data-target="#decisionModal">Make Your Decision</button>
 
       <!-- Statut Modal -->
@@ -165,7 +252,7 @@
 
     </section>
 
-    <section class="pt-4" data-aos="fade-up">
+       <section class="pt-4" data-aos="fade-up">
       <div class="container" style="box-shadow: 0 0 10px rgba(0,0,0,0.3);padding: 20px;">
         <div class="row">
           <div class="col-lg-3 col-md-3">
@@ -265,7 +352,13 @@
       &nbsp;
     </section>
 
-    <section class="pt-4" style="display: flex;justify-content: center;">
+    <section sec:authorize="hasAuthority('Role_ResponsableStage')"  class="pt-4" style="display: flex;justify-content: center;">
+      <button class="btn btn-primary" data-toggle="modal" data-target="#statusModal">Change Status</button>&nbsp;
+      <button class="btn btn-secondary" data-toggle="modal" data-target="#AssignmentModal">Assign to a reasponsible</button>
+      
+    </section>
+    &nbsp;
+    <section sec:authorize="hasAuthority('Role_ResponsableDomaine')" class="pt-4" style="display: flex;justify-content: center;">
       <button class="btn btn-primary" data-toggle="modal" data-target="#decisionModal">Make Your Decision</button>
       
     </section>

@@ -257,7 +257,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .main-nav .notification > a:after {
   content: "";
- 
+  display:none;
 }
 
 .main-nav .drop-down .drop-down ul {

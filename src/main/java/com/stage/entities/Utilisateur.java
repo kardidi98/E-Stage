@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,6 +32,7 @@ public class Utilisateur {
 	private String nom;
 	private String prenom;
 	private String login;
+	@Column(unique = true)
 	private String email;
 	private String password;
 	private LocalDate dateInscription;
