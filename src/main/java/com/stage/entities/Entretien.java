@@ -1,7 +1,9 @@
 package com.stage.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,24 +12,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Entretien {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private Date date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate date;
 	
-	@OneToOne
-	private DemandeStage demandeStage;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "responsableDomaine")
 	private ResponsableDomaine responsableDomaine;
 
-	public Entretien(long id, Date date, DemandeStage demandeStage, ResponsableDomaine responsableDomaine) {
+	public Entretien(long id, LocalDate date, ResponsableDomaine responsableDomaine) {
 		this.id = id;
 		this.date = date;
-		this.demandeStage = demandeStage;
 		this.responsableDomaine = responsableDomaine;
 	}
 
@@ -43,21 +46,14 @@ public class Entretien {
 		this.id = id;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
-	public DemandeStage getDemandeStage() {
-		return demandeStage;
-	}
-
-	public void setDemandeStage(DemandeStage demandeStage) {
-		this.demandeStage = demandeStage;
-	}
 
 	public ResponsableDomaine getResponsableDomaine() {
 		return responsableDomaine;

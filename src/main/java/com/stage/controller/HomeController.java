@@ -13,6 +13,11 @@ public class HomeController {
 		return "index";
 	}
 	
+	@GetMapping("")
+	public String home(Model model) {
+		return "index";
+	}
+	
 	@GetMapping("about")
 	public String about(Model model) {
 		return "about_us";

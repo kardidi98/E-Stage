@@ -1,5 +1,6 @@
 package com.stage.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,14 +18,12 @@ public class LettreMotivation {
 	@Column(columnDefinition = "LONGTEXT")
 	private String contenu;
 	
-	@OneToOne
-	private DemandeStage demandeStage;
 
-	public LettreMotivation(long id, String titre, String contenu, DemandeStage demandeStage) {
-		this.id = id;
+
+	public LettreMotivation(String titre, String contenu) {
+		
 		this.titre = titre;
 		this.contenu = contenu;
-		this.demandeStage = demandeStage;
 	}
 
 	public LettreMotivation() {
@@ -55,13 +54,7 @@ public class LettreMotivation {
 		this.contenu = contenu;
 	}
 
-	public DemandeStage getDemandeStage() {
-		return demandeStage;
-	}
 
-	public void setDemandeStage(DemandeStage demandeStage) {
-		this.demandeStage = demandeStage;
-	}
 	
 	
 }

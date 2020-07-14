@@ -1,14 +1,21 @@
 package com.stage.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Formations {
@@ -18,18 +25,22 @@ public class Formations {
 	private long id;
 	private String titre;
 	private String institution;
-	private Date dateDeb;
-	private Date dateFin;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dateDeb;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dateFin;
 	@Column(columnDefinition = "LONGTEXT")
 	private String Description;
 	
-	@ManyToOne
-	@JoinColumn(name = "demandeStage")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "demandeStage_id")
 	private DemandeStage demandeStage;
+	
 
-	public Formations(long id, String titre, String institution, Date dateDeb, Date dateFin, String description,
+
+	public Formations(Long id,String titre, String institution, LocalDate dateDeb, LocalDate dateFin, String description,
 			DemandeStage demandeStage) {
-		this.id = id;
+		this.id=id;
 		this.titre = titre;
 		this.institution = institution;
 		this.dateDeb = dateDeb;
@@ -66,19 +77,19 @@ public class Formations {
 		this.institution = institution;
 	}
 
-	public Date getDateDeb() {
+	public LocalDate getDateDeb() {
 		return dateDeb;
 	}
 
-	public void setDateDeb(Date dateDeb) {
+	public void setDateDeb(LocalDate dateDeb) {
 		this.dateDeb = dateDeb;
 	}
 
-	public Date getDateFin() {
+	public LocalDate getDateFin() {
 		return dateFin;
 	}
 
-	public void setDateFin(Date dateFin) {
+	public void setDateFin(LocalDate dateFin) {
 		this.dateFin = dateFin;
 	}
 

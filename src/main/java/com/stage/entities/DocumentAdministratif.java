@@ -1,6 +1,8 @@
 package com.stage.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,12 +17,12 @@ public class DocumentAdministratif {
 	private long id;
 	private String titre;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "demandeStage")
 	private DemandeStage demandeStage;
 
-	public DocumentAdministratif(long id, String titre, DemandeStage demandeStage) {
-		this.id = id;
+	public DocumentAdministratif(String titre, DemandeStage demandeStage) {
+		
 		this.titre = titre;
 		this.demandeStage = demandeStage;
 	}

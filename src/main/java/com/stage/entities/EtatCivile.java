@@ -1,5 +1,6 @@
 package com.stage.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +21,11 @@ public class EtatCivile {
 	private String adresse;
 	private int codePostal;
 	
-	@OneToOne
-	private DemandeStage demandeStage;
+	
 
-	public EtatCivile(long id, String numTel, String profile, String photo, String pays, String ville, String adresse,
-			int codePostal, DemandeStage demandeStage) {
-		this.id = id;
+	public EtatCivile(String numTel, String profile, String photo, String pays, String ville, String adresse,
+			int codePostal) {
+		
 		this.numTel = numTel;
 		this.profile = profile;
 		this.photo = photo;
@@ -33,7 +33,6 @@ public class EtatCivile {
 		this.ville = ville;
 		this.adresse = adresse;
 		this.codePostal = codePostal;
-		this.demandeStage = demandeStage;
 	}
 
 	public EtatCivile() {
@@ -104,13 +103,7 @@ public class EtatCivile {
 		this.codePostal = codePostal;
 	}
 
-	public DemandeStage getDemandeStage() {
-		return demandeStage;
-	}
-
-	public void setDemandeStage(DemandeStage demandeStage) {
-		this.demandeStage = demandeStage;
-	}
+	
 	
 	
 	

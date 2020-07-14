@@ -1,4 +1,4 @@
-var EducationSection=1;
+var EducationSection=0;
 var ExperienceSection=1;
 var AdministrativeDocSection=1;
 
@@ -203,28 +203,28 @@ var AdministrativeDocSection=1;
   });
 
 
-
+  $(document).ready(function(){
 $("#addEducationSection").on('click',function(){
   $("#EducationSection").append('<div id="RemoveEducationSection'+EducationSection+'">&nbsp;<hr><div class="RemoveEducationSection" onclick="$(\'#RemoveEducationSection'+EducationSection+'\').remove()" data-toggle="tooltip" data-placement="top" title="Remove This Section"><i class="fa fa-close"></i></div>&nbsp;<div class="row form-group">'+
                '<div class="col-lg-6 col-md-6">'+
                   '<label for="formationTitle'+EducationSection+'">Title</label>'+
-                  '<input type="text" class="form-control p-3" id="formationTitle'+EducationSection+'" placeholder="Title" required="required">'+
+                  '<input type="text" class="form-control p-3" id="titre'+EducationSection+'" th:name="${educationForm.formation['+EducationSection+'].titre}"  th:field="${educationForm.formation['+EducationSection+'].titre}" placeholder="Title" required="required">'+
                 '</div>'+
                 '<div class="col-lg-6 col-md-6">'+
                   '<label for="Institution'+EducationSection+'">Institution</label>'+
-                  '<input type="text" class="form-control p-3" id="Institution'+EducationSection+'" placeholder="Institution" required="required">'+
+                  '<input type="text" class="form-control p-3"  th:name="${educationForm.formation['+EducationSection+'].institution}"  th:field="${educationForm.formation['+EducationSection+'].institution}" placeholder="Institution" required="required">'+
                 '</div>'+
 
              ' </div>'+
               '<div class="row form-group">'+
                 '<div class="col-lg-6 col-md-6">'+
                   '<label for="formationDateDeb'+EducationSection+'">Start Day</label>'+
-                  '<input type="text" class="form-control p-3" id="formationDateDeb'+EducationSection+'" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
+                  '<input type="date" class="form-control p-3" id="dateDeb'+EducationSection+'" th:name="${educationForm.formation['+EducationSection+'].dateDeb}" th:field="${educationForm.formation['+EducationSection+'].dateDeb}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
                   'pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">'+
                 '</div>'+
                 '<div class="col-lg-6 col-md-6">'+
                   '<label for="formationDateFin'+EducationSection+'">End Day</label>'+
-                  '<input type="text" class="form-control p-3" id="formationDateFin'+EducationSection+'" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
+                  '<input type="date" class="form-control p-3" id="dateFin'+EducationSection+'" th:name="*{formation['+EducationSection+'].dateFin}" th:field="${educationForm.formation['+EducationSection+'].dateFin}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
                   'pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">'+
                 '</div>'+
 
@@ -232,32 +232,33 @@ $("#addEducationSection").on('click',function(){
               
               '<div class="form-group">'+
                 '<label for="formationDescription'+EducationSection+'">Description</label>'+
-                '<textarea class="form-control" id="formationDescription'+EducationSection+'" name="formationDescription'+EducationSection+'" rows="5" data-rule="required" data-msg="Write something about this education" placeholder="Write.." required="required"></textarea>'+
+                '<textarea class="form-control" id="Description'+EducationSection+'" th:name="${educationForm.formation['+EducationSection+'].Description}"  th:field="${educationForm.formation['+EducationSection+'].Description}" rows="5" data-rule="required" data-msg="Write something about this education" placeholder="Write.." required="required"></textarea>'+
                 '<div class="validate"></div>'+
-              '</div></div>')
+              '</div></div>');
+              EducationSection=EducationSection+1;
 });
 
 $("#addExperienceSection").on('click',function(){
   $("#ExperienceSection").append('<div id="RemoveExperienceSection'+ExperienceSection+'">&nbsp;<hr><div class="RemoveExperienceSection" onclick="$(\'#RemoveExperienceSection'+ExperienceSection+'\').remove()" data-toggle="tooltip" data-placement="top" title="Remove This Section"><i class="fa fa-close"></i></div>&nbsp;<div class="row form-group">'+
                '<div class="col-lg-6 col-md-6">'+
                   '<label for="experienceTitle'+ExperienceSection+'">Title</label>'+
-                  '<input type="text" class="form-control p-3" id="experienceTitle'+ExperienceSection+'" placeholder="Title" required="required">'+
+                  '<input type="text" class="form-control p-3" id="experienceTitle'+ExperienceSection+'"  th:field="*{experiences['+ExperienceSection+'].titre}" placeholder="Title" required="required">'+
                 '</div>'+
                 '<div class="col-lg-6 col-md-6">'+
                   '<label for="entreprise'+ExperienceSection+'">Company</label>'+
-                  '<input type="text" class="form-control p-3" id="entreprise'+ExperienceSection+'" placeholder="Company" required="required">'+
+                  '<input type="text" class="form-control p-3" id="entreprise'+ExperienceSection+'"  th:field="*{experiences['+ExperienceSection+'].institution}" placeholder="Company" required="required">'+
                 '</div>'+
 
              ' </div>'+
               '<div class="row form-group">'+
                 '<div class="col-lg-6 col-md-6">'+
                   '<label for="experienceDateDeb'+ExperienceSection+'">Start Day</label>'+
-                  '<input type="text" class="form-control p-3" id="experienceDateDeb'+ExperienceSection+'" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
+                  '<input type="date" class="form-control p-3" id="experienceDateDeb'+ExperienceSection+'"  th:field="*{experiences['+ExperienceSection+'].dateDeb}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
                   'pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">'+
                 '</div>'+
                 '<div class="col-lg-6 col-md-6">'+
                   '<label for="experienceDateFin'+ExperienceSection+'">End Day</label>'+
-                  '<input type="text" class="form-control p-3" id="experienceDateFin'+ExperienceSection+'" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
+                  '<input type="date" class="form-control p-3" id="experienceDateFin'+ExperienceSection+'"  th:field="*{experiences['+ExperienceSection+'].dateFin}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
                   'pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">'+
                 '</div>'+
 
@@ -265,16 +266,17 @@ $("#addExperienceSection").on('click',function(){
               
               '<div class="form-group">'+
                 '<label for="experienceDescription'+ExperienceSection+'">Description</label>'+
-                '<textarea class="form-control" id="experienceDescription'+ExperienceSection+'" name="experienceDescription'+ExperienceSection+'" rows="5" data-rule="required" data-msg="Write something about this education" placeholder="Write.." required="required"></textarea>'+
+                '<textarea class="form-control" id="experienceDescription'+ExperienceSection+'" th:field="*{experiences['+ExperienceSection+'].Description}" rows="5" data-rule="required" data-msg="Write something about this education" placeholder="Write.." required="required"></textarea>'+
                 '<div class="validate"></div>'+
-              '</div></div>')
+              '</div></div>');
+              ExperienceSection=ExperienceSection+1;
 });
 
 
 $("#AddAdministartiveDocSection").on('click',function(){
   $("#AdministartiveDocSection").append('<div id="RemoveAdministrativeDocSection'+AdministrativeDocSection+'">&nbsp;<hr><div class="RemoveAdministrativeDocSection"  onclick="$(\'#RemoveAdministrativeDocSection'+AdministrativeDocSection+'\').remove()" data-toggle="tooltip" data-placement="top" title="Remove This Section"><i class="fa fa-close"></i></div>&nbsp;<div class="form-group" style="margin-top:10px;">'+
     '<div class="choose-file text-center py-1 rounded" style="border: 2px dashed #DCDCDC;">'+
-        '<label for="file-upload'+AdministrativeDocSection+'" class="LabelDocsUpload">'+
+        '<label for="document'+AdministrativeDocSection+'" class="LabelDocsUpload">'+
           '<div> '+
            ' <div class="d-block font-weight-bold text-dark">'+
             '  Drop the document to upload'+
@@ -284,12 +286,13 @@ $("#AddAdministartiveDocSection").on('click',function(){
              ' Select the document'+
            ' </div>'+
           '</div> '+
-          '<input name="picture'+AdministrativeDocSection+'" type="file" class="form-control-file d-none" id="file-upload'+AdministrativeDocSection+'" >'+
+          '<input  type="file"  name="titre" th:field="*{documentAdministratif['+AdministrativeDocSection+'].titre}" class="form-control-file d-none" id="document'+AdministrativeDocSection+'" >'+
         '</label>'+
       '</div></div></div>');
+  AdministrativeDocSection=AdministrativeDocSection+1;
 });
 
-
+  });
 
 
 })(jQuery);

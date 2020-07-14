@@ -137,17 +137,17 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 					<span class=""><i class="step fa fa-envelope"></i></span>
 					<span class=""><i class="step fa fa-file-text"></i></span>
 				</div>
-				<div th:if="${param.added}">
+				<div th:if="${param.requestAdded}">
 					<div class="row justify-content-center">
 						<div class="container col-lg-11 col-md-11 alert alert-success alert-dismissible fade show" role="alert">
-						  You've successfully registered to our application ! Log in now.
+						  Your request have been successfully sent !
 						  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						    <span aria-hidden="true">&times;</span>
 						  </button>
 						</div>
 					</div>
 				</div>
-				<form class="p-4 border rounded requestForms" id="requestForms" th:action="@{saveRequest}" method="post">
+				<form class="p-4 border rounded requestForms" id="requestForms" th:action="@{saveRequest}" method="post" th:object="${request}" enctype="multipart/form-data">
 
 
 					<fieldset class="fieldset">
@@ -157,11 +157,10 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 								<div class=" form-group">
 								
 									<label for="domaine">Domaine</label>
-									<select class="selectpicker border rounded " id="domaine"  data-style="btn-black" data-width="100%" data-live-search="true" title="Select Domaine" required="required" >
-											<option value="Finance">Finance</option>
-											<option value="Commerce">Commerce</option>
-											<option value="Computer Science">Computer Science</option>
-											<option value="Industry">Industry</option>
+									<select class="selectpicker border rounded " id="domaine" name="domaine" th:field="*{domaine}"  data-style="btn-black" data-width="100%" data-live-search="true" title="Select Domaine" required="required" >
+											<option th:each="d:${T(com.stage.entities.Domaine).values()}" th:value="${d}"
+                                			th:text="${d}" value="Finance">Finance</option>
+											
 									</select>
 								
 							</div>
@@ -169,7 +168,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 								
 								
 									<label for="stageDateDeb">Start Day</label>
-									<input type="text" class="form-control p-3" id="stageDateDeb" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+									<input type="date" class="form-control p-3" id="stageDateDeb" name="dateDeb" th:field="*{dateDeb}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
 									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
 								
 							</div>
@@ -177,7 +176,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 								
 								
 									<label for="stageDateFin">End Day</label>
-									<input type="text" class="form-control p-3" id="stageDateFin" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+									<input type="date" class="form-control p-3" id="stageDateFin" name="dateFin" th:field="*{dateFin}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
 									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
 								
 
@@ -199,7 +198,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 									<div class="wrapper">
 										<div class="file-upload" style="border: 10px solid #DEE2E6;box-shadow: 0 0 10px #DEE2E6;">
-											<input type="file" id="picture" />
+											<input type="file" id="picture" name="photo"/>
 											<i class="fa fa-user" ></i>
 
 										</div>
@@ -212,38 +211,38 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 								<div class="row form-group">
 									<div class="col-lg-6 col-md-6">
 										<label for="prenom">First Name</label>
-										<input type="text" class="form-control p-3" id="prenom" placeholder="First Name" required="required">
+										<input type="text" class="form-control p-3" id="prenom" th:value="${stagiaire.prenom}" placeholder="First Name" required="required">
 									</div>
 									<div class="col-lg-6 col-md-6">
 										<label for="nom">Last Name</label>
-										<input type="text" class="form-control p-3" id="nom" placeholder="Last Name" required="required">
+										<input type="text" class="form-control p-3" id="nom" th:value="${stagiaire.nom}" placeholder="Last Name" required="required">
 									</div>
 
 								</div>
 								<div class="row form-group">
 									<div class="col-lg-6 col-md-6">
 										<label for="email">Email</label>
-										<input type="email" class="form-control p-3" id="email" placeholder="Email Address" required="required">
+										<input type="email" class="form-control p-3" id="email" th:value="${stagiaire.email}"  placeholder="Email Address" required="required">
 									</div>
 									<div class="col-lg-6 col-md-6">
 										<label for="numTel">Phone Number</label>
-										<input type="text" class="form-control p-3" id="numTel" placeholder="Phone Number" required="required">
+										<input type="text" class="form-control p-3" id="numTel" name="numTel" th:field="*{etatCivile.numTel}" placeholder="Phone Number" required="required">
 									</div>
 
 								</div>
 								<div class="row form-group">
 									<div class="col-lg-6 col-md-6">
 										<label for="pays">Country</label>
-										<select class="selectpicker border rounded " id="pays"  data-style="btn-black" data-width="100%" data-live-search="true" title="Select Country" required="required">
-											<option value="AL">Alabama</option>
-											<option value="WY">Wyoming</option>
+										<select class="selectpicker border rounded " id="pays" name="pays" th:field="*{etatCivile.pays}"  data-style="btn-black" data-width="100%" data-live-search="true" title="Select Country" required="required">
+											<option value="Morocco">Morocco</option>
+											<option value="France">France</option>
 										</select>
 									</div>
 									<div class="col-lg-6 col-md-6">
 										<label for="ville">City</label>
-										<select class="selectpicker border rounded " id="ville" data-style="btn-black" data-width="100%" data-live-search="true" title="Select City" required="required">
-											<option>Part Time</option>
-											<option>Full Time</option>
+										<select class="selectpicker border rounded " id="ville" name="ville" th:field="*{etatCivile.ville}"  data-style="btn-black" data-width="100%" data-live-search="true" title="Select City" required="required">
+											<option value="Casablanca">Casablanca</option>
+											<option value="Rabat">Rabat</option>
 										</select>
 									</div>
 
@@ -256,19 +255,19 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 						<div class="row form-group">
 							<div class="col-lg-6 col-md-6">
 								<label for="adresse">Address</label>
-								<input type="text" class="form-control p-3" id="adresse" placeholder="Address">
+								<input type="text" class="form-control p-3" id="adresse" name="adresse" th:field="*{etatCivile.adresse}" placeholder="Address">
 							</div>
 
 							<div class="col-lg-6 col-md-6">
 								<label for="codePostal">Postal Code</label>
-								<input type="text" class="form-control p-3" id="codePostal" placeholder="Postal Code">
+								<input type="text" class="form-control p-3" id="codePostal" name="codePostal" th:field="*{etatCivile.codePostal}" placeholder="Postal Code">
 							</div>
 						</div>
 
 
 						<div class="form-group">
 							<label for="profile">Profile</label>
-							<textarea class="form-control" id="profile" name="profile" rows="5" data-rule="required" data-msg="Write something about you" placeholder="Write.." required="required"></textarea>
+							<textarea class="form-control" id="profile" name="profile" th:field="*{etatCivile.profile}" rows="5" data-rule="required" data-msg="Write something about you" placeholder="Write.." required="required"></textarea>
 							<div class="validate"></div>
 						</div>
 
@@ -276,39 +275,40 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 
 
-					<fieldset class="fieldset">
+					<fieldset class="fieldset" >
 						<h3 class="text-black mb-5 border-bottom pb-2">Education</h3>
-						<div id="EducationSection">
-							<div class="row form-group">
+						
+							<!--<div class="row form-group">
 								<div class="col-lg-6 col-md-6">
-									<label for="formationTitle">Title</label>
-									<input type="text" class="form-control p-3" id="formationTitle" placeholder="Title" required="required">
+									<label for="formationTitle0">Title</label>
+									<input type="text" class="form-control p-3" id="title0" name="titre"  th:field="*{formations[0].titre}"  placeholder="Title" required="required">
 								</div>
 								<div class="col-lg-6 col-md-6">
-									<label for="Institution">Institution</label>
-									<input type="text" class="form-control p-3" id="Institution" placeholder="Institution" required="required">
+									<label for="Institution0">Institution</label>
+									<input type="text" class="form-control p-3" id="institution0" th:name="*{formations[0].institution}"  th:field="*{formations[0].institution}" placeholder="Institution" required="required">
 								</div>
 
 							</div>
 							<div class="row form-group">
 								<div class="col-lg-6 col-md-6">
-									<label for="formationDateDeb">Start Day</label>
-									<input type="text" class="form-control p-3" id="formationDateDeb" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+									<label for="formationDateDeb0">Start Day</label>
+									<input type="date" class="form-control p-3" id="dateDeb0" th:name="*{formations[0].dateDeb}"   th:field="*{formations[0].dateDeb}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
 									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
 								</div>
 								<div class="col-lg-6 col-md-6">
-									<label for="formationDateFin">End Day</label>
-									<input type="text" class="form-control p-3" id="formationDateFin" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+									<label for="formationDateFin0">End Day</label>
+									<input type="date" class="form-control p-3" id="dateFin0" th:name="*{formations[0].dateFin}"  th:field="*{formations[0].dateFin}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
 									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
 								</div>
 
 							</div>
 
 							<div class="form-group">
-								<label for="formationDescription">Description</label>
-								<textarea class="form-control" id="formationDescription" name="formationDescription" rows="5" data-rule="required" data-msg="Write something about this education" placeholder="Write.." required="required"></textarea>
+								<label for="formationDescription0">Description</label>
+								<textarea class="form-control" id="Description0" th:name="*{formations[0].Description}"  th:field="*{formations[0].Description}" rows="5" data-rule="required" data-msg="Write something about this education" placeholder="Write.." required="required"></textarea>
 								<div class="validate"></div>
-							</div>
+							</div>-->
+						<div id="EducationSection" >
 						</div>
 
 						&nbsp;
@@ -323,23 +323,23 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 							<div class="row form-group">
 								<div class="col-lg-6 col-md-6">
 									<label for="experienceTitle">Title</label>
-									<input type="text" class="form-control p-3" id="experienceTitle" placeholder="Title" required="required">
+									<input type="text" class="form-control p-3" id="experienceTitle" name="titre" th:field="*{experiences[0].titre}" placeholder="Title" required="required">
 								</div>
 								<div class="col-lg-6 col-md-6">
 									<label for="entreprise">Company</label>
-									<input type="text" class="form-control p-3" id="entreprise" placeholder="Company" required="required">
+									<input type="text" class="form-control p-3" id="entreprise" name="institution" th:field="*{experiences[0].institution}" placeholder="Company" required="required">
 								</div>
 
 							</div>
 							<div class="row form-group">
 								<div class="col-lg-6 col-md-6">
 									<label for="experienceDateDeb">Start Day</label>
-									<input type="text" class="form-control p-3" id="experienceDateDeb" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+									<input type="date" class="form-control p-3" id="experienceDateDeb" name="dateDeb" th:field="*{experiences[0].dateDeb}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
 									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
 								</div>
 								<div class="col-lg-6 col-md-6">
 									<label for="experienceDateFin">End Day</label>
-									<input type="text" class="form-control p-3" id="experienceDateFin" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+									<input type="date" class="form-control p-3" id="experienceDateFin" name="dateFin" th:field="*{experiences[0].dateFin}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
 									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
 								</div>
 
@@ -347,7 +347,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 							<div class="form-group">
 								<label for="experienceDescription">Description</label>
-								<textarea class="form-control" id="experienceDescription" name="formationDescription" rows="5" data-rule="required" data-msg="Write something about this experience" placeholder="Write.." required="required"></textarea>
+								<textarea class="form-control" id="experienceDescription" name="Description" th:field="*{experiences[0].Description}" rows="5" data-rule="required" data-msg="Write something about this experience" placeholder="Write.." required="required"></textarea>
 								<div class="validate"></div>
 							</div>
 
@@ -360,7 +360,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 					<fieldset class="fieldset">
 						<h3 class="text-black mb-5 border-bottom pb-2">Hobbies</h3>
 						<label for="hobbies">Specify Your Hobbies</label>
-						<textarea class="form-control" id="hobbies" name="hobbies" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Lecture, Music..." required="required"></textarea>
+						<textarea class="form-control" id="hobbies" name="hobbies" th:field="*{hobbies.hobbies}" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Reading, Music..." required="required"></textarea>
 						<div class="validate"></div>
 
 					</fieldset>
@@ -371,7 +371,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 						<div class="row form-group">
 							<div class="col-lg-6 col-md-6">
 
-								<textarea class="form-control" id="coverLetter" name="coverLetter" rows="9" data-rule="required" data-msg="Write your letter." placeholder="Write.."></textarea>
+								<textarea class="form-control" id="coverLetter"  name="contenu" th:field="*{lettreMotivation.contenu}"  rows="9" data-rule="required" data-msg="Write your letter." placeholder="Write.."></textarea>
 								<div class="validate"></div>
 							</div>
 
@@ -381,13 +381,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 								<div class="choose-file text-center rounded"
 								style="border: 2px dashed #DCDCDC;padding: 50px;">
-								<label for="file-upload"> <span
+								<label for="letter"> <span
 									class="d-block font-weight-bold text-dark">Drop
 								the letter to upload</span> <span class="d-block">or</span> <span
 								class="d-block btn bg-primary text-white my-3 select-files">Select
-							the letter</span> <input
-							name="picture" type="file" class="form-control-file d-none"
-							id="file-upload" required="required">
+							the letter</span> 
+							<input type="file" name="titre"  class="form-control-file d-none"
+							id="letter" required="required">
 						</label>
 					</div>
 				</div>
@@ -400,7 +400,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 			<div id="AdministartiveDocSection">
 				<div class=" form-group" >
 				<div class="choose-file text-center py-1 rounded" style="border: 2px dashed #DCDCDC;">
-				<label for="file-upload" class="LabelDocsUpload">
+				<label for="document" class="LabelDocsUpload">
 					<div> 
 						<div class="d-block font-weight-bold text-dark">
 							Drop the document to upload
@@ -410,7 +410,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 							Select the document
 						</div>
 					</div> 
-					<input name="picture" type="file" class="form-control-file d-none" id="file-upload" >
+					<input type="file" name="titreDoc"   class="form-control-file d-none" id="document" >
 				</label>
 			</div>
 		</div>

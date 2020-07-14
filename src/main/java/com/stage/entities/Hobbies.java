@@ -1,5 +1,6 @@
 package com.stage.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,14 +18,15 @@ public class Hobbies {
 	@Column(columnDefinition = "LONGTEXT")
 	private String hobbies;
 	
-	@OneToOne
-	private DemandeStage demandeStage;
 
-	public Hobbies(long id, String hobbies, DemandeStage demandeStage) {
-		this.id = id;
+
+	public Hobbies(String hobbies) {
+		
 		this.hobbies = hobbies;
-		this.demandeStage = demandeStage;
 	}
+	
+	
+
 
 	public Hobbies() {
 		
@@ -46,13 +48,7 @@ public class Hobbies {
 		this.hobbies = hobbies;
 	}
 
-	public DemandeStage getDemandeStage() {
-		return demandeStage;
-	}
-
-	public void setDemandeStage(DemandeStage demandeStage) {
-		this.demandeStage = demandeStage;
-	}
+	
 	
 	
 	
