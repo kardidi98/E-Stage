@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-	<meta charset="utf-8">
-	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-	<title>Internship Request</title>
-	<meta content="" name="description">
-	<meta content="" name="keywords">
+<title>Internship Request</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
 
-	<!-- Select -->
-	<link rel="stylesheet" href="assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.css">
+<!-- Select -->
+<link rel="stylesheet"
+	href="assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.css">
 
 
-	<!-- Select -->
+<!-- Select -->
 <link rel="stylesheet"
 	th:href="@{assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.css}"
 	href="../static/assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.css">
@@ -54,60 +55,68 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <body>
 
-	  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
-    <div class="container">
+	<!-- ======= Header ======= -->
+	<header id="header" class="fixed-top">
+		<div class="container">
 
-      <div class="logo float-left">
-       
-        <a th:href="@{home}"><img src="../assets/img/logo.png" alt="" class="img-fluid"></a>
-      </div>
+			<div class="logo float-left">
 
-      <nav class="main-nav float-right d-none d-lg-block">
-        <ul>
-          <li class="active"><a th:href="@{home}">Home</a></li>
-          
-        
-          
-          <li sec:authorize="hasAuthority('Role_ResponsableDomaine') or hasAuthority('Role_ResponsableStage')" class="drop-down"><a href="">Received Requests</a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-             
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-              <li><a href="#">Drop Down 5</a></li>
-            </ul>
-          </li>
-          <li><a th:href="@{about}">About Us</a></li>
-          <li><a th:href="@{contact}">Contact Us</a></li>
-          <li sec:authorize="isAuthenticated()" class="drop-down notification" data-aos="zoom-out-down">
-          	<a href="#" >
-          		<i class="fa fa-bell" ></i>
-          		<span class="counter counter-lg">10</span>
-          	</a>
-            <ul>
-              <li><a href="#">Notification 1</a></li>
-              <hr>
-              <li><a href="#">Notification 2</a></li>
-              <hr>
-              <li><a href="#">Notification 3</a></li>
-              <hr>
-              <li><a href="#">Notification 4</a></li>
-            </ul>
-          </li>
-          <li sec:authorize="isAuthenticated()"  class="drop-down notification rounded" style="border: 2px solid #1545B3;box-shadow:0 0 10px rgba(21, 69, 179,0.4); background-color: #1545B3 ;"><a style="color:#fff;" th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}" href=""></a>
-            <ul>
-              <li><a th:href="@{logout}">Log out</a></li>
-             
-              
-            </ul>
-          </li>
-          <li sec:authorize="isAnonymous()" class="btns_login rounded"  ><a th:href="@{/login}"  > Log In</a></li>
-        </ul>
-      </nav><!-- .main-nav -->
+				<a th:href="@{home}"><img src="../assets/img/logo.png" alt=""
+					class="img-fluid"></a>
+			</div>
 
-    </div>
-  </header><!-- #header -->
+			<nav class="main-nav float-right d-none d-lg-block">
+				<ul>
+					<li class="active"><a th:href="@{home}">Home</a></li>
+
+
+
+					<li
+						sec:authorize="hasAuthority('Role_ResponsableDomaine') or hasAuthority('Role_ResponsableStage')"
+						class="drop-down"><a href="">Received Requests</a>
+						<ul>
+							<li><a href="#">Drop Down 1</a></li>
+
+							<li><a href="#">Drop Down 3</a></li>
+							<li><a href="#">Drop Down 4</a></li>
+							<li><a href="#">Drop Down 5</a></li>
+						</ul></li>
+					<li><a th:href="@{about}">About Us</a></li>
+					<li><a th:href="@{contact}">Contact Us</a></li>
+					<li sec:authorize="isAuthenticated()"
+						class="drop-down notification" data-aos="zoom-out-down"><a
+						href="#"> <i class="fa fa-bell"></i> <span
+							class="counter counter-lg">10</span>
+					</a>
+						<ul>
+							<li><a href="#">Notification 1</a></li>
+							<hr>
+							<li><a href="#">Notification 2</a></li>
+							<hr>
+							<li><a href="#">Notification 3</a></li>
+							<hr>
+							<li><a href="#">Notification 4</a></li>
+						</ul></li>
+					<li sec:authorize="isAuthenticated()"
+						class="drop-down notification rounded"
+						style="border: 2px solid #1545B3; box-shadow: 0 0 10px rgba(21, 69, 179, 0.4); background-color: #1545B3;"><a
+						style="color: #fff;"
+						th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}"
+						href=""></a>
+						<ul>
+							<li><a th:href="@{logout}">Log out</a></li>
+
+
+						</ul></li>
+					<li sec:authorize="isAnonymous()" class="btns_login rounded"><a
+						th:href="@{/login}"> Log In</a></li>
+				</ul>
+			</nav>
+			<!-- .main-nav -->
+
+		</div>
+	</header>
+	<!-- #header -->
 
 	<main id="main">
 
@@ -124,82 +133,114 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 				</div>
 
 			</div>
-		</section><!-- End Breadcrumbs Section -->
+		</section>
+		<!-- End Breadcrumbs Section -->
 
 		<section class="pt-5" data-aos="fade-up">
 			<div class="container">
-				<div style="text-align:center;margin-bottom:20px;" id="steps">
-					<span class=""><i class="step fa fa-calendar-check-o" style="padding: 20px 20px;"></i></span>
-					<span class=""><i class="step fa fa-id-card-o" style="padding: 20px 20px;"></i></span>
-					<span class=""><i class="step fa fa-graduation-cap" style="padding: 20px 20px;"></i></span>
-					<span class=""><i class="step fa fa-briefcase"></i></span>
-					<span class=""><i class="step fa fa-puzzle-piece"></i></span>
-					<span class=""><i class="step fa fa-envelope"></i></span>
-					<span class=""><i class="step fa fa-file-text"></i></span>
+				<div style="text-align: center; margin-bottom: 20px;" id="steps">
+					<span class=""><i class="step fa fa-calendar-check-o"
+						style="padding: 20px 20px;"></i></span> <span class=""><i
+						class="step fa fa-id-card-o" style="padding: 20px 20px;"></i></span> <span
+						class=""><i class="step fa fa-graduation-cap"
+						style="padding: 20px 20px;"></i></span> <span class=""><i
+						class="step fa fa-briefcase"></i></span> <span class=""><i
+						class="step fa fa-puzzle-piece"></i></span> <span class=""><i
+						class="step fa fa-envelope"></i></span> <span class=""><i
+						class="step fa fa-file-text"></i></span>
 				</div>
 				<div th:if="${param.requestAdded}">
 					<div class="row justify-content-center">
-						<div class="container col-lg-11 col-md-11 alert alert-success alert-dismissible fade show" role="alert">
-						  Your request have been successfully sent !
-						  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						    <span aria-hidden="true">&times;</span>
-						  </button>
+						<div
+							class="container col-lg-11 col-md-11 alert alert-success alert-dismissible fade show"
+							role="alert">
+							Your request have been successfully sent !
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
 						</div>
 					</div>
 				</div>
-				<form class="p-4 border rounded requestForms" id="requestForms" th:action="@{saveRequest}" method="post" th:object="${request}" enctype="multipart/form-data">
+				<div  id="invalidForm" >
+					<div class="row justify-content-center">
+						<div
+							class="container col-lg-11 col-md-11 alert alert-danger alert-dismissible fade show"
+							role="alert">
+							All fields with a red star must be completed !
+							
+						</div>
+					</div>
+				</div>
+				<form class="p-4 border rounded requestForms" id="requestForms"
+					th:action="@{saveRequest}" method="post" th:object="${request}"
+					enctype="multipart/form-data">
 
 
 					<fieldset class="fieldset">
-						<h3 class="text-black mb-5 border-bottom pb-2">Choose a Domaine & Specify The Period</h3>
+						<h3 class="text-black mb-5 border-bottom pb-2">Choose a
+							Domaine & Specify The Period</h3>
 						<div class="row justify-content-center">
 							<div class="container col-lg-4 col-md-4">
 								<div class=" form-group">
-								
-									<label for="domaine">Domaine</label>
-									<select class="selectpicker border rounded " id="domaine" name="domaine" th:field="*{domaine}"  data-style="btn-black" data-width="100%" data-live-search="true" title="Select Domaine" required="required" >
-											<option th:each="d:${T(com.stage.entities.Domaine).values()}" th:value="${d}"
-                                			th:text="${d}" value="Finance">Finance</option>
-											
-									</select>
-								
-							</div>
-							<div class=" form-group">
-								
-								
-									<label for="stageDateDeb">Start Day</label>
-									<input type="date" class="form-control p-3" id="stageDateDeb" name="dateDeb" th:field="*{dateDeb}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
-									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
-								
-							</div>
-							<div class=" form-group">
-								
-								
-									<label for="stageDateFin">End Day</label>
-									<input type="date" class="form-control p-3" id="stageDateFin" name="dateFin" th:field="*{dateFin}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
-									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
-								
 
-							</div>
+									<label for="domaine">Domaine <small class="important">*</small></label>
+									<select class="selectpicker border rounded " id="domaine"
+										name="domaine" th:field="*{domaine}" data-style="btn-black"
+										data-width="100%" data-live-search="false"
+										title="Select Domaine" required="required">
+										<option th:each="d:${T(com.stage.entities.Domaine).values()}"
+											th:value="${d}" th:text="${d}" value="Finance">Finance</option>
+
+									</select>
+
+								</div>
+								<div class=" form-group">
+
+
+									<label for="stageDateDeb">Start Day <small
+										class="important">*</small></label> <input type="date"
+										class="form-control p-3" id="stageDateDeb" name="dateDeb"
+										th:field="*{dateDeb}" placeholder="YYYY-MM-DD"
+										title="Enter a date in this format: YYYY-MM-DD"
+										pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+										required="required">
+
+								</div>
+								<div class=" form-group">
+
+
+									<label for="stageDateFin">End Day <small
+										class="important">*</small></label> <input type="date"
+										class="form-control p-3" id="stageDateFin" name="dateFin"
+										th:field="*{dateFin}" placeholder="YYYY-MM-DD"
+										title="Enter a date in this format: YYYY-MM-DD"
+										pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+										required="required">
+
+
+								</div>
 							</div>
 						</div>
-							
-							
 
-						
+
+
+
 					</fieldset>
 
 					<fieldset class="fieldset">
-						<h3 class="text-black mb-5 border-bottom pb-2">Personal Information</h3>
+						<h3 class="text-black mb-5 border-bottom pb-2">Personal
+							Information</h3>
 						<div class="row">
 							<div class="col-lg-4 col-md-4">
 								<div class="form-group">
 
 
 									<div class="wrapper">
-										<div class="file-upload" style="border: 10px solid #DEE2E6;box-shadow: 0 0 10px #DEE2E6;">
-											<input type="file" id="picture" name="photo" accept=".png,.jpg,.jpeg"/>
-											<i class="fa fa-user" ></i>
+										<div class="file-upload"
+											style="border: 10px solid #DEE2E6; box-shadow: 0 0 10px #DEE2E6;">
+											<input type="file" id="picture" name="photo"
+												accept=".png,.jpg,.jpeg" /> <i class="fa fa-user"></i>
 
 										</div>
 
@@ -210,37 +251,55 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 							<div class="col-lg-8 col-md-8">
 								<div class="row form-group">
 									<div class="col-lg-6 col-md-6">
-										<label for="prenom">First Name</label>
-										<input type="text" class="form-control p-3" id="prenom" th:value="${stagiaire.prenom}" placeholder="First Name" required="required">
+										<label for="prenom">First Name <small
+											class="important">*</small></label> <input type="text"
+											class="form-control p-3" id="prenom"
+											th:value="${stagiaire.prenom}" placeholder="First Name"
+											required="required">
 									</div>
 									<div class="col-lg-6 col-md-6">
-										<label for="nom">Last Name</label>
-										<input type="text" class="form-control p-3" id="nom" th:value="${stagiaire.nom}" placeholder="Last Name" required="required">
-									</div>
-
-								</div>
-								<div class="row form-group">
-									<div class="col-lg-6 col-md-6">
-										<label for="email">Email</label>
-										<input type="email" class="form-control p-3" id="email" th:value="${stagiaire.email}"  placeholder="Email Address" required="required">
-									</div>
-									<div class="col-lg-6 col-md-6">
-										<label for="numTel">Phone Number</label>
-										<input type="text" class="form-control p-3" id="numTel" name="numTel" th:field="*{etatCivile.numTel}" placeholder="Phone Number" required="required">
+										<label for="nom">Last Name <small class="important">*</small></label>
+										<input type="text" class="form-control p-3" id="nom"
+											th:value="${stagiaire.nom}" placeholder="Last Name"
+											required="required">
 									</div>
 
 								</div>
 								<div class="row form-group">
 									<div class="col-lg-6 col-md-6">
-										<label for="pays">Country</label>
-										<select class="selectpicker border rounded " id="pays" name="pays" th:field="*{etatCivile.pays}"  data-style="btn-black" data-width="100%" data-live-search="true" title="Select Country" required="required">
+										<label for="email">Email <small class="important">*</small></label>
+										<input type="email" class="form-control p-3" id="email"
+											th:value="${stagiaire.email}" placeholder="Email Address"
+											required="required">
+									</div>
+									<div class="col-lg-6 col-md-6">
+										<label for="numTel">Phone Number <small
+											class="important">*</small></label> <input type="text"
+											class="form-control p-3" id="numTel" name="numTel"
+											th:field="*{etatCivile.numTel}" placeholder="Phone Number"
+											required="required">
+									</div>
+
+								</div>
+								<div class="row form-group">
+									<div class="col-lg-6 col-md-6">
+										<label for="pays">Country <small class="important">*</small></label>
+										<select class="selectpicker border rounded " id="pays"
+											name="pays" th:field="*{etatCivile.pays}"
+											data-style="btn-black" data-width="100%"
+											data-live-search="false" title="Select Country"
+											required="required">
 											<option value="Morocco">Morocco</option>
 											<option value="France">France</option>
 										</select>
 									</div>
 									<div class="col-lg-6 col-md-6">
-										<label for="ville">City</label>
-										<select class="selectpicker border rounded " id="ville" name="ville" th:field="*{etatCivile.ville}"  data-style="btn-black" data-width="100%" data-live-search="true" title="Select City" required="required">
+										<label for="ville">City <small class="important">*</small></label>
+										<select class="selectpicker border rounded " id="ville"
+											name="ville" th:field="*{etatCivile.ville}"
+											data-style="btn-black" data-width="100%"
+											data-live-search="false" title="Select City"
+											required="required">
 											<option value="Casablanca">Casablanca</option>
 											<option value="Rabat">Rabat</option>
 										</select>
@@ -254,20 +313,26 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 						<div class="row form-group">
 							<div class="col-lg-6 col-md-6">
-								<label for="adresse">Address</label>
-								<input type="text" class="form-control p-3" id="adresse" name="adresse" th:field="*{etatCivile.adresse}" placeholder="Address">
+								<label for="adresse">Address</label> <input type="text"
+									class="form-control p-3" id="adresse" name="adresse"
+									th:field="*{etatCivile.adresse}" placeholder="Address">
 							</div>
 
 							<div class="col-lg-6 col-md-6">
-								<label for="codePostal">Postal Code</label>
-								<input type="text" class="form-control p-3" id="codePostal" name="codePostal" th:field="*{etatCivile.codePostal}" placeholder="Postal Code">
+								<label for="codePostal">Postal Code</label> <input type="text"
+									class="form-control p-3" id="codePostal" name="codePostal"
+									th:field="*{etatCivile.codePostal}" placeholder="Postal Code">
 							</div>
 						</div>
 
 
 						<div class="form-group">
-							<label for="profile">Profile</label>
-							<textarea class="form-control" id="profile" name="profile" th:field="*{etatCivile.profile}" rows="5" data-rule="required" data-msg="Write something about you" placeholder="Write.." required="required"></textarea>
+							<label for="profile">Profile <small
+										class="important">*</small></label>
+							<textarea class="form-control" id="profile" name="profile"
+								th:field="*{etatCivile.profile}" rows="5" data-rule="required"
+								data-msg="Write something about you" placeholder="Write.."
+								required="required"></textarea>
 							<div class="validate"></div>
 						</div>
 
@@ -275,230 +340,302 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 
 
-					<fieldset class="fieldset" >
+					<fieldset class="fieldset">
 						<h3 class="text-black mb-5 border-bottom pb-2">Education</h3>
-						<div id="EducationSection" >
-						<div th:each="formation,Stat : *{formations}">
-							<div class="row form-group">
-								<div class="col-lg-6 col-md-6">
-									<label for="title">Title</label>
-									<input type="text" class="form-control p-3" id="title"  th:field="*{formations[__${Stat.index}__].titre}"  placeholder="Title" required="required">
+						<div id="EducationSection">
+							<div th:each="formation,Stat : *{formations}">
+								<div class="row form-group">
+									<div class="col-lg-6 col-md-6">
+										<label for="title">Title <small class="important">*</small></label>
+										<input type="text" class="form-control p-3" id="title"
+											th:field="*{formations[__${Stat.index}__].titre}"
+											placeholder="Title" required="required">
+									</div>
+									<div class="col-lg-6 col-md-6">
+										<label for="institution">Institution <small
+											class="important">*</small></label> <input type="text"
+											class="form-control p-3" id="institution"
+											th:field="*{formations[__${Stat.index}__].institution}"
+											placeholder="Institution" required="required">
+									</div>
+
 								</div>
-								<div class="col-lg-6 col-md-6">
-									<label for="institution">Institution</label>
-									<input type="text" class="form-control p-3" id="institution"  th:field="*{formations[__${Stat.index}__].institution}" placeholder="Institution" required="required">
+								<div class="row form-group">
+									<div class="col-lg-6 col-md-6">
+										<label for="dateDeb">Start Day <small
+											class="important">*</small></label> <input type="date"
+											class="form-control p-3" id="dateDeb"
+											th:field="*{formations[__${Stat.index}__].dateDeb}"
+											placeholder="YYYY-MM-DD"
+											title="Enter a date in this format: YYYY-MM-DD"
+											pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+											required="required">
+									</div>
+									<div class="col-lg-6 col-md-6">
+										<label for="dateFin">End Day <small class="important">*</small></label>
+										<input type="date" class="form-control p-3" id="dateFin"
+											th:field="*{formations[__${Stat.index}__].dateFin}"
+											placeholder="YYYY-MM-DD"
+											title="Enter a date in this format: YYYY-MM-DD"
+											pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+											required="required">
+									</div>
+
 								</div>
 
-							</div>
-							<div class="row form-group">
-								<div class="col-lg-6 col-md-6">
-									<label for="dateDeb">Start Day</label>
-									<input type="date" class="form-control p-3" id="dateDeb"   th:field="*{formations[__${Stat.index}__].dateDeb}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
-									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
+								<div class="form-group">
+									<label for="Description">Description <small
+										class="important">*</small></label>
+									<textarea class="form-control" id="Description"
+										th:field="*{formations[__${Stat.index}__].Description}"
+										rows="5" data-rule="required"
+										data-msg="Write something about this education"
+										placeholder="Write.." required="required"></textarea>
+									<div class="validate"></div>
 								</div>
-								<div class="col-lg-6 col-md-6">
-									<label for="dateFin">End Day</label>
-									<input type="date" class="form-control p-3" id="dateFin"  th:field="*{formations[__${Stat.index}__].dateFin}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
-									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
-								</div>
-
 							</div>
-
-							<div class="form-group">
-								<label for="Description">Description</label>
-								<textarea class="form-control" id="Description"   th:field="*{formations[__${Stat.index}__].Description}" rows="5" data-rule="required" data-msg="Write something about this education" placeholder="Write.." required="required"></textarea>
-								<div class="validate"></div>
-							</div>
-						</div>
 						</div>
 
 						&nbsp;
-						
-							<div id="addEducationSection"   data-toggle="tooltip" data-placement="top" title="Add An Other Section"><i class="fa fa-plus"></i></div>
-						
+
+						<div id="addEducationSection" data-toggle="tooltip"
+							data-placement="top" title="Add An Other Section">
+							<i class="fa fa-plus"></i>
+						</div>
+
 					</fieldset>
 
 
 					<fieldset class="fieldset">
 						<h3 class="text-black mb-5 border-bottom pb-2">Experiences</h3>
 						<div id="ExperienceSection">
-						<div th:each="exp,Stat : *{experiences}">
-							<div class="row form-group">
-								<div class="col-lg-6 col-md-6">
-									<label for="experienceTitle">Title</label>
-									<input type="text" class="form-control p-3" id="experienceTitle" name="titre" th:field="*{experiences[__${Stat.index}__].titre}" placeholder="Title" required="required">
+							<div th:each="exp,Stat : *{experiences}">
+								<div class="row form-group">
+									<div class="col-lg-6 col-md-6">
+										<label for="experienceTitle">Title <small
+											class="important">*</small></label> <input type="text"
+											class="form-control p-3" id="experienceTitle" name="titre"
+											th:field="*{experiences[__${Stat.index}__].titre}"
+											placeholder="Title" required="required">
+									</div>
+									<div class="col-lg-6 col-md-6">
+										<label for="entreprise">Company <small
+											class="important">*</small></label> <input type="text"
+											class="form-control p-3" id="entreprise" name="institution"
+											th:field="*{experiences[__${Stat.index}__].institution}"
+											placeholder="Company" required="required">
+									</div>
+
 								</div>
-								<div class="col-lg-6 col-md-6">
-									<label for="entreprise">Company</label>
-									<input type="text" class="form-control p-3" id="entreprise" name="institution" th:field="*{experiences[__${Stat.index}__].institution}" placeholder="Company" required="required">
+								<div class="row form-group">
+									<div class="col-lg-6 col-md-6">
+										<label for="experienceDateDeb">Start Day <small
+											class="important">*</small></label> <input type="date"
+											class="form-control p-3" id="experienceDateDeb"
+											name="dateDeb"
+											th:field="*{experiences[__${Stat.index}__].dateDeb}"
+											placeholder="YYYY-MM-DD"
+											title="Enter a date in this format: YYYY-MM-DD"
+											pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+											required="required">
+									</div>
+									<div class="col-lg-6 col-md-6">
+										<label for="experienceDateFin">End Day <small
+											class="important">*</small></label> <input type="date"
+											class="form-control p-3" id="experienceDateFin"
+											name="dateFin"
+											th:field="*{experiences[__${Stat.index}__].dateFin}"
+											placeholder="YYYY-MM-DD"
+											title="Enter a date in this format: YYYY-MM-DD"
+											pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+											required="required">
+									</div>
+
 								</div>
 
-							</div>
-							<div class="row form-group">
-								<div class="col-lg-6 col-md-6">
-									<label for="experienceDateDeb">Start Day</label>
-									<input type="date" class="form-control p-3" id="experienceDateDeb" name="dateDeb" th:field="*{experiences[__${Stat.index}__].dateDeb}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
-									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
+								<div class="form-group">
+									<label for="experienceDescription">Description <small
+										class="important">*</small></label>
+									<textarea class="form-control" id="experienceDescription"
+										name="Description"
+										th:field="*{experiences[__${Stat.index}__].Description}"
+										rows="5" data-rule="required"
+										data-msg="Write something about this experience"
+										placeholder="Write.." required="required"></textarea>
+									<div class="validate"></div>
 								</div>
-								<div class="col-lg-6 col-md-6">
-									<label for="experienceDateFin">End Day</label>
-									<input type="date" class="form-control p-3" id="experienceDateFin" name="dateFin" th:field="*{experiences[__${Stat.index}__].dateFin}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
-									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
-								</div>
-
 							</div>
-
-							<div class="form-group">
-								<label for="experienceDescription">Description</label>
-								<textarea class="form-control" id="experienceDescription" name="Description" th:field="*{experiences[__${Stat.index}__].Description}" rows="5" data-rule="required" data-msg="Write something about this experience" placeholder="Write.." required="required"></textarea>
-								<div class="validate"></div>
-							</div>
-					</div>
-					</div>
-					&nbsp;
-						<div id="addExperienceSection" data-toggle="tooltip" data-placement="top" title="Add An Other Section"><i class="fa fa-plus"></i></div>
+						</div>
+						&nbsp;
+						<div id="addExperienceSection" data-toggle="tooltip"
+							data-placement="top" title="Add An Other Section">
+							<i class="fa fa-plus"></i>
+						</div>
 
 					</fieldset>
 
 					<fieldset class="fieldset">
 						<h3 class="text-black mb-5 border-bottom pb-2">Hobbies</h3>
-						<label for="hobbies">Specify Your Hobbies</label>
-						<textarea class="form-control" id="hobbies" name="hobbies" th:field="*{hobbies.hobbies}" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Reading, Music..." required="required"></textarea>
+						<label for="hobbies">Specify Your Hobbies <small
+										class="important">*</small></label>
+						<textarea class="form-control" id="hobbies" name="hobbies"
+							th:field="*{hobbies.hobbies}" rows="5" data-rule="required"
+							data-msg="Please write something for us"
+							placeholder="Reading, Music..." required="required"></textarea>
 						<div class="validate"></div>
 
 					</fieldset>
 
 					<fieldset class="fieldset">
-						<h3 class="text-black mb-5 border-bottom pb-2">Cover Letter (Write or Upload it)</h3>
+						<h3 class="text-black mb-5 border-bottom pb-2">
+							Cover Letter (Write or Upload it) <small class="important">*</small>
+						</h3>
 
 						<div class="row form-group">
 							<div class="col-lg-6 col-md-6">
 
-								<textarea class="form-control" id="coverLetter"  name="contenu" th:field="*{lettreMotivation.contenu}"  rows="9" data-rule="required" data-msg="Write your letter." placeholder="Write.."></textarea>
+								<textarea class="form-control" id="coverLetter" name="contenu"
+									th:field="*{lettreMotivation.contenu}" rows="9"
+									data-rule="required" data-msg="Write your letter."
+									placeholder="Write.."></textarea>
 								<div class="validate"></div>
 							</div>
 
-							<div class="col-lg-1 col-md-1" align="center"><strong>OR</strong></div>
+							<div class="col-lg-1 col-md-1" align="center">
+								<strong>OR</strong>
+							</div>
 
-							<div class="col-lg-5 col-md-5 " >
+							<div class="col-lg-5 col-md-5 ">
 
 								<div class="choose-file text-center rounded"
-								style="border: 2px dashed #DCDCDC;padding: 50px;">
-								<label for="letter"> <span
-									class="d-block font-weight-bold text-dark">Drop
-								the letter to upload</span> <span class="d-block">or</span> <span
-								class="d-block btn bg-primary text-white my-3 select-files">Select
-							the letter</span> 
-							<input type="file" name="titre"  class="form-control-file d-none"
-							id="letter" accept=".pdf,.docx" required="required" >
-						</label>
-					</div>
-				</div>
-			</div>
-		</fieldset>
-
-
-		<fieldset class="fieldset">
-			<h3 class="text-black mb-5 border-bottom pb-2">Other Administrative Documents (Optional)</h3>
-			<div id="AdministartiveDocSection">
-			
-				<div class=" form-group" th:each="doc,Stat : *{documentAdministratif}">
-				<div class="choose-file text-center py-1 rounded" style="border: 2px dashed #DCDCDC;">
-				<label for="document" class="LabelDocsUpload">
-					<div> 
-						<div class="d-block font-weight-bold text-dark">
-							Drop the documents to upload
-						</div> 
-						<div class="d-block">or</div> 
-						<div class="d-block btn bg-primary text-white select-files">
-							Select the documents
+									style="border: 2px dashed #DCDCDC; padding: 50px;">
+									<label for="letter"> <span
+										class="d-block font-weight-bold text-dark">Drop the
+											letter to upload</span> <span class="d-block">or</span> <span
+										class="d-block btn bg-primary text-white my-3 select-files">Select
+											the letter</span> <input type="file" name="titre"
+										class="form-control-file d-none" id="letter"
+										accept=".pdf,.docx" required="required">
+									</label>
+								</div>
+							</div>
 						</div>
-					</div> 
-					<input type="file" name="titreDoc"   class="form-control-file d-none" id="document" multiple="multiple" accept=".pdf,.docx">
-				</label>
-			</div>
-		</div>
-			</div>
-			
-		<!--&nbsp;
+					</fieldset>
+
+
+					<fieldset class="fieldset">
+						<h3 class="text-black mb-5 border-bottom pb-2">Other
+							Administrative Documents (Optional)</h3>
+						<div id="AdministartiveDocSection">
+
+							<div class=" form-group"
+								th:each="doc,Stat : *{documentAdministratif}">
+								<div class="choose-file text-center py-1 rounded"
+									style="border: 2px dashed #DCDCDC;">
+									<label for="document" class="LabelDocsUpload">
+										<div>
+											<div class="d-block font-weight-bold text-dark">Drop
+												the documents to upload</div>
+											<div class="d-block">or</div>
+											<div class="d-block btn bg-primary text-white select-files">
+												Select the documents</div>
+										</div> <input type="file" name="titreDoc"
+										class="form-control-file d-none" id="document"
+										multiple="multiple" accept=".pdf,.docx">
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<!--&nbsp;
 		<div id="AddAdministartiveDocSection" data-toggle="tooltip" data-placement="top" title="Add An Other Section"><i class="fa fa-plus"></i></div>
 -->
 
-	</fieldset>
+					</fieldset>
 
 
 
-	&nbsp;
-	<div >
-		<div style="float:right;">
-			<a href="#Request"><button type="button" id="prevBtn" class="btn btn-secondary" onclick="nextPrev(-1);">Previous</button></a>
-			<a href="#Request"><button type="button" id="nextBtn" class="btn btn-primary" onclick="nextPrev(1);">Next</button></a>
-		</div>
-	</div>
-	&nbsp;
-</form>
-&nbsp;
-</div>
+					&nbsp;
+					<div>
+						<div style="float: right;">
+							<a href="#Request"><button type="button" id="prevBtn"
+									class="btn btn-secondary" onclick="nextPrev(-1);">Previous</button></a>
+							<a href="#Request"><button type="button" id="nextBtn"
+									class="btn btn-primary" onclick="nextPrev(1);">Next</button></a>
+						</div>
+					</div>
+					&nbsp;
+				</form>
+				&nbsp;
+			</div>
 
-</section>
+		</section>
 
-</main><!-- End #main -->
+	</main>
+	<!-- End #main -->
 
-<!-- ======= Footer ======= -->
-<footer id="footer">
-	<div class="footer-top">
-		<div class="container">
-			<div class="row">
+	<!-- ======= Footer ======= -->
+	<footer id="footer">
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
 
-				<div class="col-lg-4 col-md-6 footer-info">
-					<h3>INTERNSHIP</h3>
-					<p>With our service, you can send your internship requests more easily. The processing of requests will therefore be easier and the response will also be sent to you in a shorter time.</p>
-				</div>
-				<div class="col-lg-1 col-md-6 "></div>
-				<div class="col-lg-2 col-md-6 footer-links">
-					<h4>Useful Links</h4>
-					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="index.html">Services</a></li>
-						<li><a href="contact_us.html">Contact us</a></li>
-						<li><a href="about_us.html">About us</a></li>
-					</ul>
-				</div>
-				<div class="col-lg-1 col-md-6 "></div>
-				<div class="col-lg-3 col-md-6 footer-contact">
-					<h4>Contact Us</h4>
-					<p>
-						A108 Adam Street, NY 535022<br>
-						<strong>Phone:</strong> +212 65 895 54 88<br>
-						<strong>Email:</strong> InternshipTeam@gmail.com<br>
-					</p>
+					<div class="col-lg-4 col-md-6 footer-info">
+						<h3>INTERNSHIP</h3>
+						<p>With our service, you can send your internship requests
+							more easily. The processing of requests will therefore be easier
+							and the response will also be sent to you in a shorter time.</p>
+					</div>
+					<div class="col-lg-1 col-md-6 "></div>
+					<div class="col-lg-2 col-md-6 footer-links">
+						<h4>Useful Links</h4>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="index.html">Services</a></li>
+							<li><a href="contact_us.html">Contact us</a></li>
+							<li><a href="about_us.html">About us</a></li>
+						</ul>
+					</div>
+					<div class="col-lg-1 col-md-6 "></div>
+					<div class="col-lg-3 col-md-6 footer-contact">
+						<h4>Contact Us</h4>
+						<p>
+							A108 Adam Street, NY 535022<br> <strong>Phone:</strong> +212
+							65 895 54 88<br> <strong>Email:</strong>
+							InternshipTeam@gmail.com<br>
+						</p>
 
-					<div class="social-links">
-						<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-						<a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-						<a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-						<a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
-						<a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+						<div class="social-links">
+							<a href="#" class="twitter"><i class="fa fa-twitter"></i></a> <a
+								href="#" class="facebook"><i class="fa fa-facebook"></i></a> <a
+								href="#" class="instagram"><i class="fa fa-instagram"></i></a> <a
+								href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+							<a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+						</div>
+
 					</div>
 
 				</div>
-
 			</div>
 		</div>
-	</div>
 
-	<div class="container">
-		<div class="copyright">
-			&copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>. All Rights Reserved
+		<div class="container">
+			<div class="copyright">
+				&copy; Copyright <strong><script>
+					var CurrentYear = new Date().getFullYear();
+					document.write(CurrentYear)
+				</script></strong>.
+				All Rights Reserved
+			</div>
+			<div class="credits">
+
+				<a href="#">internship Team</a>
+			</div>
 		</div>
-		<div class="credits">
+	</footer>
+	<!-- End Footer -->
 
-			<a href="#">internship Team</a>
-		</div>
-	</div>
-</footer><!-- End Footer -->
-
-<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
 	<!-- Vendor JS Files -->
 	<script th:src="@{assets/vendor/jquery/jquery.min.js}"
@@ -528,52 +665,120 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 
 
-<script>
-var currentTab = 0; 
-showTab(currentTab); 
+	<script>
+		var currentTab = 0;
+		showTab(currentTab);
 
-function showTab(n) {
-  
-  var x = document.getElementsByClassName("fieldset");
-  x[n].style.display = "block";
-  
-  if (n == 0) {
-  	document.getElementById("prevBtn").style.display = "none";
-  } else {
-  	document.getElementById("prevBtn").style.display = "inline";
-  }
-  if (n == (x.length - 1)) {
-  	document.getElementById("nextBtn").innerHTML = "Send Request";
-  } else {
-  	document.getElementById("nextBtn").innerHTML = "Next";
-  }
-  fixStepIndicator(n)
-}
+		
+		function showTab(n) {
+			  var x = document.getElementsByClassName("fieldset");
+			  x[n].style.display = "block";
+			  if (n == 0) {
+			    document.getElementById("prevBtn").style.display = "none";
+			  } else {
+			    document.getElementById("prevBtn").style.display = "inline";
+			  }
+			  if (n == (x.length - 1)) {
+			    document.getElementById("nextBtn").innerHTML = "Send Request";
+			  } else {
+			    document.getElementById("nextBtn").innerHTML = "Next";
+			  }
+			  fixStepIndicator(n)
+			}
 
-function nextPrev(n) {
-  
-  var x = document.getElementsByClassName("fieldset");
-  
-  x[currentTab].style.display = "none";
-  currentTab = currentTab + n;
-  if (currentTab >= x.length) {
-    document.getElementById("requestForms").submit();
-    return false;
-}
-  showTab(currentTab);
-}
+			function nextPrev(n) {
+			  var x = document.getElementsByClassName("fieldset");
+			  if (n == 1 && !validateForm()) return false;
+			  x[currentTab].style.display = "none";
+			  currentTab = currentTab + n;
+			  if (currentTab >= x.length) {
+			    document.getElementById("requestForms").submit();
+			    return false;
+			  }
+			  showTab(currentTab);
+			}
 
-function fixStepIndicator(n) {
-  var i, x = document.getElementsByClassName("step");
-  for (i = 0; i < x.length; i++) {
-  	x[i].className = x[i].className.replace(" active", "");
-  }
-  x[n].className += " active";
-}
+			function validateForm() {
+			  var x, y, i, valid = true;
+			  x = document.getElementsByClassName("fieldset");
+			  y = x[currentTab].getElementsByTagName("input");
+			  z = x[currentTab].getElementsByTagName("textarea");
+			  if (currentTab == 1 || currentTab == 2 || currentTab == 3
+						|| currentTab == 4) {
+					
+					for (var i = 0; i < z.length; i++) {
+						if (z[i].value == "") {
 
+							z[i].className += " invalid";
+							valid = false;
+						}
+					}
+					if(currentTab == 1){
+						for (var i = 1; i < y.length; i++) {
+							if (y[i].value == "") {
 
+								y[i].className += " invalid";
+								valid = false;
+							}
+						}
+					}
+					else{
+						for (var i = 0; i < y.length; i++) {
+							if (y[i].value == "") {
+	
+								y[i].className += " invalid";
+								valid = false;
+							}
+						}
+					}
 
-</script>
+				} else if (currentTab == 5) {
+
+					lettre = x[5].getElementsByTagName("textarea");
+					uploadLetter = x[5].getElementsByTagName("input");
+					if (lettre[0].value == "" && uploadLetter[0].value == "") {
+						lettre[0].className += " invalid";
+						
+						valid = false;
+
+					}
+				} else if (currentTab == 6) {}
+				else {
+					for (var i = 0; i < y.length; i++) {
+						if (y[i].value == "") {
+
+							y[i].className += " invalid";
+							valid = false;
+						}
+					}
+					
+				}
+			  
+			  if (valid) {
+				  document.getElementById("invalidForm").style.display="none";
+				  for (i = 0; i < y.length; i++) {
+					    y[i].className = y[i].className.replace(" invalid", "");
+					  }
+				  for (i = 0; i < z.length; i++) {
+					    z[i].className = z[i].className.replace(" invalid", "");
+					  }
+			  }
+			  else{
+				  document.getElementById("invalidForm").style.display="block";
+			  }
+			  return valid; // return the valid status
+			}
+
+			function fixStepIndicator(n) {
+			  var i, x = document.getElementsByClassName("step");
+			  for (i = 0; i < x.length; i++) {
+			    x[i].className = x[i].className.replace(" active", "");
+			  }
+			  x[n].className += " active";
+			}
+			
+			
+	</script>
 </body>
 
 </html>

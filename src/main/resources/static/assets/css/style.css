@@ -1597,16 +1597,25 @@ label{
 .step.active {
   opacity: 1;
 }
+input.invalid {
+  background-color: #ffdddd;
+}
+textarea.invalid {
+  background-color: #ffdddd;
+}
 
-.step.finish {
-  background-color: #4CAF50;
+.important{
+	color: red;
 }
 
 .fieldset {
   display: none;
 }
 
-
+#invalidForm{
+	display: none;
+	
+}
 
 #prevBtn {
   background-color: #bbbbbb;
@@ -1617,6 +1626,8 @@ label{
   background-color: #3C9AFD;
   border: 1px solid #3C9AFD;
 }
+
+
 
 .LabelDocsUpload div{
   display: flex;

@@ -202,28 +202,30 @@ var AdministrativeDocSection=1;
     aos_init();
   });
 
+  
+  
 
   $(document).ready(function(){
 $("#addEducationSection").on('click',function(){
   $("#EducationSection").append('<div id="RemoveEducationSection'+EducationSection+'">&nbsp;<hr><div class="RemoveEducationSection" onclick="$(\'#RemoveEducationSection'+EducationSection+'\').remove()" data-toggle="tooltip" data-placement="top" title="Remove This Section"><i class="fa fa-close"></i></div>&nbsp;<div class="row form-group">'+
                '<div class="col-lg-6 col-md-6">'+
-                  '<label for="titre'+EducationSection+'">Title</label>'+
+                  '<label for="titre'+EducationSection+'">Title <small class="important">*</small></label>'+
                   '<input type="text" class="form-control p-3" id="titre'+EducationSection+'"  name="formations['+EducationSection+'].titre" placeholder="Title" required="required">'+
                 '</div>'+
                 '<div class="col-lg-6 col-md-6">'+
-                  '<label for="institution'+EducationSection+'">Institution</label>'+
+                  '<label for="institution'+EducationSection+'">Institution <small class="important">*</small></label>'+
                   '<input type="text" class="form-control p-3"  name="formations['+EducationSection+'].institution" placeholder="Institution" required="required">'+
                 '</div>'+
 
              ' </div>'+
               '<div class="row form-group">'+
                 '<div class="col-lg-6 col-md-6">'+
-                  '<label for="dateDeb'+EducationSection+'">Start Day</label>'+
+                  '<label for="dateDeb'+EducationSection+'">Start Day <small class="important">*</small></label>'+
                   '<input type="date" class="form-control p-3" id="dateDeb'+EducationSection+'" name="formations['+EducationSection+'].dateDeb" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
                   'pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">'+
                 '</div>'+
                 '<div class="col-lg-6 col-md-6">'+
-                  '<label for="dateFin'+EducationSection+'">End Day</label>'+
+                  '<label for="dateFin'+EducationSection+'">End Day <small class="important">*</small></label>'+
                   '<input type="date" class="form-control p-3" id="dateFin'+EducationSection+'"  name="formations['+EducationSection+'].dateFin" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
                   'pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">'+
                 '</div>'+
@@ -231,7 +233,7 @@ $("#addEducationSection").on('click',function(){
               '</div>'+
               
               '<div class="form-group">'+
-                '<label for="Description'+EducationSection+'">Description</label>'+
+                '<label for="Description'+EducationSection+'">Description <small class="important">*</small></label>'+
                 '<textarea class="form-control" id="Description'+EducationSection+'"   name="formations['+EducationSection+'].Description" rows="5" data-rule="required" data-msg="Write something about this education" placeholder="Write.." required="required"></textarea>'+
                 '<div class="validate"></div>'+
               '</div></div>');
@@ -241,23 +243,23 @@ $("#addEducationSection").on('click',function(){
 $("#addExperienceSection").on('click',function(){
   $("#ExperienceSection").append('<div id="RemoveExperienceSection'+ExperienceSection+'">&nbsp;<hr><div class="RemoveExperienceSection" onclick="$(\'#RemoveExperienceSection'+ExperienceSection+'\').remove()" data-toggle="tooltip" data-placement="top" title="Remove This Section"><i class="fa fa-close"></i></div>&nbsp;<div class="row form-group">'+
                '<div class="col-lg-6 col-md-6">'+
-                  '<label for="experienceTitle'+ExperienceSection+'">Title</label>'+
+                  '<label for="experienceTitle'+ExperienceSection+'">Title <small class="important">*</small></label>'+
                   '<input type="text" class="form-control p-3" id="experienceTitle'+ExperienceSection+'"  name="experiences['+ExperienceSection+'].titre" placeholder="Title" required="required">'+
                 '</div>'+
                 '<div class="col-lg-6 col-md-6">'+
-                  '<label for="entreprise'+ExperienceSection+'">Company</label>'+
+                  '<label for="entreprise'+ExperienceSection+'">Company <small class="important">*</small></label>'+
                   '<input type="text" class="form-control p-3" id="entreprise'+ExperienceSection+'"  name="experiences['+ExperienceSection+'].institution" placeholder="Company" required="required">'+
                 '</div>'+
 
              ' </div>'+
               '<div class="row form-group">'+
                 '<div class="col-lg-6 col-md-6">'+
-                  '<label for="experienceDateDeb'+ExperienceSection+'">Start Day</label>'+
+                  '<label for="experienceDateDeb'+ExperienceSection+'">Start Day <small class="important">*</small></label>'+
                   '<input type="date" class="form-control p-3" id="experienceDateDeb'+ExperienceSection+'"  name="experiences['+ExperienceSection+'].dateDeb" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
                   'pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">'+
                 '</div>'+
                 '<div class="col-lg-6 col-md-6">'+
-                  '<label for="experienceDateFin'+ExperienceSection+'">End Day</label>'+
+                  '<label for="experienceDateFin'+ExperienceSection+'">End Day <small class="important">*</small></label>'+
                   '<input type="date" class="form-control p-3" id="experienceDateFin'+ExperienceSection+'"  name="experiences['+ExperienceSection+'].dateFin" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
                   'pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">'+
                 '</div>'+
@@ -265,7 +267,7 @@ $("#addExperienceSection").on('click',function(){
               '</div>'+
               
               '<div class="form-group">'+
-                '<label for="experienceDescription'+ExperienceSection+'">Description</label>'+
+                '<label for="experienceDescription'+ExperienceSection+'">Description <small class="important">*</small></label>'+
                 '<textarea class="form-control" id="experienceDescription'+ExperienceSection+'" name="experiences['+ExperienceSection+'].Description" rows="5" data-rule="required" data-msg="Write something about this education" placeholder="Write.." required="required"></textarea>'+
                 '<div class="validate"></div>'+
               '</div></div>');
