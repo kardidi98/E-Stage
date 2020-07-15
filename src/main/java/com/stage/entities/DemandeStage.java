@@ -176,8 +176,8 @@ public class DemandeStage {
 	}
 
 	public void setFormations(List<Formations> formations) {
-		
-		this.formations = formations;
+		this.formations.clear();
+		this.formations.addAll(formations);
 	}
 	
 	
@@ -187,7 +187,8 @@ public class DemandeStage {
 	}
 
 	public void setExperiences(List<Experiences> experiences) {
-		this.experiences = experiences;
+		this.experiences.clear();
+		this.experiences.addAll(experiences);
 	}
 
 	public List<DocumentAdministratif> getDocumentAdministratif() {
@@ -236,6 +237,14 @@ public class DemandeStage {
 		for (DocumentAdministratif d : this.documentAdministratif) {
 			d.setDemandeStage(this);
 		}
+	}
+	
+	public void removeFormation(Formations formation) {
+		this.formations.remove(formation);
+	}
+	
+	public void removeExperience(Experiences experience) {
+		this.experiences.remove(experience);
 	}
 	
 	
