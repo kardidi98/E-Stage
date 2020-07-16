@@ -30,6 +30,16 @@ public class Stagiaire extends Utilisateur {
 	public Stagiaire() {
 		
 	}
+
+
+	public List<DemandeStage> getDemandeStages() {
+		return demandeStages;
+	}
+
+
+	public void setDemandeStages(List<DemandeStage> demandeStages) {
+		this.demandeStages = demandeStages;
+	}
 	
 	
 	

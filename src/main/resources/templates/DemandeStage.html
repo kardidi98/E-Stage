@@ -149,19 +149,7 @@
 						class="step fa fa-envelope"></i></span> <span class=""><i
 						class="step fa fa-file-text"></i></span>
 				</div>
-				<div th:if="${param.requestAdded}">
-					<div class="row justify-content-center">
-						<div
-							class="container col-lg-11 col-md-11 alert alert-success alert-dismissible fade show"
-							role="alert">
-							Your request have been successfully sent !
-							<button type="button" class="close" data-dismiss="alert"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-					</div>
-				</div>
+				
 				<div  id="invalidForm" >
 					<div class="row justify-content-center">
 						<div
@@ -190,7 +178,7 @@
 										data-width="100%" data-live-search="false"
 										title="Select Domaine" required="required">
 										<option th:each="d:${T(com.stage.entities.Domaine).values()}"
-											th:value="${d}" th:text="${d}" value="Finance">Finance</option>
+											th:value="${d}" th:text="${d}"></option>
 
 									</select>
 
@@ -201,9 +189,7 @@
 									<label for="stageDateDeb">Start Day <small
 										class="important">*</small></label> <input type="date"
 										class="form-control p-3" id="stageDateDeb" name="dateDeb"
-										th:field="*{dateDeb}" placeholder="YYYY-MM-DD"
-										title="Enter a date in this format: YYYY-MM-DD"
-										pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+										th:field="*{dateDeb}" title="Enter The date"
 										required="required">
 
 								</div>
@@ -213,9 +199,7 @@
 									<label for="stageDateFin">End Day <small
 										class="important">*</small></label> <input type="date"
 										class="form-control p-3" id="stageDateFin" name="dateFin"
-										th:field="*{dateFin}" placeholder="YYYY-MM-DD"
-										title="Enter a date in this format: YYYY-MM-DD"
-										pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+										th:field="*{dateFin}" title="Enter The date"
 										required="required">
 
 
@@ -363,21 +347,17 @@
 								<div class="row form-group">
 									<div class="col-lg-6 col-md-6">
 										<label for="dateDeb">Start Day <small
-											class="important">*</small></label> <input type="date"
+											class="important">*</small></label> <input type="month"
 											class="form-control p-3" id="dateDeb"
 											th:field="*{formations[__${Stat.index}__].dateDeb}"
-											placeholder="YYYY-MM-DD"
-											title="Enter a date in this format: YYYY-MM-DD"
-											pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-											required="required">
+											title="Enter The date"
+											required="required" >
 									</div>
 									<div class="col-lg-6 col-md-6">
 										<label for="dateFin">End Day <small class="important">*</small></label>
-										<input type="date" class="form-control p-3" id="dateFin"
+										<input type="month" class="form-control p-3" id="dateFin"
 											th:field="*{formations[__${Stat.index}__].dateFin}"
-											placeholder="YYYY-MM-DD"
-											title="Enter a date in this format: YYYY-MM-DD"
-											pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+											title="Enter The date"
 											required="required">
 									</div>
 
@@ -421,8 +401,8 @@
 									<div class="col-lg-6 col-md-6">
 										<label for="entreprise">Company <small
 											class="important">*</small></label> <input type="text"
-											class="form-control p-3" id="entreprise" name="institution"
-											th:field="*{experiences[__${Stat.index}__].institution}"
+											class="form-control p-3" id="entreprise" name="entreprise"
+											th:field="*{experiences[__${Stat.index}__].entreprise}"
 											placeholder="Company" required="required">
 									</div>
 
@@ -430,24 +410,20 @@
 								<div class="row form-group">
 									<div class="col-lg-6 col-md-6">
 										<label for="experienceDateDeb">Start Day <small
-											class="important">*</small></label> <input type="date"
+											class="important">*</small></label> <input type="month"
 											class="form-control p-3" id="experienceDateDeb"
 											name="dateDeb"
 											th:field="*{experiences[__${Stat.index}__].dateDeb}"
-											placeholder="YYYY-MM-DD"
-											title="Enter a date in this format: YYYY-MM-DD"
-											pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+											title="Enter The date"
 											required="required">
 									</div>
 									<div class="col-lg-6 col-md-6">
 										<label for="experienceDateFin">End Day <small
-											class="important">*</small></label> <input type="date"
+											class="important">*</small></label> <input type="month"
 											class="form-control p-3" id="experienceDateFin"
 											name="dateFin"
 											th:field="*{experiences[__${Stat.index}__].dateFin}"
-											placeholder="YYYY-MM-DD"
-											title="Enter a date in this format: YYYY-MM-DD"
-											pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+											title="Enter The date"
 											required="required">
 									</div>
 

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
@@ -15,6 +17,7 @@ public class ResponsableDomaine extends Utilisateur {
 	
 	
 	private String CIN;
+	@Enumerated(EnumType.STRING)
 	private Domaine domaine;
 
 	

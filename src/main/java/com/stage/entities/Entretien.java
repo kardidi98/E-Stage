@@ -1,6 +1,7 @@
 package com.stage.entities;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -21,6 +22,8 @@ public class Entretien {
 	private long id;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
+	@DateTimeFormat(pattern = "HH:mm")
+	private LocalTime time;
 	
 	
 	
@@ -28,9 +31,12 @@ public class Entretien {
 	@JoinColumn(name = "responsableDomaine")
 	private ResponsableDomaine responsableDomaine;
 
-	public Entretien(long id, LocalDate date, ResponsableDomaine responsableDomaine) {
+	
+
+	public Entretien(long id, LocalDate date, LocalTime time, ResponsableDomaine responsableDomaine) {
 		this.id = id;
 		this.date = date;
+		this.time = time;
 		this.responsableDomaine = responsableDomaine;
 	}
 
@@ -62,6 +68,19 @@ public class Entretien {
 	public void setResponsableDomaine(ResponsableDomaine responsableDomaine) {
 		this.responsableDomaine = responsableDomaine;
 	}
+
+	public LocalTime getTime() {
+		return time;
+	}
+
+	public void setTime(LocalTime time) {
+		this.time = time;
+	}
 	
+	public void updateEntretien(Entretien entretien) {
+		this.setDate(entretien.getDate());
+		this.setResponsableDomaine(entretien.getResponsableDomaine());
+		this.setTime(entretien.getTime());
+	}
 
 }

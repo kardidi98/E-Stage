@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Request Details</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+<title>Request Details</title>
+<meta content="" name="descriptison">
+<meta content="" name="keywords">
 
 
 <!-- Select -->
@@ -52,376 +52,490 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <body>
 
-   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
-    <div class="container">
+	<!-- ======= Header ======= -->
+	<header id="header" class="fixed-top">
+		<div class="container">
 
-      <div class="logo float-left">
-       
-        <a th:href="@{home}"><img src="../assets/img/logo.png" alt="" class="img-fluid"></a>
-      </div>
+			<div class="logo float-left">
 
-      <nav class="main-nav float-right d-none d-lg-block">
-        <ul>
-          <li class="active"><a th:href="@{home}">Home</a></li>
-          
-        
-          
-          <li sec:authorize="hasAuthority('Role_ResponsableDomaine') or hasAuthority('Role_ResponsableStage')" class="drop-down"><a href="">Received Requests</a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-             
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-              <li><a href="#">Drop Down 5</a></li>
-            </ul>
-          </li>
-          <li><a th:href="@{about}">About Us</a></li>
-          <li><a th:href="@{contact}">Contact Us</a></li>
-          <li sec:authorize="isAuthenticated()" class="drop-down notification" data-aos="zoom-out-down">
-          	<a href="#" >
-          		<i class="fa fa-bell" ></i>
-          		<span class="counter counter-lg">10</span>
-          	</a>
-            <ul>
-              <li><a href="#">Notification 1</a></li>
-              <hr>
-              <li><a href="#">Notification 2</a></li>
-              <hr>
-              <li><a href="#">Notification 3</a></li>
-              <hr>
-              <li><a href="#">Notification 4</a></li>
-            </ul>
-          </li>
-          <li sec:authorize="isAuthenticated()"  class="drop-down notification rounded" style="border: 2px solid #1545B3;box-shadow:0 0 10px rgba(21, 69, 179,0.4); background-color: #1545B3 ;"><a style="color:#fff;" th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}" href=""></a>
-            <ul>
-              <li><a th:href="@{logout}">Log out</a></li>
-             
-              
-            </ul>
-          </li>
-          <li sec:authorize="isAnonymous()" class="btns_login rounded"  ><a th:href="@{/login}"  > Log In</a></li>
-        </ul>
-      </nav><!-- .main-nav -->
+				<a th:href="@{home}"><img src="../assets/img/logo.png" alt=""
+					class="img-fluid"></a>
+			</div>
 
-    </div>
-  </header><!-- #header -->
-
-  <main id="main">
-
-    <!-- ======= Breadcrumbs Section ======= -->
-    <section class="breadcrumbs">
-      <div class="container">
-
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>Request Details</h2>
-          <ol>
-            <li><a th:href="@{home}">Home</a></li>
-            <li>Request Details</li>
-          </ol>
-        </div>
-
-      </div>
-    </section><!-- End Breadcrumbs Section -->
-
-    <section sec:authorize="hasAuthority('Role_ResponsableStage')" class="pt-4" style="display: flex;justify-content: center;margin-bottom: 10px;">
-      <button class="btn btn-primary" data-toggle="modal" data-target="#statusModal">Change Status</button>&nbsp;
-      <button class="btn btn-secondary" data-toggle="modal" data-target="#AssignmentModal">Assign to a reasponsible</button>
-
-      <!-- Statut Modal -->
-      <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Change Status</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form method="post" class="p-4  rounded">
-
-                <fieldset>
-                  <div class=" form-group container">
-                    <div >
-                      <label for="statut">Status</label>
-                      <select class="selectpicker border rounded " id="statut"  data-style="btn-black" data-width="100%" data-live-search="true" title="Select Status" required="required">
-                        <option value="Waiting">Waiting</option>
-                        <option value="Incomplete">Incomplete</option>
-                        <option value="Transmitted">Transmitted</option>
-                        <option value="Outside the domain">Outside the domain</option>
-                        <option value="Refused">Refused</option>
-                        <option value="Accepted">Accepted</option>
-                      </select>
-                    </div>
-
-
-                  </div>
-                  <hr>
-                  <input type="submit" class="btn btn-primary" value="Save changes" style="float: right;">
-                </fieldset>
-
-              </form> 
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Assignment Modal -->
-      <div class="modal fade" id="AssignmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Assignment</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form method="post" class="p-4  rounded">
-
-                <fieldset>
-                  <div class="form-group container">
-
-                    <div >
-                      <label for="responsableDomaine">Responsible</label>
-                      <select class="selectpicker border rounded " id="ville" data-style="btn-black" data-width="100%" data-live-search="true" title="Assign to a reasponsible" required="required">
-                        <option value="Responsible 1">Responsible 1</option>
-                        <option value="Responsible 2">Responsible 2</option>
-                        <option value="Responsible 3">Responsible 3</option>
-                      </select>
-                    </div>
-
-                  </div>
-                  <hr>
-                  <input type="submit" class="btn btn-primary" value="Save changes" style="float: right;">
-                </fieldset>
-
-              </form> 
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-    </section>
-
-<section sec:authorize="hasAuthority('Role_ResponsableDomaine')"  class="pt-4" style="display: flex;justify-content: center;margin-bottom: 10px;">
-      <button class="btn btn-primary" data-toggle="modal" data-target="#decisionModal">Make Your Decision</button>
-
-      <!-- Statut Modal -->
-      <div class="modal fade" id="decisionModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="ModalLabel">Make Decision</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form method="post" class="p-4  rounded">
-
-                <fieldset>
-                  <div class=" form-group container">
-                    <div >
-                      <label for="decision">Decision</label>
-                      <select class="selectpicker border rounded " id="decision"  data-style="btn-black" data-width="100%" data-live-search="true" title="Make Decision" required="required">
-                        <option value="Interview">Interview</option>
-                        <option value="Refused">Refused</option>
-                        
-                      </select>
-                    </div>
-
-
-                  </div>
-                  <hr>
-                  <input type="submit" class="btn btn-primary" value="Save changes" style="float: right;">
-                </fieldset>
-
-              </form> 
-            </div>
-
-          </div>
-        </div>
-      </div>
+			<nav class="main-nav float-right d-none d-lg-block">
+				<ul>
+					<li class="active"><a th:href="@{home}">Home</a></li>
 
 
 
-    </section>
+					<li
+						sec:authorize="hasAuthority('Role_ResponsableDomaine') or hasAuthority('Role_ResponsableStage')"
+						class="drop-down"><a href="">Received Requests</a>
+						<ul>
+							<li><a href="#">Drop Down 1</a></li>
 
-       <section class="pt-4" data-aos="fade-up">
-      <div class="container" style="box-shadow: 0 0 10px rgba(0,0,0,0.3);padding: 20px;">
-        <div class="row">
-          <div class="col-lg-3 col-md-3">
-            <img src="assets/img/testimonial-4.jpg" id="CV-img" alt="">
-          </div>
-          <div class="col-lg-9 col-md-9">
-            <div align="center"><h1>Matt Brandon</h1></div>
-            <div align="center"><h4>Software Ingineering</h4></div>
-            <div align="justify">
-              Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-            </div>
-          </div>
-        </div>
-        <hr>
+							<li><a href="#">Drop Down 3</a></li>
+							<li><a href="#">Drop Down 4</a></li>
+							<li><a href="#">Drop Down 5</a></li>
+						</ul></li>
+					<li><a th:href="@{about}">About Us</a></li>
+					<li><a th:href="@{contact}">Contact Us</a></li>
+					<li sec:authorize="isAuthenticated()"
+						class="drop-down notification" data-aos="zoom-out-down"><a
+						href="#"> <i class="fa fa-bell"></i> <span
+							class="counter counter-lg">10</span>
+					</a>
+						<ul>
+							<li><a href="#">Notification 1</a></li>
+							<hr />
+							<li><a href="#">Notification 2</a></li>
+							<hr />
+							<li><a href="#">Notification 3</a></li>
+							<hr />
+							<li><a href="#">Notification 4</a></li>
+						</ul></li>
+					<li sec:authorize="isAuthenticated()"
+						class="drop-down notification rounded"
+						style="border: 2px solid #1545B3; box-shadow: 0 0 10px rgba(21, 69, 179, 0.4); background-color: #1545B3;"><a
+						style="color: #fff;"
+						th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}"
+						href=""></a>
+						<ul>
+							<li><a th:href="@{logout}">Log out</a></li>
 
-        <div class="row">
-          <div class="col-lg-4 col-md-4" style="border-right: 1px solid grey;">
-            <div class="FirstSections" id="InfoPersonnelles">
-              <h4><i class="fa fa-id-card-o"></i>Personal Information</h4>
-              <ul >
-                <li>
-                  <strong>Email: </strong>Brandon@gmail.com.
-                </li>
-                <li>
-                  <strong>Phone: </strong>+212 625 23 58 45.
-                </li>
-                <li>
-                  <strong>Address: </strong>A108 Adam Street, NY 53502. Casablanca, Morocco.
-                </li>
-                <li>
-                  <strong>Postal Code: </strong>150000
-                </li>
-              </ul>
-            </div>
-            &nbsp;
-            <div class="FirstSections" id="Hobbies">
-              <h4><i class="fa fa-puzzle-piece">  </i>Hobbies</h4>
-              <ul>
-                <li>Reading, Music, Coding.</li>
-              </ul>
-            </div>
-            &nbsp;
-            <div class="FirstSections" id="LettreMotivation">
-              <h4><i class="fa fa-envelope">  </i>Cover Letter</h4>
-              <ul>
-                <li><a href="#" target="_blank">Click here to see the Cover Letter.</a></li>
-              </il>
-            </div>
-            &nbsp;
-            <div class="FirstSections"  id="LettreMotivation">
-              <h4><i class="fa fa-file-text"></i>Other Documents</h4>
-              <ul>
-                <li><a href="#" target="_blank">Document 1.</a></li>
-                <li><a href="#" target="_blank">Document 2.</a></li>
-                <li><a href="#" target="_blank">Document 3.</a></li>
-              </ul>
-            </div>
-            &nbsp;
-          </div>
-          <div class="col-lg-8 col-md-8">
-            <div class="SecondSections" id="formations">
-              <h3><i class="fa fa-graduation-cap"></i>Education</h3>
-              <ul>
-                <li>
-                  <p style="color: black;">
-                    <strong>Mohammadia School Of Ingineers</strong><br>Master <strong>/</strong> 2018-2021
 
-                  </p>
-                  <p>
-                    Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                  </p>
-                </li>
-              </ul>
-              
-            </div>
-            <hr>
-            <div class="SecondSections" id="experiences">
-              <h3><i class="fa fa-briefcase"></i>Experiences</h3>
-              <ul>
-                <li>
-                  <p style="color: black;">
-                    <strong>KERES SARL</strong><br>Web Developper <strong>/</strong> 01/07/2020-30/08/2020
+						</ul></li>
+					<li sec:authorize="isAnonymous()" class="btns_login rounded"><a
+						th:href="@{/login}"> Log In</a></li>
+				</ul>
+			</nav>
+			<!-- .main-nav -->
 
-                  </p>
-                  <p>
-                    Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                  </p>
-                </li>
-              </ul>
-              
-            </div>
-            &nbsp;
-          </div>
-        </div>
-      </div>
+		</div>
+	</header>
+	<!-- #header -->
 
-      &nbsp;
-    </section>
+	<main id="main">
 
-    <section sec:authorize="hasAuthority('Role_ResponsableStage')"  class="pt-4" style="display: flex;justify-content: center;">
-      <button class="btn btn-primary" data-toggle="modal" data-target="#statusModal">Change Status</button>&nbsp;
-      <button class="btn btn-secondary" data-toggle="modal" data-target="#AssignmentModal">Assign to a reasponsible</button>
-      
-    </section>
-    &nbsp;
-    <section sec:authorize="hasAuthority('Role_ResponsableDomaine')" class="pt-4" style="display: flex;justify-content: center;">
-      <button class="btn btn-primary" data-toggle="modal" data-target="#decisionModal">Make Your Decision</button>
-      
-    </section>
-    &nbsp;
-  </main><!-- End #main -->
+		<!-- ======= Breadcrumbs Section ======= -->
+		<section class="breadcrumbs">
+			<div class="container">
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>Request Details</h2>
+					<ol>
+						<li><a th:href="@{home}">Home</a></li>
+						<!-- <li><a href="javascript:history.back()">List of Requests</a></li>-->
+						<li>Request Details</li>
+					</ol>
+				</div>
 
-          <div class="col-lg-4 col-md-6 footer-info">
-            <h3>INTERNSHIP</h3>
-            <p>With our service, you can send your internship requests more easily. The processing of requests will therefore be easier and the response will also be sent to you in a shorter time.</p>
-          </div>
-          <div class="col-lg-1 col-md-6 "></div>
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="index.html">Services</a></li>
-              <li><a href="contact_us.html">Contact us</a></li>
-              <li><a href="about_us.html">About us</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-1 col-md-6 "></div>
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h4>Contact Us</h4>
-            <p>
-              A108 Adam Street, NY 535022<br>
-              <strong>Phone:</strong> +212 65 895 54 88<br>
-              <strong>Email:</strong> InternshipTeam@gmail.com<br>
-            </p>
-
-            <div class="social-links">
-              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
-              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-            </div>
-
-          </div>
+			</div>
+		</section>
+		<!-- End Breadcrumbs Section -->
 
 
 
-        </div>
-      </div>
-    </div>
+		<section sec:authorize="hasAuthority('Role_ResponsableStage')" class="pt-4"
+			style="display: flex; justify-content: center; margin-bottom: 10px;">
+			<button class="btn btn-primary" data-toggle="modal"
+				data-target="#statusModal">Change Status</button>
+			&nbsp;
+			<button class="btn btn-secondary" data-toggle="modal"
+				data-target="#AssignmentModal">Assign to a responsible</button>
 
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
+			<!-- Statut Modal -->
+			<div class="modal fade" id="statusModal" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Change Status</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form th:action="@{changeStatus}" method="get"
+								class="p-4 rounded">
 
-        <a href="#">internship Team</a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
+								<fieldset>
+									<div class=" form-group container">
+										<div>
+											<input type="text" id="id" name="id"
+												th:field="${demandStage.id}" style="display: none;" /> <label
+												for="status">Status</label> <select
+												class="selectpicker border rounded " id="status"
+												name="status" data-style="btn-black" data-width="100%"
+												data-live-search="false" title="Select Status"
+												required="required">
+												<option th:each="d:${T(com.stage.entities.Statut).values()}"
+													th:value="${d}" th:text="${d}">Waiting</option>
 
-  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+											</select>
+										</div>
+
+
+									</div>
+									<hr>
+									<input type="submit" class="btn btn-primary"
+										value="Save changes" style="float: right;">
+								</fieldset>
+
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Assignment Modal -->
+			<div class="modal fade" id="AssignmentModal" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Assignment</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form method="post" class="p-4  rounded">
+
+								<fieldset>
+									<div class="form-group container">
+
+										<div>
+											<label for="responsableDomaine">Responsible</label> <select
+												class="selectpicker border rounded " id="ville"
+												data-style="btn-black" data-width="100%"
+												data-live-search="false" title="Assign to a reasponsible"
+												required="required">
+												<option value="Responsible 1">Responsible 1</option>
+												<option value="Responsible 2">Responsible 2</option>
+												<option value="Responsible 3">Responsible 3</option>
+											</select>
+										</div>
+
+									</div>
+									<hr>
+									<input type="submit" class="btn btn-primary"
+										value="Save changes" style="float: right;">
+								</fieldset>
+
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</section>
+
+		<section sec:authorize="hasAuthority('Role_ResponsableDomaine')" 
+			class="pt-4"
+			style="display: flex; justify-content: center; margin-bottom: 10px;">
+			<button class="btn btn-primary" data-toggle="modal"
+				data-target="#decisionModal">Make Your Decision</button>
+
+			<!-- Statut Modal -->
+			<div class="modal fade" id="decisionModal" tabindex="-1"
+				role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="ModalLabel">Make Decision</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form th:action="@{makeDecision}" method="get" class="p-4  rounded">
+
+								<fieldset>
+									<div class=" form-group container">
+										<div>
+											<input type="text"  name ="id" th:field="${demandStage.id}" style="display: none;">
+											<label for="decision">Decision</label> <select
+												class="selectpicker border rounded " id="decision" name="decision"
+												data-style="btn-black" data-width="100%" 
+												data-live-search="false" title="Make Decision"
+												required="required">
+												<option value="Interview">Interview</option>
+												<option value="Refused">Refused</option>
+
+											</select>
+										</div>
+
+
+									</div>
+									<hr>
+									<input type="submit" class="btn btn-primary"
+										value="Submit" style="float: right;">
+								</fieldset>
+
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+
+		</section>
+		&nbsp;
+		<section class="" th:if="${param.statusChanged}">
+			<div class="row justify-content-center">
+				<div
+					class="container col-lg-10 col-md-12 alert alert-success alert-dismissible fade show"
+					role="alert">
+					You've successfully changed the <strong>status</strong> of this
+					request.
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+		</section>
+		
+		<section class="" th:if="${param.interviewSaved}">
+			<div class="row justify-content-center">
+				<div
+					class="container col-lg-8 col-md-8 alert alert-success alert-dismissible fade show"
+					role="alert">
+					the <strong>interview</strong> has been successfully saved.
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+		</section>
+		<section class="  pt-2" th:if="${param.requestAdded}">
+			<div >
+					<div class="row justify-content-center">
+						<div
+							class="container col-lg-8 col-md-8 alert alert-success alert-dismissible fade show"
+							role="alert">
+							Your request have been sent successfully !
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+			</div>
+		</section>
+		<section class="pt-4" data-aos="fade-up">
+			<div class="container"
+				style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); padding: 20px;">
+				<div class="row">
+					<div class="col-lg-3 col-md-3">
+						<img src="assets/img/testimonial-4.jpg" id="CV-img" alt="image">
+					</div>
+					<div class="col-lg-9 col-md-9">
+						<div >
+							<h1
+								th:text="${demandStage.stagiaire.nom+' '+demandStage.stagiaire.prenom}"></h1>
+						</div>
+						<div >
+							<h4 th:text="${demandStage.domaine}"></h4>
+						</div>
+						<div align="justify" th:text="${demandStage.etatCivile.profile}">
+						</div>
+					</div>
+				</div>
+				<hr>
+
+				<div class="row">
+					<div class="col-lg-4 col-md-4"
+						style="border-right: 1px solid grey;">
+						<div class="FirstSections" id="InfoPersonnelles">
+							<h4>
+								<i class="fa fa-id-card-o"></i>Personal Information
+							</h4>
+							<ul>
+								<li><strong>Email: </strong><span
+									th:text="${demandStage.stagiaire.email}"></span></li>
+								<li><strong>Phone: </strong><span
+									th:text="${demandStage.etatCivile.numTel}"></span></li>
+								<li th:if="${demandStage.etatCivile.adresse != ''}"><strong>Address:
+								</strong><span th:text="${demandStage.etatCivile.adresse}"></span></li>
+								<li th:if="${demandStage.etatCivile.codePostal != ''}"><strong>Postal
+										Code: </strong><span th:text="${demandStage.etatCivile.codePostal}"></span>
+								</li>
+							</ul>
+						</div>
+						&nbsp;
+						<div class="FirstSections" id="Hobbies">
+							<h4>
+								<i class="fa fa-puzzle-piece"> </i>Hobbies
+							</h4>
+							<ul>
+								<li th:text="${demandStage.hobbies.hobbies}"></li>
+							</ul>
+						</div>
+						&nbsp;
+						<div
+							th:if="${demandStage.lettreMotivation.titre != '' or demandStage.lettreMotivation.contenu != ''}"
+							class="FirstSections" id="LettreMotivation">
+							<h4>
+								<i class="fa fa-envelope"> </i>Cover Letter
+							</h4>
+							<ul>
+								<li><a href="#" target="_blank">Click here to see the
+										Cover Letter.</a></li>
+
+							</ul>
+						</div>
+						&nbsp;
+						<div th:if="${demandStage.documentAdministratif.empty == false}"
+							class="FirstSections" id="LettreMotivation">
+							<h4>
+								<i class="fa fa-file-text"></i>Other Documents
+							</h4>
+							<ul>
+								<li th:each="doc:${demandStage.documentAdministratif}"><a
+									th:text="${doc.titre}" href="#" target="_blank"></a></li>
+
+							</ul>
+						</div>
+						&nbsp;
+					</div>
+					<div class="col-lg-8 col-md-8">
+						<div class="SecondSections" id="formations">
+							<h3>
+								<i class="fa fa-graduation-cap"></i>Education
+							</h3>
+							<ul th:each="formation:${demandStage.formations}">
+								<li>
+									<p style="color: black;">
+										<strong th:text="${formation.institution}"></strong><br>
+										<span th:text="${formation.titre}">></span><strong>/</strong>
+										<span th:text="${formation.dateDeb+'-'+formation.dateFin}">></span>
+
+									</p>
+									<p th:text="${formation.Description}"></p>
+								</li>
+							</ul>
+
+						</div>
+						<hr>
+						<div class="SecondSections" id="experiences">
+							<h3>
+								<i class="fa fa-briefcase"></i>Experiences
+							</h3>
+							<ul th:each="experience:${demandStage.experiences}">
+								<li>
+									<p style="color: black;">
+										<strong th:text="${experience.entreprise}"></strong><br>
+										<span th:text="${experience.titre}">></span><strong>/</strong>
+										<span th:text="${experience.dateDeb+'-'+experience.dateFin}">></span>
+
+
+
+									</p>
+									<p th:text="${experience.Description}"></p>
+								</li>
+							</ul>
+
+						</div>
+						&nbsp;
+					</div>
+				</div>
+			</div>
+
+			&nbsp;
+		</section>
+
+		<section sec:authorize="hasAuthority('Role_ResponsableStage')"
+			class="pt-4" style="display: flex; justify-content: center;">
+			<button class="btn btn-primary" data-toggle="modal"
+				data-target="#statusModal">Change Status</button>
+			&nbsp;
+			<button class="btn btn-secondary" data-toggle="modal"
+				data-target="#AssignmentModal">Assign to a reasponsible</button>
+
+		</section>
+		&nbsp;
+		<section sec:authorize="hasAuthority('Role_ResponsableDomaine')"
+			class="pt-4" style="display: flex; justify-content: center;">
+			<button class="btn btn-primary" data-toggle="modal"
+				data-target="#decisionModal">Make Your Decision</button>
+
+		</section>
+		&nbsp;
+	</main>
+	<!-- End #main -->
+
+	<!-- ======= Footer ======= -->
+	<footer id="footer">
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-lg-4 col-md-6 footer-info">
+						<h3>INTERNSHIP</h3>
+						<p>With our service, you can send your internship requests
+							more easily. The processing of requests will therefore be easier
+							and the response will also be sent to you in a shorter time.</p>
+					</div>
+					<div class="col-lg-1 col-md-6 "></div>
+					<div class="col-lg-2 col-md-6 footer-links">
+						<h4>Useful Links</h4>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="index.html">Services</a></li>
+							<li><a href="contact_us.html">Contact us</a></li>
+							<li><a href="about_us.html">About us</a></li>
+						</ul>
+					</div>
+					<div class="col-lg-1 col-md-6 "></div>
+					<div class="col-lg-3 col-md-6 footer-contact">
+						<h4>Contact Us</h4>
+						<p>
+							A108 Adam Street, NY 535022<br> <strong>Phone:</strong> +212
+							65 895 54 88<br> <strong>Email:</strong>
+							InternshipTeam@gmail.com<br>
+						</p>
+
+						<div class="social-links">
+							<a href="#" class="twitter"><i class="fa fa-twitter"></i></a> <a
+								href="#" class="facebook"><i class="fa fa-facebook"></i></a> <a
+								href="#" class="instagram"><i class="fa fa-instagram"></i></a> <a
+								href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+							<a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+						</div>
+
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="copyright">
+				&copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>.
+				All Rights Reserved
+			</div>
+			<div class="credits">
+
+				<a href="#">internship Team</a>
+			</div>
+		</div>
+	</footer>
+	<!-- End Footer -->
+
+	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
 	<!-- Vendor JS Files -->
 	<script th:src="@{assets/vendor/jquery/jquery.min.js}"

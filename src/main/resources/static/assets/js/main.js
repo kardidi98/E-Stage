@@ -221,14 +221,12 @@ $("#addEducationSection").on('click',function(){
               '<div class="row form-group">'+
                 '<div class="col-lg-6 col-md-6">'+
                   '<label for="dateDeb'+EducationSection+'">Start Day <small class="important">*</small></label>'+
-                  '<input type="date" class="form-control p-3" id="dateDeb'+EducationSection+'" name="formations['+EducationSection+'].dateDeb" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
-                  'pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">'+
-                '</div>'+
+                  '<input type="month" class="form-control p-3" id="dateDeb'+EducationSection+'" name="formations['+EducationSection+'].dateDeb"  title="Enter the date"/>'+
+                   '</div>'+
                 '<div class="col-lg-6 col-md-6">'+
                   '<label for="dateFin'+EducationSection+'">End Day <small class="important">*</small></label>'+
-                  '<input type="date" class="form-control p-3" id="dateFin'+EducationSection+'"  name="formations['+EducationSection+'].dateFin" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
-                  'pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">'+
-                '</div>'+
+                  '<input type="month" class="form-control p-3" id="dateFin'+EducationSection+'"  name="formations['+EducationSection+'].dateFin" title="Enter the date"/>'+
+                  '</div>'+
 
               '</div>'+
               
@@ -248,21 +246,19 @@ $("#addExperienceSection").on('click',function(){
                 '</div>'+
                 '<div class="col-lg-6 col-md-6">'+
                   '<label for="entreprise'+ExperienceSection+'">Company <small class="important">*</small></label>'+
-                  '<input type="text" class="form-control p-3" id="entreprise'+ExperienceSection+'"  name="experiences['+ExperienceSection+'].institution" placeholder="Company" required="required">'+
+                  '<input type="text" class="form-control p-3" id="entreprise'+ExperienceSection+'"  name="experiences['+ExperienceSection+'].entreprise" placeholder="Company" required="required">'+
                 '</div>'+
 
              ' </div>'+
               '<div class="row form-group">'+
                 '<div class="col-lg-6 col-md-6">'+
                   '<label for="experienceDateDeb'+ExperienceSection+'">Start Day <small class="important">*</small></label>'+
-                  '<input type="date" class="form-control p-3" id="experienceDateDeb'+ExperienceSection+'"  name="experiences['+ExperienceSection+'].dateDeb" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
-                  'pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">'+
-                '</div>'+
+                  '<input type="month" class="form-control p-3" id="experienceDateDeb'+ExperienceSection+'"  name="experiences['+ExperienceSection+'].dateDeb"title="Enter the date">/'+
+                  '</div>'+
                 '<div class="col-lg-6 col-md-6">'+
                   '<label for="experienceDateFin'+ExperienceSection+'">End Day <small class="important">*</small></label>'+
-                  '<input type="date" class="form-control p-3" id="experienceDateFin'+ExperienceSection+'"  name="experiences['+ExperienceSection+'].dateFin" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"'+
-                  'pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">'+
-                '</div>'+
+                  '<input type="month" class="form-control p-3" id="experienceDateFin'+ExperienceSection+'"  name="experiences['+ExperienceSection+'].dateFin"  title="Enter the date"/>'+
+                   '</div>'+
 
               '</div>'+
               

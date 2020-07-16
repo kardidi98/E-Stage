@@ -7,4 +7,6 @@ import com.stage.entities.ResponsableDomaine;
 @Repository
 public interface ResponsableDomaineRepository extends JpaRepository<ResponsableDomaine, Long> {
 
+	public ResponsableDomaine findByEmail(String email);
+
 }

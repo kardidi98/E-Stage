@@ -52,8 +52,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests().antMatchers(
 				"/home",
 				"/login",
-				"/register",
 				
+				"/register",
+				"/listRequests",
 				"/about",
 				"/contact",
 				"/assets/js/**",
@@ -67,12 +68,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		      .hasAuthority("Role_Stagiaire")
 		      .and()
 		      .authorizeRequests()
-		      .antMatchers("/changeStatus")
+		      .antMatchers("/requests")
 		      .hasAuthority("Role_ResponsableStage")
 		      .and()
 		      .authorizeRequests()
-		      .antMatchers("/makeDecision")
+		      .antMatchers("/interview")
 		      .hasAuthority("Role_ResponsableDomaine")
+		      .and()
+		      .authorizeRequests()
+		      .antMatchers("/Edit")
+		      .hasAuthority("Role_Utilisateur")
+		      
 		      .anyRequest().authenticated()
 		      .and()
 		      .formLogin()

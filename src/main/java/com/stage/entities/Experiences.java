@@ -1,6 +1,7 @@
 package com.stage.entities;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -13,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Experiences {
@@ -22,11 +22,9 @@ public class Experiences {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String titre;
-	private String institution;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dateDeb;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dateFin;
+	private String entreprise;
+	private YearMonth dateDeb;
+	private YearMonth dateFin;
 	@Column(columnDefinition = "LONGTEXT")
 	private String Description;
 	
@@ -34,11 +32,11 @@ public class Experiences {
 	@JoinColumn(name = "demandeStage")
 	private DemandeStage demandeStage;
 
-	public Experiences(String titre, String institution, LocalDate dateDeb, LocalDate dateFin, String description,
+	public Experiences(String titre, String institution, YearMonth dateDeb, YearMonth dateFin, String description,
 			DemandeStage demandeStage) {
 		
 		this.titre = titre;
-		this.institution = institution;
+		this.entreprise = institution;
 		this.dateDeb = dateDeb;
 		this.dateFin = dateFin;
 		Description = description;
@@ -65,27 +63,29 @@ public class Experiences {
 		this.titre = titre;
 	}
 
-	public String getInstitution() {
-		return institution;
+	
+
+	public String getEntreprise() {
+		return entreprise;
 	}
 
-	public void setInstitution(String institution) {
-		this.institution = institution;
+	public void setEntreprise(String entreprise) {
+		this.entreprise = entreprise;
 	}
 
-	public LocalDate getDateDeb() {
+	public YearMonth getDateDeb() {
 		return dateDeb;
 	}
 
-	public void setDateDeb(LocalDate dateDeb) {
+	public void setDateDeb(YearMonth dateDeb) {
 		this.dateDeb = dateDeb;
 	}
 
-	public LocalDate getDateFin() {
+	public YearMonth getDateFin() {
 		return dateFin;
 	}
 
-	public void setDateFin(LocalDate dateFin) {
+	public void setDateFin(YearMonth dateFin) {
 		this.dateFin = dateFin;
 	}
 

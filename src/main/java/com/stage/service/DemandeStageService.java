@@ -10,10 +10,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.stage.entities.DemandeStage;
 import com.stage.entities.DocumentAdministratif;
+import com.stage.entities.Domaine;
 import com.stage.entities.Experiences;
 import com.stage.entities.Formations;
+import com.stage.entities.ResponsableDomaine;
 import com.stage.entities.Stagiaire;
 import com.stage.repositories.DemandeStageRepository;
+import com.stage.repositories.ResponsableDomaineRepository;
 import com.stage.repositories.StagiaireRepository;
 
 @Service
@@ -25,10 +28,18 @@ public class DemandeStageService {
 	
 	@Autowired
 	private StagiaireRepository stagiaireRepository;
+	
+	@Autowired
+	private ResponsableDomaineRepository responsableDomaineRepository;
 
 	public Stagiaire findbyUsername(String email) {
 		
 		return stagiaireRepository.findByEmail(email);
+	}
+	
+	public ResponsableDomaine findResponsableDomaine(String email) {
+		
+		return responsableDomaineRepository.findByEmail(email);
 	}
 
 	public void setMultipartFiles(DemandeStage request, MultipartFile photo, List<MultipartFile> titreDoc,
@@ -36,11 +47,16 @@ public class DemandeStageService {
 		
 		request.getEtatCivile().setPhoto(photo.getOriginalFilename());
 		request.getLettreMotivation().setTitre(titre.getOriginalFilename());
-		for (int i = 0; i<titreDoc.size();i++) {
-			DocumentAdministratif doc=new DocumentAdministratif();
-			doc.setTitre(titreDoc.get(i).getOriginalFilename());
-			request.getDocumentAdministratif().add(doc);
+		
+		if(!titreDoc.get(0).getOriginalFilename().isEmpty()) {
+			for (int i = 0; i<titreDoc.size();i++) {
+				DocumentAdministratif doc=new DocumentAdministratif();
+				doc.setTitre(titreDoc.get(i).getOriginalFilename());
+				request.getDocumentAdministratif().add(doc);
+			}
 		}
+		
+		
 		
 	}
 
@@ -68,7 +84,7 @@ public class DemandeStageService {
 			if(experiences.get(i).getDateDeb()==null
 					&& experiences.get(i).getDateFin()==(null)
 					&& experiences.get(i).getDescription()==(null)
-					&& experiences.get(i).getInstitution()==(null) 
+					&& experiences.get(i).getEntreprise()==(null) 
 					&& experiences.get(i).getTitre()==(null)) {
 				request.removeExperience(experiences.get(i));
 				
@@ -80,6 +96,16 @@ public class DemandeStageService {
 		requestRepository.save(request);
 		
 		
+	}
+
+	public List<DemandeStage> findByDomaine(Domaine domain) {
+		
+		return requestRepository.findByDomaine(domain);
+	}
+
+	public DemandeStage findById(Long id) {
+		
+		return requestRepository.getOne(id);
 	}
 	
 	
