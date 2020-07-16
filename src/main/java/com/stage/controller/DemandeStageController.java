@@ -24,7 +24,6 @@ import com.stage.entities.ResponsableDomaine;
 import com.stage.entities.Stagiaire;
 import com.stage.entities.Statut;
 import com.stage.service.DemandeStageService;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 @Controller
 public class DemandeStageController {
