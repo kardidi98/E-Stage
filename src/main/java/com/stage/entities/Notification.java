@@ -23,21 +23,28 @@ public class Notification {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "demandeStage")
-	private DemandeStage demandeStage;
+	private DemandeStage demandeStage;	
 	
-	@OneToOne
-	private Utilisateur source;
-	
-	@OneToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "destination_id")
 	private Utilisateur destination;
 
-	public Notification(long id, String contenu,DemandeStage demandeStage, Utilisateur source,
+	public Notification(long id, String contenu,DemandeStage demandeStage,
 			Utilisateur destination) {
 		this.id = id;
 		this.contenu = contenu;
 		this.date = LocalDate.now();
 		this.demandeStage = demandeStage;
-		this.source = source;
+		
+		this.destination = destination;
+	}
+	public Notification(String contenu,DemandeStage demandeStage,
+			Utilisateur destination) {
+		
+		this.contenu = contenu;
+		this.date = LocalDate.now();
+		this.demandeStage = demandeStage;
+		
 		this.destination = destination;
 	}
 
@@ -77,13 +84,7 @@ public class Notification {
 		this.demandeStage = demandeStage;
 	}
 
-	public Utilisateur getSource() {
-		return source;
-	}
 
-	public void setSource(Utilisateur source) {
-		this.source = source;
-	}
 
 	public Utilisateur getDestination() {
 		return destination;

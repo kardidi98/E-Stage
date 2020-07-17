@@ -51,59 +51,82 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <body>
 
-   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
-    <div class="container">
+  <!-- ======= Header ======= -->
+	<header id="header" class="fixed-top">
+		<div class="container">
 
-      <div class="logo float-left">
-       <a th:href="@{home}"><img src="../assets/img/logo.png" alt="" class="img-fluid"></a>
-      </div>
+			<div class="logo float-left">
 
-      <nav class="main-nav float-right d-none d-lg-block">
-        <ul>
-          <li class="active"><a th:href="@{home}">Home</a></li>
-          
-        
-          
-          <li sec:authorize="hasAuthority('Role_ResponsableDomaine') or hasAuthority('Role_ResponsableStage')" class="drop-down"><a href="">Received Requests</a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-             
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-              <li><a href="#">Drop Down 5</a></li>
-            </ul>
-          </li>
-          <li><a th:href="@{about}">About Us</a></li>
-          <li><a th:href="@{contact}">Contact Us</a></li>
-          <li sec:authorize="isAuthenticated()" class="drop-down notification" data-aos="zoom-out-down">
-          	<a href="#" >
-          		<i class="fa fa-bell" ></i>
-          		<span class="counter counter-lg">10</span>
-          	</a>
-            <ul>
-              <li><a href="#">Notification 1</a></li>
-              <hr>
-              <li><a href="#">Notification 2</a></li>
-              <hr>
-              <li><a href="#">Notification 3</a></li>
-              <hr>
-              <li><a href="#">Notification 4</a></li>
-            </ul>
-          </li>
-          <li sec:authorize="isAuthenticated()"  class="drop-down notification rounded" style="border: 2px solid #1545B3;box-shadow:0 0 10px rgba(21, 69, 179,0.4); background-color: #1545B3 ;"><a style="color:#fff;" th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}" href=""></a>
-            <ul>
-              <li><a th:href="@{logout}">Log out</a></li>
-             
-              
-            </ul>
-          </li>
-          <li sec:authorize="isAnonymous()" class="btns_login rounded"  ><a th:href="@{/login}"  > Log In</a></li>
-        </ul>
-      </nav><!-- .main-nav -->
+				<a th:href="@{home}"><img src="../assets/img/logo.png" alt=""
+					class="img-fluid"></a>
+			</div>
 
-    </div>
-  </header><!-- #header -->
+			<nav class="main-nav float-right d-none d-lg-block">
+				<ul>
+					<li class=""><a th:href="@{home}">Home</a></li>
+
+					
+
+					<li class="drop-down"><a href="">Domains</a>
+						<ul>
+							<li th:each="d:${T(com.stage.entities.Domaine).values()}"  >
+								<a th:href="@{requests(domain=__${d}__)}"  th:text="${d}"></a>
+							</li>
+
+						
+					   </ul>
+					</li>
+					<li><a th:href="@{about}">About Us</a></li>
+					<li><a th:href="@{contact}">Contact Us</a></li>
+					<li sec:authorize="isAuthenticated()"
+						class="drop-down notification" data-aos="zoom-out-down"><a
+						href="#"> <i class="fa fa-bell"></i> <span
+							class="counter counter-lg" th:text="${#lists.size(notifications)}">10</span>
+					</a>
+						<ul>
+							<li th:if="${notifications.empty==true}"><div align="center">Nothing new</div></li>
+							<li th:if="${notifications.empty==false}" th:each="notif:${notifications}" >
+								<a th:if="${notif.demandeStage.statut==null}" th:href="@{Edit(id=${notif.demandeStage.id})}" style="display: flex;justify-content: center;border-bottom: 1px solid #DDDDDD;">
+									<i class="fa fa-envelope-o" style="color: #DDDDDD;padding-right: 20px;padding-top: 15px;font-size: 25px;"></i>
+								
+									<span>
+										<span th:text="${notif.contenu}"></span><br>
+												
+										<small ><strong>Domain: </strong><span th:text="${notif.demandeStage.domaine}"></span></small><br>
+												
+										<small th:text="${'--'+notif.date+'--'}"></small>
+									</span>
+									
+								</a>
+								
+
+								
+							</li>
+							
+							
+						</ul></li>
+					<li sec:authorize="isAuthenticated()"
+						class="drop-down notification rounded"
+						style="border: 2px solid #1545B3; box-shadow: 0 0 10px rgba(21, 69, 179, 0.4); background-color: #1545B3;">
+						<a
+						style="color: #fff;"
+						th:text="${session.user.nom[0]+session.user.prenom[0]}"
+						href="">
+						</a>
+						<ul>
+							<li><a th:href="@{logout}">Log out</a></li>
+
+
+						</ul></li>
+					<li sec:authorize="isAnonymous()" class="btns_login rounded"><a
+						th:href="@{/login}"> Log In</a></li>
+				</ul>
+			</nav>
+			<!-- .main-nav -->
+
+		</div>
+	</header>
+	<!-- #header -->
 
   <main id="main">
 
@@ -125,7 +148,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<section class="  pt-4" th:if="${param.existingEmail}">
 	<div class="row justify-content-center">
 		<div class="container col-lg-4 col-md-8 alert alert-danger alert-dismissible fade show" role="alert">
-		  This email address is already in use ! Try with other one.
+		  This email address is already in use ! Try an other one.
 		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		    <span aria-hidden="true">&times;</span>
 		  </button>

@@ -15,14 +15,14 @@ public class Stagiaire extends Utilisateur {
 	@OneToMany(mappedBy = "stagiaire",cascade = CascadeType.ALL)
 	private List<DemandeStage> demandeStages;
 
-	public Stagiaire(String nom, String prenom, String login, String email, String password,Collection<Role> roles,List<DemandeStage> demandeStages) {
-		super(nom, prenom, login, email, password,roles);
+	public Stagiaire(String nom, String prenom, String login, String email, String password,List<Notification> notifivations,Collection<Role> roles,List<DemandeStage> demandeStages) {
+		super(nom, prenom, login, email, password,notifivations, roles);
 		this.demandeStages = demandeStages;
 	}
 	
 
-	public Stagiaire(String nom, String prenom, String login, String email, String password,Collection<Role> roles) {
-		super(nom, prenom, login, email, password,roles);
+	public Stagiaire(String nom, String prenom, String login, String email, String password,List<Notification> notifivations,Collection<Role> roles) {
+		super(nom, prenom, login, email, password,notifivations, roles);
 		
 	}
 

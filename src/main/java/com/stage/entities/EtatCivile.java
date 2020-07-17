@@ -1,11 +1,19 @@
 package com.stage.entities;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class EtatCivile {
@@ -101,6 +109,31 @@ public class EtatCivile {
 
 	public void setCodePostal(int codePostal) {
 		this.codePostal = codePostal;
+	}
+
+	public void createFile(MultipartFile photo, String path,DemandeStage request) throws IllegalStateException, IOException {
+		Path dir = Paths.get(path);
+		if (!Files.exists(dir)) {
+			try {
+				Files.createDirectories(dir);
+			} catch (IOException e) {
+				//fail to create directory
+				e.printStackTrace();
+			}
+		}
+		if(!photo.isEmpty()) {
+			if(!Files.exists(Paths.get(path+request.getId()))) {
+				photo.transferTo(new File(path+request.getId()));
+			}
+			
+		}
+	}
+
+	public void deleteFile(String path, long id) throws IOException {
+		if(Files.exists(Paths.get(path+id))) {
+			Files.delete(Paths.get(path+id));
+		}
+		
 	}
 
 	

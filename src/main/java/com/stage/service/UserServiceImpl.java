@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,11 +35,13 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+	
+	
 	@Override
 	public Utilisateur save(UserRegistrationDto registrationDto) {
 		Stagiaire stagiaire=new Stagiaire(registrationDto.getNom(), registrationDto.getPrenom(),
 				registrationDto.getLogin(), registrationDto.getEmail(),
-				passwordEncoder.encode(registrationDto.getPassword()), Arrays.asList(new Role("Role_Stagiaire"),new Role("Role_Utilisateur")));
+				passwordEncoder.encode(registrationDto.getPassword()),null, Arrays.asList(new Role("Role_Stagiaire"),new Role("Role_Utilisateur")));
 		
 		
 		return stagiaireRepository.save(stagiaire);

@@ -27,17 +27,17 @@ public class ResponsableDomaine extends Utilisateur {
 	@OneToMany(mappedBy = "responsableDomaine",cascade = CascadeType.ALL)
 	private List<Entretien> entretiens;
 
-	public ResponsableDomaine(String nom, String prenom, String login, String email, String password,Collection<Role> roles,String cIN, Domaine domaine, List<DemandeStage> demadeStages,
+	public ResponsableDomaine(String nom, String prenom, String login, String email, String password,List<Notification> notifivations,Collection<Role> roles,String cIN, Domaine domaine, List<DemandeStage> demadeStages,
 			List<Entretien> entretiens) {
-		super(nom, prenom, login, email, password,roles);
+		super(nom, prenom, login, email, password,notifivations, roles);
 		CIN = cIN;
 		this.domaine = domaine;
 		this.demadeStages = demadeStages;
 		this.entretiens = entretiens;
 	}
 
-	public ResponsableDomaine(String nom, String prenom, String login, String email, String password,Collection<Role> roles,String cIN, Domaine domaine) {
-		super(nom, prenom, login, email, password,roles);
+	public ResponsableDomaine(String nom, String prenom, String login, String email, String password,List<Notification> notifivations,Collection<Role> roles,String cIN, Domaine domaine) {
+		super(nom, prenom, login, email, password,notifivations, roles);
 		CIN = cIN;
 		this.domaine = domaine;
 		

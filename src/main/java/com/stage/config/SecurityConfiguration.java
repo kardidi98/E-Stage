@@ -20,39 +20,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
-		
+
 		DaoAuthenticationProvider auth=new DaoAuthenticationProvider();
-		
+
 		auth.setUserDetailsService(userService);
 		auth.setPasswordEncoder(passwordEncoder());
 		return auth;
 	}
-	
-	
+
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-//		 auth.inMemoryAuthentication()
-//	      .withUser("Role_ResponsableStage@gmail.com").password(passwordEncoder().encode("Role_ResponsableStage"))
-//	      .authorities("Role_ResponsableStage","Role_Utilisateur")
-//	      .and().withUser("Role_ResponsableDomaine@gmail.com").password(passwordEncoder().encode("Role_ResponsableDomaine"))
-//	      .authorities("Role_ResponsableDomaine","Role_Utilisateur");
+
 		auth.authenticationProvider(authenticationProvider());
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests().antMatchers(
 				"/home",
 				"/login",
-				
+
 				"/register",
 				"/listRequests",
 				"/about",
@@ -62,45 +58,50 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 				"/assets/img/**",
 				"/assets/vendor/**"
 				).permitAll()
-		      .and()
-		      .authorizeRequests()
-		      .antMatchers("/request")
-		      .hasAuthority("Role_Stagiaire")
-		      .and()
-		      .authorizeRequests()
-		      .antMatchers("/requests")
-		      .hasAuthority("Role_ResponsableStage")
-		      .and()
-		      .authorizeRequests()
-		      .antMatchers("/interview")
-		      .hasAuthority("Role_ResponsableDomaine")
-		      .and()
-		      .authorizeRequests()
-		      .antMatchers("/Edit")
-		      .hasAuthority("Role_Utilisateur")
-		      
-		      .anyRequest().authenticated()
-		      .and()
-		      .formLogin()
-		      .loginPage("/login")
-		      .permitAll()
-		      .and()
-		      .logout()
-		      .invalidateHttpSession(true)
-		      .clearAuthentication(true)
-		      .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		      .logoutSuccessUrl("/login?logout")
-		      .permitAll()
-		      .and()
-		      .exceptionHandling()
-		      .accessDeniedPage("/403")
-		      
-		      ;
-		
-		
-		
-		      
-		
+		.and()
+		.authorizeRequests()
+		.antMatchers("/request")
+		.hasAuthority("Role_Stagiaire")
+		.and()
+		.authorizeRequests()
+		.antMatchers("/Delete")
+		.hasAnyAuthority("Role_Stagiaire","Role_ResponsableStage")
+		.and()
+		.authorizeRequests()
+		.antMatchers("/requests")
+		.hasAnyAuthority("Role_ResponsableStage","Role_ResponsableDomaine")
+		.and()
+		.authorizeRequests()
+		.antMatchers("/interview")
+		.hasAuthority("Role_ResponsableDomaine")
+		.and()
+		.authorizeRequests()
+		.antMatchers("/Edit")
+		.hasAuthority("Role_Utilisateur")
+
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.loginPage("/login")
+		.defaultSuccessUrl("/home")
+		.permitAll()
+		.and()
+		.logout()
+		.invalidateHttpSession(true)
+		.clearAuthentication(true)
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.logoutSuccessUrl("/login?logout")
+		.permitAll()
+		.and()
+		.exceptionHandling()
+		.accessDeniedPage("/403")
+
+		;
+
+
+
+
+
 	}
-	
+
 }

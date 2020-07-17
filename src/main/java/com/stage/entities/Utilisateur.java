@@ -3,6 +3,7 @@ package com.stage.entities;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -19,6 +20,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -37,6 +40,9 @@ public class Utilisateur {
 	private String password;
 	private LocalDate dateInscription;
 	
+	@OneToMany(mappedBy = "destination",cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<Notification> notifivations=new ArrayList<Notification>();
+	
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "users_roles",
@@ -46,7 +52,9 @@ public class Utilisateur {
 	private Collection<Role> roles;
 	
 	
-	public Utilisateur(String nom, String prenom, String login, String email, String password,Collection<Role> roles) {
+	
+
+	public Utilisateur( String nom, String prenom, String login, String email, String password,List<Notification> notifivations, Collection<Role> roles) {
 		
 		this.nom = nom;
 		this.prenom = prenom;
@@ -54,8 +62,8 @@ public class Utilisateur {
 		this.email = email;
 		this.password = password;
 		this.dateInscription = LocalDate.now();
-		this.roles= roles;
-		
+		this.notifivations = notifivations;
+		this.roles = roles;
 	}
 
 	public Utilisateur() {
@@ -124,6 +132,14 @@ public class Utilisateur {
 
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
+	}
+
+	public List<Notification> getNotifivations() {
+		return notifivations;
+	}
+
+	public void setNotifivations(List<Notification> notifivations) {
+		this.notifivations = notifivations;
 	}
 
 	
