@@ -80,6 +80,8 @@ public class ResponsableDomaine extends Utilisateur {
 	public void setEntretiens(List<Entretien> entretiens) {
 		this.entretiens = entretiens;
 	}
+
+
 	
 	
 }

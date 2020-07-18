@@ -131,7 +131,7 @@ public class DemandeStageController {
 		requestService.save(request);
 
 		requestService.createAndSaveFile(photo,dirPhotoIdentity,titre,dirLettreMotivation,titreDoc,dirDocumentAdministratif,request);
-		requestService.addNotification(request,"NouvelleDemandeAjoutee");
+		requestService.addNotification(request,"NouvelleDemandeAjoutee","ChoukriAnwar@gmail.com");
 
 		return "redirect:/Edit?id="+request.getId()+"&requestAdded";
 	}
@@ -166,6 +166,7 @@ public class DemandeStageController {
 
 		DemandeStage demandStage = requestService.findById(id);
 		model.addAttribute("demandStage", demandStage);
+		model.addAttribute("ResponsableDomaine", requestService.findResponsibleByDomaine(demandStage.getDomaine()) );
 
 		return "requestDetails";
 	}
@@ -185,8 +186,19 @@ public class DemandeStageController {
 		DemandeStage demandStage = requestService.findById(id);
 		demandStage.setStatut(status);
 		requestService.save(demandStage);
-
+		
 		return "redirect:Edit?id="+id+"&statusChanged";
+	}
+
+	@GetMapping("Assign")
+	public String Assign(Model model,@RequestParam(value = "id") Long id,@RequestParam("email") String responsible ) {
+
+		DemandeStage demandStage = requestService.findById(id);
+		Utilisateur responsableDomaine=requestService.findbyUsername(responsible);
+		demandStage.setResponsableDomaine((ResponsableDomaine) responsableDomaine);
+		requestService.save(demandStage);
+		requestService.addNotification(demandStage,"NouvelleDemandeAffectee",responsableDomaine.getEmail());
+		return "redirect:Edit?id="+id+"&assignmentSuccesseded";
 	}
 
 

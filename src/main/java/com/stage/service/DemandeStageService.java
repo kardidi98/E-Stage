@@ -43,7 +43,8 @@ public class DemandeStageService {
 	private UtilisateurRepository userRepository;
 
 
-
+	@Autowired
+	private ResponsableDomaineRepository responsableDomaineRepository;
 
 
 	public Utilisateur findbyUsername(String email) {
@@ -51,7 +52,10 @@ public class DemandeStageService {
 		return userRepository.findByEmail(email);
 	}
 
-
+	public Utilisateur findResponsibleByDomaine(Domaine domaine) {
+		
+		return responsableDomaineRepository.findByDomaine(domaine);
+	}
 
 	public void setMultipartFiles(DemandeStage request, MultipartFile photo, List<MultipartFile> titreDoc,MultipartFile titre) {
 
@@ -149,19 +153,28 @@ public class DemandeStageService {
 		deteleFiles(demandeStage,dirDocumentAdministratif,dirLettreMotivation,dirPhotoIdentity);
 	}
 
-	public void addNotification(DemandeStage request,String messageSeparateurDuTraitement) {
+	public void addNotification(DemandeStage request,String messageSeparateurDuTraitement,String email) {
+		
+		Utilisateur responsable=userRepository.findByEmail(email);
+		Notification notification=null;
+		
 		if(messageSeparateurDuTraitement==("NouvelleDemandeAjoutee")) {
-			Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-			Utilisateur responsable=userRepository.findByEmail(auth.getName().toString());
-			Notification notification=new Notification("A new request has been received", request,responsable);
-			notification.setDemandeStage(request);
-
-			request.getNotifications().add(notification);
-			request.setNotifications(request.getNotifications());
-			requestRepository.save(request);
+			notification=new Notification("A new request has been received", request,responsable);
+		}
+		
+		if(messageSeparateurDuTraitement==("NouvelleDemandeAffectee")) {
+			notification=new Notification("A new request has been assigned to you", request,responsable);
 		}
 
+		notification.setDemandeStage(request);
+		request.getNotifications().add(notification);
+		request.setNotifications(request.getNotifications());
+		requestRepository.save(request);
 	}
+
+
+
+	
 
 
 

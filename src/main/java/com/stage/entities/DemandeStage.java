@@ -250,6 +250,8 @@ public class DemandeStage {
 	public void removeExperience(Experiences experience) {
 		this.experiences.remove(experience);
 	}
+
+	
 	
 	
 	

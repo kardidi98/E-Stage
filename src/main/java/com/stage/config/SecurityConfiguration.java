@@ -39,7 +39,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-
+		auth.inMemoryAuthentication().withUser("ChoukriAnwar@gmail.com").password("{bcrypt}ChoukriAnwarResponsableStage").roles("Role_ResponsableStage", "Role_Utilisateur");
+		auth.inMemoryAuthentication().withUser("SkalliNoura@gmail.com").password("{bcrypt}SkalliNouraResponsableDomaineInfo").roles("Role_ResponsableDomaine", "Role_Utilisateur");
+		auth.inMemoryAuthentication().withUser("MarnissiAlaa@gmail.com").password("{bcrypt}MarnissiAlaaResponsableDomaineCommerce").roles("Role_ResponsableDomaine", "Role_Utilisateur");
+		auth.inMemoryAuthentication().withUser("AhmedLamiae@gmail.com").password("{bcrypt}AhmedLamiaeResponsableDomaineIndus").roles("Role_ResponsableDomaine", "Role_Utilisateur");
+		auth.inMemoryAuthentication().withUser("MaknassiHamid@gmail.com").password("{bcrypt}MaknassiHamidResponsableDomaineFinance").roles("Role_ResponsableDomaine", "Role_Utilisateur");
 		auth.authenticationProvider(authenticationProvider());
 	}
 

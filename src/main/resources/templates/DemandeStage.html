@@ -89,7 +89,7 @@
 						<ul>
 							<li th:if="${notifications.empty==true}"><div align="center">Nothing new</div></li>
 							<li th:if="${notifications.empty==false}" th:each="notif:${notifications}" >
-								<a th:if="${notif.demandeStage.statut==null}" th:href="@{Edit(id=${notif.demandeStage.id})}" style="display: flex;justify-content: center;border-bottom: 1px solid #DDDDDD;">
+								<a th:if="${notif.demandeStage.statut==null or notif.demandeStage.responsableDomaine!=null}" th:href="@{Edit(id=${notif.demandeStage.id})}" style="display: flex;justify-content: center;border-bottom: 1px solid #DDDDDD;">
 									<i class="fa fa-envelope-o" style="color: #DDDDDD;padding-right: 20px;padding-top: 15px;font-size: 25px;"></i>
 								
 									<span>

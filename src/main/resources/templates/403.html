@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>403 - Access Denied</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+<title>403 - Access Denied</title>
+<meta content="" name="descriptison">
+<meta content="" name="keywords">
 
 <!-- Select -->
 <link rel="stylesheet"
@@ -65,59 +65,58 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 				<ul>
 					<li class=""><a th:href="@{home}">Home</a></li>
 
-					
+
 
 					<li class="drop-down"><a href="">Domains</a>
 						<ul>
-							<li th:each="d:${T(com.stage.entities.Domaine).values()}"  >
-								<a th:href="@{requests(domain=__${d}__)}"  th:text="${d}"></a>
+							<li th:each="d:${T(com.stage.entities.Domaine).values()}">
+								<a th:href="@{requests(domain=__${d}__)}" th:text="${d}"></a>
 							</li>
 
-						
-					   </ul>
-					</li>
+
+						</ul></li>
 					<li><a th:href="@{about}">About Us</a></li>
 					<li><a th:href="@{contact}">Contact Us</a></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification" data-aos="zoom-out-down"><a
 						href="#"> <i class="fa fa-bell"></i> <span
-							class="counter counter-lg" th:text="${#lists.size(notifications)}">10</span>
+							class="counter counter-lg"
+							th:text="${#lists.size(notifications)}">10</span>
 					</a>
 						<ul>
-							<li th:if="${notifications.empty==true}"><div align="center">Nothing new</div></li>
-							<li th:if="${notifications.empty==false}" th:each="notif:${notifications}" >
-								<a th:if="${notif.demandeStage.statut==null}" th:href="@{Edit(id=${notif.demandeStage.id})}" style="display: flex;justify-content: center;border-bottom: 1px solid #DDDDDD;">
-									<i class="fa fa-envelope-o" style="color: #DDDDDD;padding-right: 20px;padding-top: 15px;font-size: 25px;"></i>
-								
-									<span>
-										<span th:text="${notif.contenu}"></span><br>
-												
-										<small ><strong>Domain: </strong><span th:text="${notif.demandeStage.domaine}"></span></small><br>
-												
-										<small th:text="${'--'+notif.date+'--'}"></small>
-									</span>
-									
-								</a>
-								
+							<li th:if="${notifications.empty==true}"><div align="center">Nothing
+									new</div></li>
+							<li th:if="${notifications.empty==false}"
+								th:each="notif:${notifications}"><a
+								th:if="${notif.demandeStage.statut==null or notif.demandeStage.responsableDomaine!=null}"
+								th:href="@{Edit(id=${notif.demandeStage.id})}"
+								style="display: flex; justify-content: center; border-bottom: 1px solid #DDDDDD;">
+									<i class="fa fa-envelope-o"
+									style="color: #DDDDDD; padding-right: 20px; padding-top: 15px; font-size: 25px;"></i>
 
-								
-							</li>
-							
-							
+									<span> <span th:text="${notif.contenu}"></span><br>
+
+										<small><strong>Domain: </strong><span
+											th:text="${notif.demandeStage.domaine}"></span></small><br> <small
+										th:text="${'--'+notif.date+'--'}"></small>
+								</span>
+
+							</a></li>
+
+
 						</ul></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification rounded"
 						style="border: 2px solid #1545B3; box-shadow: 0 0 10px rgba(21, 69, 179, 0.4); background-color: #1545B3;">
-						<a
-						style="color: #fff;"
-						th:text="${session.user.nom[0]+session.user.prenom[0]}"
-						href="">
-						</a>
+						<a style="color: #fff;"
+						th:text="${session.user.nom[0]+session.user.prenom[0]}" href="">
+					</a>
 						<ul>
 							<li><a th:href="@{logout}">Log out</a></li>
 
 
-						</ul></li>
+						</ul>
+					</li>
 					<li sec:authorize="isAnonymous()" class="btns_login rounded"><a
 						th:href="@{/login}"> Log In</a></li>
 				</ul>
@@ -128,92 +127,97 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	</header>
 	<!-- #header -->
 
-  <main id="main">
+	<main id="main">
 
-    <!-- ======= Breadcrumbs Section ======= -->
-    <section class="breadcrumbs">
-      <div class="container">
+		<!-- ======= Breadcrumbs Section ======= -->
+		<section class="breadcrumbs">
+			<div class="container">
 
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>403 - Access Denied</h2>
-          <ol>
-            <li><a th:href="@{home}">Home</a></li>
-            <li>403 - Access Denied</li>
-          </ol>
-        </div>
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>403 - Access Denied</h2>
+					<ol>
+						<li><a th:href="@{home}">Home</a></li>
+						<li>403 - Access Denied</li>
+					</ol>
+				</div>
 
-      </div>
-    </section><!-- End Breadcrumbs Section -->
+			</div>
+		</section>
+		<!-- End Breadcrumbs Section -->
 
-    <section class="pt-4">
-        <div class="container">
-        <h1 align="center" style="font-size: 100px;">
-          403
-        </h1>
-        <h3 align="center">
-          You're not allowed to access !
-        </h3>
-      </div>
-    </section>
-  </main><!-- End #main -->
+		<section class="pt-4">
+			<div class="container">
+				<div align="center">
+					<img src="../assets/img/Error/errorImg.jpg" />
+				</div>
+				<h1 align="center" style="font-size: 100px;">403</h1>
+				<h3 align="center">You're not allowed to access !</h3>
+			</div>
+		</section>
+	</main>
+	<!-- End #main -->
 
- <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
+	<!-- ======= Footer ======= -->
+	<footer id="footer">
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
 
-          <div class="col-lg-4 col-md-6 footer-info">
-            <h3>INTERNSHIP</h3>
-            <p>With our service, you can send your internship requests more easily. The processing of requests will therefore be easier and the response will also be sent to you in a shorter time.</p>
-          </div>
-          <div class="col-lg-1 col-md-6 "></div>
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="index.html">Services</a></li>
-              <li><a href="contact_us.html">Contact us</a></li>
-              <li><a href="about_us.html">About us</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-1 col-md-6 "></div>
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h4>Contact Us</h4>
-            <p>
-              A108 Adam Street, NY 535022<br>
-              <strong>Phone:</strong> +212 65 895 54 88<br>
-              <strong>Email:</strong> InternshipTeam@gmail.com<br>
-            </p>
+					<div class="col-lg-4 col-md-6 footer-info">
+						<h3>INTERNSHIP</h3>
+						<p>With our service, you can send your internship requests
+							more easily. The processing of requests will therefore be easier
+							and the response will also be sent to you in a shorter time.</p>
+					</div>
+					<div class="col-lg-1 col-md-6 "></div>
+					<div class="col-lg-2 col-md-6 footer-links">
+						<h4>Useful Links</h4>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="index.html">Services</a></li>
+							<li><a href="contact_us.html">Contact us</a></li>
+							<li><a href="about_us.html">About us</a></li>
+						</ul>
+					</div>
+					<div class="col-lg-1 col-md-6 "></div>
+					<div class="col-lg-3 col-md-6 footer-contact">
+						<h4>Contact Us</h4>
+						<p>
+							A108 Adam Street, NY 535022<br> <strong>Phone:</strong> +212
+							65 895 54 88<br> <strong>Email:</strong>
+							InternshipTeam@gmail.com<br>
+						</p>
 
-            <div class="social-links">
-              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
-              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-            </div>
+						<div class="social-links">
+							<a href="#" class="twitter"><i class="fa fa-twitter"></i></a> <a
+								href="#" class="facebook"><i class="fa fa-facebook"></i></a> <a
+								href="#" class="instagram"><i class="fa fa-instagram"></i></a> <a
+								href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+							<a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+						</div>
 
-          </div>
+					</div>
 
-         
 
-        </div>
-      </div>
-    </div>
 
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-       
-        <a href="#">internship Team</a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
+				</div>
+			</div>
+		</div>
 
-  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+		<div class="container">
+			<div class="copyright">
+				&copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>.
+				All Rights Reserved
+			</div>
+			<div class="credits">
+
+				<a href="#">internship Team</a>
+			</div>
+		</div>
+	</footer>
+	<!-- End Footer -->
+
+	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
 	<!-- Vendor JS Files -->
 	<script th:src="@{assets/vendor/jquery/jquery.min.js}"

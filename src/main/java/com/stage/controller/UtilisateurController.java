@@ -83,6 +83,36 @@ public class UtilisateurController {
 		model.addAttribute("notifications", user.getNotifivations());
 		return "403";
 	}
+	
+	@GetMapping("404")
+	public String notFound(Model model,HttpServletRequest hsr) {
+		HttpSession session = hsr.getSession(true);
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		Utilisateur user=utilisateurRepository.findByEmail(auth.getName().toString());
+		session.setAttribute("user",user);
+		model.addAttribute("notifications", user.getNotifivations());
+		return "404";
+	}
+	
+	@GetMapping("500")
+	public String ServerError(Model model,HttpServletRequest hsr) {
+		HttpSession session = hsr.getSession(true);
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		Utilisateur user=utilisateurRepository.findByEmail(auth.getName().toString());
+		session.setAttribute("user",user);
+		model.addAttribute("notifications", user.getNotifivations());
+		return "500";
+	}
+	
+	@GetMapping("unknownError")
+	public String Unknown(Model model,HttpServletRequest hsr) {
+		HttpSession session = hsr.getSession(true);
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		Utilisateur user=utilisateurRepository.findByEmail(auth.getName().toString());
+		session.setAttribute("user",user);
+		model.addAttribute("notifications", user.getNotifivations());
+		return "error";
+	}
 
 	@GetMapping("logout")
 	public String logout(Model model,HttpServletRequest hsr,HttpSession session) {

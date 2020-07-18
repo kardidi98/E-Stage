@@ -26,7 +26,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "Role")
+@DiscriminatorColumn(name = "Role_Utilisateur")
 public class Utilisateur {
 	
 	@Id
@@ -49,6 +49,7 @@ public class Utilisateur {
 			joinColumns = @JoinColumn(name="user_id",referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name="role_id",referencedColumnName = "id")
 			)
+	@Column(nullable = true)
 	private Collection<Role> roles;
 	
 	

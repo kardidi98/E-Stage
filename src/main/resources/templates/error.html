@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Requests</title>
+<title>Unknown error</title>
 <meta content="" name="descriptison">
 <meta content="" name="keywords">
 
@@ -50,7 +50,8 @@
 </head>
 
 <body>
-<!-- ======= Header ======= -->
+
+	<!-- ======= Header ======= -->
 	<header id="header" class="fixed-top">
 		<div class="container">
 
@@ -64,59 +65,58 @@
 				<ul>
 					<li class=""><a th:href="@{home}">Home</a></li>
 
-					
 
-					<li class="drop-down active"><a href="">Domains</a>
+
+					<li class="drop-down"><a href="">Domains</a>
 						<ul>
-							<li th:each="d:${T(com.stage.entities.Domaine).values()}"  >
-								<a th:href="@{requests(domain=__${d}__)}"  th:text="${d}"></a>
+							<li th:each="d:${T(com.stage.entities.Domaine).values()}">
+								<a th:href="@{requests(domain=__${d}__)}" th:text="${d}"></a>
 							</li>
 
-						
-					   </ul>
-					</li>
+
+						</ul></li>
 					<li><a th:href="@{about}">About Us</a></li>
 					<li><a th:href="@{contact}">Contact Us</a></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification" data-aos="zoom-out-down"><a
 						href="#"> <i class="fa fa-bell"></i> <span
-							class="counter counter-lg" th:text="${#lists.size(notifications)}">10</span>
+							class="counter counter-lg"
+							th:text="${#lists.size(notifications)}">10</span>
 					</a>
 						<ul>
-							<li th:if="${notifications.empty==true}"><div align="center">Nothing new</div></li>
-							<li th:if="${notifications.empty==false}" th:each="notif:${notifications}" >
-								<a th:if="${notif.demandeStage.statut==null or notif.demandeStage.responsableDomaine!=null}" th:href="@{Edit(id=${notif.demandeStage.id})}" style="display: flex;justify-content: center;border-bottom: 1px solid #DDDDDD;">
-									<i class="fa fa-envelope-o" style="color: #DDDDDD;padding-right: 20px;padding-top: 15px;font-size: 25px;"></i>
-								
-									<span>
-										<span th:text="${notif.contenu}"></span><br>
-												
-										<small ><strong>Domain: </strong><span th:text="${notif.demandeStage.domaine}"></span></small><br>
-												
-										<small th:text="${'--'+notif.date+'--'}"></small>
-									</span>
-									
-								</a>
-								
+							<li th:if="${notifications.empty==true}"><div align="center">Nothing
+									new</div></li>
+							<li th:if="${notifications.empty==false}"
+								th:each="notif:${notifications}"><a
+								th:if="${notif.demandeStage.statut==null or notif.demandeStage.responsableDomaine!=null}"
+								th:href="@{Edit(id=${notif.demandeStage.id})}"
+								style="display: flex; justify-content: center; border-bottom: 1px solid #DDDDDD;">
+									<i class="fa fa-envelope-o"
+									style="color: #DDDDDD; padding-right: 20px; padding-top: 15px; font-size: 25px;"></i>
 
-								
-							</li>
-							
-							
+									<span> <span th:text="${notif.contenu}"></span><br>
+
+										<small><strong>Domain: </strong><span
+											th:text="${notif.demandeStage.domaine}"></span></small><br> <small
+										th:text="${'--'+notif.date+'--'}"></small>
+								</span>
+
+							</a></li>
+
+
 						</ul></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification rounded"
 						style="border: 2px solid #1545B3; box-shadow: 0 0 10px rgba(21, 69, 179, 0.4); background-color: #1545B3;">
-						<a
-						style="color: #fff;"
-						th:text="${session.user.nom[0]+session.user.prenom[0]}"
-						href="">
-						</a>
+						<a style="color: #fff;"
+						th:text="${session.user.nom[0]+session.user.prenom[0]}" href="">
+					</a>
 						<ul>
 							<li><a th:href="@{logout}">Log out</a></li>
 
 
-						</ul></li>
+						</ul>
+					</li>
 					<li sec:authorize="isAnonymous()" class="btns_login rounded"><a
 						th:href="@{/login}"> Log In</a></li>
 				</ul>
@@ -134,10 +134,10 @@
 			<div class="container">
 
 				<div class="d-flex justify-content-between align-items-center">
-					<h2>List of Requests</h2>
+					<h2>Unknown error</h2>
 					<ol>
 						<li><a th:href="@{home}">Home</a></li>
-						<li>List of Requests</li>
+						<li>Unknown error</li>
 					</ol>
 				</div>
 
@@ -145,82 +145,14 @@
 		</section>
 		<!-- End Breadcrumbs Section -->
 
-		
-		
-		<section class="container pt-4">
-			<div class="pt-1">
-				<h3 th:text="${'Domain: '+domaine}"></h3>
-			</div>
-			
-			<div th:if="${param.requestDeleted}">
-					<div class="row justify-content-center">
-						<div
-							class="container col-lg-8 col-md-8 alert alert-success alert-dismissible fade show"
-							role="alert">
-							The request has been <strong>deleted</strong> successfully.
-							<button type="button" class="close" data-dismiss="alert"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-					</div>
-			</div>
-		
-			<div th:if="${demandesStages.empty==true}" class="container">
-		        <h2 align="center" style="padding: 50px;font-weight: bold;">
-		          No available requests in The chosen domain for the moment. 
-		        </h2>
-		        
-		     </div>
-			<div th:if="${demandesStages.empty==false}" class="  table-responsive">
-				<!--Table-->
-				<table class="table table-striped table-hover table-bordered">
-
-					<!--Table head-->
-					<thead>
-						<tr>
-							<th>id</th>
-							<th>Sender</th>
-							<th>Status</th>
-							<th>Assigned To</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<!--Table head-->
-
-					<!--Table body-->
-					<tbody class="contents">
-						<tr th:each="request:${demandesStages}">
-
-							<td th:text="${request.id}"></td>
-							<td
-								th:text="${request.stagiaire.nom+' '+request.stagiaire.prenom}"></td>
-							<td th:if="${request.statut != null}" th:text="${request.statut}"></td>
-							<td th:if="${request.statut == null}">Not Yet</td>
-							<td th:if="${request.responsableDomaine != null}"
-								th:text="${request.responsableDomaine.nom+' '+request.responsableDomaine.prenom}"></td>
-							<td th:if="${request.responsableDomaine == null}">No Body</td>
-							<td align="center">
-
-								<a th:href="@{Edit(id=${request.id})}"><button type="button" class="btn btn-success actions"
-									title="Edit">
-									<i class="fa fa-edit"></i>
-								</button></a>
-								<a th:href="@{Delete(id=${request.id})}" onclick="return confirm('Are you sure you want to delete this internship request ?');"><button type="button" class="btn btn-danger actions"
-									title="Delete">
-									<i class="fa fa-trash"></i>
-								</button></a>
-							</td>
-						</tr>
-
-					</tbody>
-					<!--Table body-->
-				</table>
-				<!--Table-->
+		<section class="pt-4">
+			<div class="container">
+				<div align="center"><img src="../assets/img/Error/errorImg.jpg"/></div>
+				<h1 align="center" style="font-size: 100px;">Unknown error</h1>
+				<h3 align="center">We are fixing this unexpected error ! try it
+					later</h3>
 			</div>
 		</section>
-
-
 	</main>
 	<!-- End #main -->
 
@@ -311,20 +243,7 @@
 		src="../static/assets/vendor/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
 	<!--  Main JS File -->
 	<script th:src="@{assets/js/main.js}" src="../static/assets/js/main.js"></script>
-	<script type="text/javascript">
-	$(document).ready(function()
-			 {
-			   $("#tab").pagination({
-			   items: 6,
-			   contents: 'contents',
-			   previous: '<',
-			   next: '>',
-			   position: 'bottom',
-			   });
-			});
-	!function(e){e.fn.pagination=function(a){function t(t){var s=e("."+r.contents+".current").children().length,l=Math.ceil(s/r.items),o='<div id="pagination"><ul id="page-navi">\t<li><a href="#" class="previos">'+r.previous+"</a></li>";for(i=0;i<l;i++)o+='\t<li><a href="#">'+(i+1)+"</a></li>";o+='\t<li><a href="#" class="next">'+r.next+"</a></li></ul></div>";var c=t;0==t?(c=parseInt(e("#page-navi li a.current").html()))-1!=0&&c--:t==l+1&&(c=parseInt(e("#page-navi li a.current").html()))+1!=l+1&&c++,t=c,0==s&&(o=""),e("#page-navi").remove(),"top"==r.position?e("."+r.contents+".current").before(o):e("."+r.contents+".current").after(o),e("#page-navi li a").removeClass("current"),e("#page-navi li a").eq(t).addClass("current"),e("#page-navi li a").removeClass("disable"),c=parseInt(e("#page-navi li a.current").html()),c-1==0&&e("#page-navi li a.previos").addClass("disable"),c==l&&e("#page-navi li a.next").addClass("disable");var u=a.items*(t-1),d=a.items*t;t==l&&(d=s),e("."+r.contents+".current").children().hide(),e("."+r.contents+".current").children().slice(u,d).fadeIn(a.time),1==r.scroll&&e("html,body").animate({scrollTop:n},0)}var r={items:5,contents:"contents",previous:"Previous&raquo;",next:"&laquo;Next",time:800,start:1,position:"bottom",scroll:!0},r=e.extend(r,a);e(this).addClass("jquery-tab-pager-tabbar"),$tab=e(this).find("li");var n=0;!function(){var a=r.start-1;$tab.eq(a).addClass("current"),e("."+r.contents).hide().eq(a).show().addClass("current"),t(1)}(),$tab.click(function(){var a=$tab.index(this);$tab.removeClass("current"),e(this).addClass("current"),e("."+r.contents).removeClass("current").hide().eq(a).addClass("current").fadeIn(r.time),t(1)}),e(document).on("click","#page-navi li a",function(){return!e(this).hasClass("disable")&&(t(e("#page-navi li a").index(this)),!1)}),e(window).on("load scroll",function(){n=e(window).scrollTop()})}}(jQuery);
 
-	</script>
 </body>
 
 </html>
