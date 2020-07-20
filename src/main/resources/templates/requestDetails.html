@@ -64,62 +64,60 @@
 
 			<nav class="main-nav float-right d-none d-lg-block">
 				<ul>
-					<li class=""><a th:href="@{home}">Home</a></li>
+					<li ><a th:href="@{home}">Home</a></li>
 
-					
 
 					<li class="drop-down"><a href="">Domains</a>
 						<ul>
-							<li th:each="d:${T(com.stage.entities.Domaine).values()}"  >
-								<a th:href="@{requests(domain=__${d}__)}"  th:text="${d}"></a>
+							<li th:each="d:${T(com.stage.entities.Domaine).values()}">
+								<a th:href="@{requests(domain=__${d}__)}" th:text="${d}"></a>
 							</li>
 
-						
-					   </ul>
-					</li>
-					<li><a th:href="@{about}">About Us</a></li>
-					<li><a th:href="@{contact}">Contact Us</a></li>
+
+						</ul></li>
+					<li><a th:href="@{about}" >About Us</a></li>
+					<li><a th:href="@{contact}" >Contact Us</a></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification" data-aos="zoom-out-down"><a
 						href="#"> <i class="fa fa-bell"></i> <span
-							class="counter counter-lg" th:text="${#lists.size(notifications)}">10</span>
-							
+							class="counter counter-lg"
+							th:text="${#lists.size(notifications)}">10</span>
 					</a>
 						<ul>
-							<li th:if="${notifications.empty==true}"><div align="center">Nothing new</div></li>
-							<li th:if="${notifications.empty==false}" th:each="notif:${notifications}" >
-								<a th:if="${notif.demandeStage.statut==null or notif.demandeStage.responsableDomaine!=null}" th:href="@{Edit(id=${notif.demandeStage.id})}" style="display: flex;justify-content: center;border-bottom: 1px solid #DDDDDD;">
-									<i class="fa fa-envelope-o" style="color: #DDDDDD;padding-right: 20px;padding-top: 15px;font-size: 25px;"></i>
+							<li th:if="${notifications.empty==true}"><div align="center">Nothing
+									new</div></li>
+							<li  th:if="${notifications.empty==false}"
+								th:each="notif:${notifications}">
+							<a
 								
-									<span>
-										<span th:text="${notif.contenu}"></span><br>
-												
-										<small ><strong>Domain: </strong><span th:text="${notif.demandeStage.domaine}"></span></small><br>
-												
-										<small th:text="${'--'+notif.date+'--'}"></small>
-									</span>
-									
-								</a>
-								
+								th:href="@{EditNotification(request=${notif.demandeStage.id},notification=${notif.id})}"
+								style="display: flex; justify-content: center; border-bottom: 1px solid #DDDDDD;">
+									<i class="fa fa-envelope-o"
+									style="color: #DDDDDD; padding-right: 20px; padding-top: 15px; font-size: 25px;"></i>
 
-								
-							</li>
+									<span> <span th:text="${notif.contenu}"></span><br>
+
+										<small><strong>Domain: </strong><span
+											th:text="${notif.demandeStage.domaine}"></span></small><br> <small
+										th:text="${'--'+notif.date+'--'}"></small>
+								</span>
+
+							</a></li>
 							
-							
+
 						</ul></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification rounded"
 						style="border: 2px solid #1545B3; box-shadow: 0 0 10px rgba(21, 69, 179, 0.4); background-color: #1545B3;">
-						<a
-						style="color: #fff;"
-						th:text="${session.user.nom[0]+session.user.prenom[0]}"
-						href="">
-						</a>
+						<a style="color: #fff;"
+						th:text="${session.user.nom[0]+session.user.prenom[0]}" href="">
+					</a>
 						<ul>
 							<li><a th:href="@{logout}">Log out</a></li>
 
 
-						</ul></li>
+						</ul>
+					</li>
 					<li sec:authorize="isAnonymous()" class="btns_login rounded"><a
 						th:href="@{/login}"> Log In</a></li>
 				</ul>
@@ -151,7 +149,8 @@
 
 
 
-		<section sec:authorize="hasAuthority('Role_ResponsableStage')" class="pt-4"
+		<section sec:authorize="hasAuthority('Role_ResponsableStage')"
+			class="pt-4"
 			style="display: flex; justify-content: center; margin-bottom: 10px;">
 			<button class="btn btn-primary" data-toggle="modal"
 				data-target="#statusModal">Change Status</button>
@@ -180,13 +179,26 @@
 										<div>
 											<input type="text" id="id" name="id"
 												th:field="${demandStage.id}" style="display: none;" /> <label
-												for="status">Status</label> <select
+												for="status">Status</label> 
+											<select
+												th:if="${demandStage.statut==null}"
 												class="selectpicker border rounded " id="status"
 												name="status" data-style="btn-black" data-width="100%"
 												data-live-search="false" title="Select Status"
 												required="required">
+
 												<option th:each="d:${T(com.stage.entities.Statut).values()}"
-													th:value="${d}" th:text="${d}">Waiting</option>
+													th:value="${d}" th:text="${d}"></option>
+
+											</select> <select th:if="${demandStage.DecisionTomake==true}"
+												class="selectpicker border rounded " id="status"
+												name="status" data-style="btn-black" data-width="100%"
+												data-live-search="false" title="Final Decision"
+												required="required">
+
+												<option
+													th:each="d:${T(com.stage.entities.DecisionFinale).values()}"
+													th:value="${d}" th:text="${d}"></option>
 
 											</select>
 										</div>
@@ -225,16 +237,16 @@
 									<div class="form-group container">
 
 										<div>
-											<input type="text"  name="id"
-												th:field="${demandStage.id}" style="display: none;" />
-											<label for="responsableDomaine">Responsible of Domain</label> 
-											<select
-												class="selectpicker border rounded " 
+											<input type="text" name="id" th:field="${demandStage.id}"
+												style="display: none;" /> <label for="responsableDomaine">Responsible
+												of Domain</label> <select class="selectpicker border rounded "
 												data-style="btn-black" data-width="100%"
 												data-live-search="false" title="Assign to a responsible"
 												required="required" name="email">
-												<option th:each="respDom: ${ResponsableDomaine}" th:value="${respDom.email}" th:text="${respDom.nom+' '+respDom.prenom}"></option>
-												
+												<option th:each="respDom: ${ResponsableDomaine}"
+													th:value="${respDom.email}"
+													th:text="${respDom.nom+' '+respDom.prenom}"></option>
+
 											</select>
 										</div>
 
@@ -253,7 +265,7 @@
 
 		</section>
 
-		<section sec:authorize="hasAuthority('Role_ResponsableDomaine')" 
+		<section sec:authorize="hasAuthority('Role_ResponsableDomaine')"
 			class="pt-4"
 			style="display: flex; justify-content: center; margin-bottom: 10px;">
 			<button class="btn btn-primary" data-toggle="modal"
@@ -272,15 +284,16 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form th:action="@{makeDecision}" method="get" class="p-4  rounded">
+							<form th:action="@{makeDecision}" method="get"
+								class="p-4  rounded">
 
 								<fieldset>
 									<div class=" form-group container">
 										<div>
-											<input type="text"  name ="id" th:field="${demandStage.id}" style="display: none;">
-											<label for="decision">Decision</label> <select
-												class="selectpicker border rounded " id="decision" name="decision"
-												data-style="btn-black" data-width="100%" 
+											<input type="text" name="id" th:field="${demandStage.id}"
+												style="display: none;"> <label for="decision">Decision</label>
+											<select class="selectpicker border rounded " id="decision"
+												name="decision" data-style="btn-black" data-width="100%"
 												data-live-search="false" title="Make Decision"
 												required="required">
 												<option value="Interview">Interview</option>
@@ -292,8 +305,8 @@
 
 									</div>
 									<hr>
-									<input type="submit" class="btn btn-primary"
-										value="Submit" style="float: right;">
+									<input type="submit" class="btn btn-primary" value="Submit"
+										style="float: right;">
 								</fieldset>
 
 							</form>
@@ -306,6 +319,35 @@
 
 
 		</section>
+
+		<section class=" container pt-4" data-aos="fade-up"
+			sec:authorize="hasAuthority('Role_Stagiaire')">
+			<div align="center">
+				<div th:if="${demandStage.statut!=null}">
+					<div>
+						<strong>Actual Status: </strong><span
+							th:text="${demandStage.statut}"></span>
+					</div>
+				</div>
+				<div th:if="${demandStage.entretien!=null}">
+					<div>
+						You've been accepted to pass the interview at : <strong
+							style="text-decoration: underline;"
+							th:text="${demandStage.entretien.date +', '+demandStage.entretien.time}"></strong>
+					</div>
+				</div>
+				<div th:if="${demandStage.finalDecision!=null}">
+					<div>
+						<strong>Final Decision: </strong><span
+							th:text="${demandStage.finalDecision}"></span>
+					</div>
+				</div>
+			</div>
+
+
+
+		</section>
+
 		&nbsp;
 		<section class="" th:if="${param.statusChanged}">
 			<div class="row justify-content-center">
@@ -321,7 +363,7 @@
 				</div>
 			</div>
 		</section>
-		
+
 		<section class="" th:if="${param.interviewSaved}">
 			<div class="row justify-content-center">
 				<div
@@ -335,13 +377,15 @@
 				</div>
 			</div>
 		</section>
-		
+
 		<section class="" th:if="${param.assignmentSuccesseded}">
 			<div class="row justify-content-center">
 				<div
 					class="container col-lg-8 col-md-8 alert alert-success alert-dismissible fade show"
 					role="alert">
-					You've successfully <strong>assigned</strong> this request to The responsible <span th:text="${demandStage.responsableDomaine.nom+' '+demandStage.responsableDomaine.prenom}"></span>.
+					You've successfully <strong>assigned</strong> this request to The
+					responsible <span
+						th:text="${demandStage.responsableDomaine.nom+' '+demandStage.responsableDomaine.prenom}"></span>.
 					<button type="button" class="close" data-dismiss="alert"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -350,33 +394,38 @@
 			</div>
 		</section>
 		<section class="  pt-2" th:if="${param.requestAdded}">
-			<div >
-					<div class="row justify-content-center">
-						<div
-							class="container col-lg-8 col-md-8 alert alert-success alert-dismissible fade show"
-							role="alert">
-							Your request has been sent successfully.
-							<button type="button" class="close" data-dismiss="alert"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
+			<div>
+				<div class="row justify-content-center">
+					<div
+						class="container col-lg-8 col-md-8 alert alert-success alert-dismissible fade show"
+						role="alert">
+						Your request has been sent successfully.
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
 					</div>
+				</div>
 			</div>
 		</section>
 		<section class="pt-4" data-aos="fade-up">
-			<div class="container" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); padding: 20px;width: 75%;">
+			<div class="container"
+				style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); padding: 20px; width: 75%;">
 				<div class="row">
 					<div class="col-lg-3 col-md-3" align="center">
-						<div th:if="${demandStage.EtatCivile.photo==''}" id="userPic" ><i class="fa fa-user" ></i></div>
-						<img th:if="${demandStage.EtatCivile.photo!=''}" th:src="@{getPhoto(request=${demandStage.id})}" id="CV-img" alt="picture">
+						<div th:if="${demandStage.EtatCivile.photo==''}" id="userPic">
+							<i class="fa fa-user"></i>
+						</div>
+						<img th:if="${demandStage.EtatCivile.photo!=''}"
+							th:src="@{getPhoto(request=${demandStage.id})}" id="CV-img"
+							alt="picture">
 					</div>
 					<div class="col-lg-9 col-md-9">
-						<div >
+						<div>
 							<h1
 								th:text="${demandStage.stagiaire.nom+' '+demandStage.stagiaire.prenom}"></h1>
 						</div>
-						<div >
+						<div>
 							<h4 th:text="${demandStage.domaine}"></h4>
 						</div>
 						<div align="justify" th:text="${demandStage.etatCivile.profile}">
@@ -415,26 +464,52 @@
 						</div>
 						&nbsp;
 						<div
-							th:if="${demandStage.lettreMotivation.titre != '' or demandStage.lettreMotivation.contenu != ''}"
+							th:if="${demandStage.lettreMotivation.titre != '' and demandStage.lettreMotivation.contenu != ''}"
 							class="FirstSections" id="LettreMotivation">
 							<h4>
 								<i class="fa fa-envelope"> </i>Cover Letter
 							</h4>
-							<ul style="font-size: 15px;">
-								<li><a th:href="@{CoverLetter(request=${demandStage.id})}" target="_blank">Click here to see the
-										Cover Letter.</a></li>
+							<ul
+								th:if="${demandStage.lettreMotivation.titre != '' and demandStage.lettreMotivation.contenu == ''}"
+								style="font-size: 15px;">
+								<li><a th:href="@{CoverLetter(request=${demandStage.id})}"
+									target="_blank">PDF letter.</a></li>
+
+
+
+							</ul>
+							<ul
+								th:if="${demandStage.lettreMotivation.titre != '' and demandStage.lettreMotivation.contenu != ''}"
+								style="font-size: 15px;">
+								<li><a href="" data-toggle="modal"
+									data-target="#letterModal" target="_blank">Hand written
+										letter.</a></li>
+								<li><a th:href="@{CoverLetter(request=${demandStage.id})}"
+									target="_blank">PDF letter.</a></li>
+
+							</ul>
+							<ul
+								th:if="${demandStage.lettreMotivation.titre == '' and demandStage.lettreMotivation.contenu != ''}"
+								style="font-size: 15px;">
+								<li><a href="" data-toggle="modal"
+									data-target="#letterModal" target="_blank">Hand written
+										letter.</a></li>
+
 
 							</ul>
 						</div>
+
 						&nbsp;
 						<div th:if="${demandStage.documentAdministratif.empty == false}"
 							class="FirstSections" id="LettreMotivation">
 							<h4>
 								<i class="fa fa-file-text"></i>Other Documents
 							</h4>
-							<ul style="list-style: square;font-size: 15px;">
+							<ul style="list-style: square; font-size: 15px;">
 								<li th:each="doc,stat:${demandStage.documentAdministratif}"><a
-									th:text="${doc.titre}" th:href="@{AdministratifDocument(request=${demandStage.id},document=${stat.index})}" target="_blank"></a></li>
+									th:text="${doc.titre}"
+									th:href="@{AdministratifDocument(request=${demandStage.id},document=${stat.index})}"
+									target="_blank"></a></li>
 
 							</ul>
 						</div>
@@ -492,7 +567,7 @@
 				data-target="#statusModal">Change Status</button>
 			&nbsp;
 			<button class="btn btn-secondary" data-toggle="modal"
-				data-target="#AssignmentModal">Assign to a reasponsible</button>
+				data-target="#AssignmentModal">Assign to a responsible</button>
 
 		</section>
 		&nbsp;
@@ -505,6 +580,30 @@
 		&nbsp;
 	</main>
 	<!-- End #main -->
+
+	<!-- Modal Hand Written letter-->
+	<section>
+
+		<div class="modal fade" id="letterModal" tabindex="-1" role="dialog"
+			aria-labelledby="ModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="ModalCenterTitle">The letter</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" align="justify" style="font-style: italic;">
+						<p style="padding: 15px;"
+							th:text="${demandStage.lettreMotivation.contenu}"></p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
@@ -555,8 +654,10 @@
 
 		<div class="container">
 			<div class="copyright">
-				&copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>.
-				All Rights Reserved
+				&copy; Copyright <strong><script>
+					var CurrentYear = new Date().getFullYear();
+					document.write(CurrentYear)
+				</script></strong>. All Rights Reserved
 			</div>
 			<div class="credits">
 

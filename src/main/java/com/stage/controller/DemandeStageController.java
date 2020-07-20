@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.stage.entities.DecisionFinale;
 import com.stage.entities.DemandeStage;
 import com.stage.entities.DocumentAdministratif;
 import com.stage.entities.Domaine;
@@ -165,14 +166,27 @@ public class DemandeStageController {
 		model.addAttribute("notifications", user.getNotifivations());
 
 		DemandeStage demandStage = requestService.findById(id);
+		
 		model.addAttribute("demandStage", demandStage);
 		model.addAttribute("ResponsableDomaine", requestService.findResponsibleByDomaine(demandStage.getDomaine()) );
 
 		return "requestDetails";
 	}
+	
+	@GetMapping("EditNotification")
+	public String EditNotification(Model model,@RequestParam(value = "request") Long request,@RequestParam(value = "notification") Long notification,HttpServletRequest hsr ) {
+
+		HttpSession session = hsr.getSession(true);
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		Utilisateur user=requestService.findbyUsername(auth.getName().toString());
+		session.setAttribute("user",user);
+		requestService.removeNotification(notification,request);
+		
+		return "redirect:Edit?id="+request;
+	}
 
 	@GetMapping("Delete")
-	public String Delete(Model model,@RequestParam(value = "id") Long id ) throws IOException {
+	public String Delete(Model model,@RequestParam(value = "id") Long id ) throws IOException, CloneNotSupportedException {
 		DemandeStage demandStage=requestService.findById(id);
 		requestService.deleteRequest(demandStage,dirDocumentAdministratif,dirLettreMotivation,dirPhotoIdentity);
 
@@ -181,10 +195,17 @@ public class DemandeStageController {
 	}
 
 	@GetMapping("changeStatus")
-	public String changeStatus(Model model,@RequestParam(value = "id") Long id,@RequestParam("status") Statut status ) {
+	public String changeStatus(Model model,@RequestParam(value = "id") Long id,@RequestParam("status") Object status ) {
 
 		DemandeStage demandStage = requestService.findById(id);
-		demandStage.setStatut(status);
+		
+		if((status.toString().equals("Accepted") || status.toString().equals("Refused")) && demandStage.getStatut()!=null) {
+			demandStage.setFinalDecision(DecisionFinale.valueOf(status.toString()));
+		}
+		else {
+			
+			demandStage.setStatut(Statut.valueOf(status.toString()));
+		}
 		requestService.save(demandStage);
 		
 		return "redirect:Edit?id="+id+"&statusChanged";
@@ -206,18 +227,27 @@ public class DemandeStageController {
 	public String makeDecision(Model model,HttpServletRequest hsr, @RequestParam(value = "id") Long id,@RequestParam(name="decision",defaultValue = "") String decision) {
 
 		DemandeStage demandStage = requestService.findById(id);
-		if(decision.equals("Refused")) {
-			Statut status=Statut.valueOf(decision);
-
-			demandStage.setStatut(status);
-			requestService.save(demandStage);
-			return "redirect:Edit?id="+id+"&statusChanged";
-		}
-
+		
 		HttpSession session = hsr.getSession(true);
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
 		Utilisateur user=requestService.findbyUsername(auth.getName().toString());
 		session.setAttribute("user",user);
+		
+		if(decision.equals("Refused")) {
+			
+			Statut status=Statut.valueOf(decision);
+
+			demandStage.setStatut(status);
+			demandStage.setDecisionTomake(true);
+			requestService.save(demandStage);
+			requestService.addNotification(demandStage,"DecisionPrise",demandStage.getStagiaire().getEmail());
+			requestService.addNotification(demandStage,"PrendreDecisionFinale","ChoukriAnwar@gmail.com");
+
+			
+			return "redirect:Edit?id="+id+"&statusChanged";
+		}
+
+	
 
 		model.addAttribute("notifications", user.getNotifivations());
 		model.addAttribute("demandStage", demandStage);
@@ -241,8 +271,10 @@ public class DemandeStageController {
 		else{
 			demandStage.setEntretien(entretien);
 		}
+		demandStage.setDecisionTomake(true);
 		requestService.save(demandStage);
-
+		requestService.addNotification(demandStage,"DecisionPrise",demandStage.getStagiaire().getEmail());
+		requestService.addNotification(demandStage,"PrendreDecisionFinale","ChoukriAnwar@gmail.com");
 		return "redirect:Edit?id="+id+"&interviewSaved";
 
 	}

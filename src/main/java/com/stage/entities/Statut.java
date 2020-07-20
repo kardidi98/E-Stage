@@ -5,7 +5,6 @@ public enum Statut {
 	Incomplete,
 	Transmitted,
 	Incoherent,
-	Refused,
-	Accepted
+	Refused
 
 }

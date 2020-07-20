@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Contact Us</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+<title>Contact Us</title>
+<meta content="" name="descriptison">
+<meta content="" name="keywords">
 
- <!-- Select -->
+<!-- Select -->
 <link rel="stylesheet"
 	th:href="@{assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.css}"
 	href="../static/assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.css">
@@ -46,10 +46,11 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <link th:href="@{assets/css/style.css}"
 	href="../static/assets/css/style.css" rel="stylesheet">
 
- 
+
 </head>
 
 <body>
+
 	<!-- ======= Header ======= -->
 	<header id="header" class="fixed-top">
 		<div class="container">
@@ -62,60 +63,56 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 			<nav class="main-nav float-right d-none d-lg-block">
 				<ul>
-					<li class=""><a th:href="@{home}">Home</a></li>
-
-
+					<li><a th:href="@{home}">Home</a></li>
 					<li class="drop-down"><a href="">Domains</a>
 						<ul>
-							<li th:each="d:${T(com.stage.entities.Domaine).values()}"  >
-								<a th:href="@{requests(domain=__${d}__)}"  th:text="${d}"></a>
-							</li>
+							<li th:each="d:${T(com.stage.entities.Domaine).values()}"><a
+								th:href="@{requests(domain=__${d}__)}" th:text="${d}"></a></li>
 
-						
-					   </ul>
-					</li>
+
+						</ul></li>
 					<li><a th:href="@{about}">About Us</a></li>
-					<li><a th:href="@{contact}" style="color: #007BFF">Contact Us</a></li>
+					<li><a th:href="@{contact}" style="color: #007BFF">Contact
+							Us</a></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification" data-aos="zoom-out-down"><a
 						href="#"> <i class="fa fa-bell"></i> <span
-							class="counter counter-lg" th:if="${notifications.empty==true}" th:text="${#lists.size(notifications)}">10</span>
+							class="counter counter-lg"
+							th:text="${#lists.size(notifications)}">10</span>
 					</a>
 						<ul>
-							<li th:if="${notifications.empty==true}"><div align="center">Nothing new</div></li>
-							<li th:if="${notifications.empty==false}" th:each="notif:${notifications}" >
-								<a th:if="${notif.demandeStage.statut==null or notif.demandeStage.responsableDomaine!=null}" th:href="@{Edit(id=${notif.demandeStage.id})}" style="display: flex;justify-content: center;border-bottom: 1px solid #DDDDDD;">
-									<i class="fa fa-envelope-o" style="color: #DDDDDD;padding-right: 20px;padding-top: 15px;font-size: 25px;"></i>
-								
-									<span>
-										<span th:text="${notif.contenu}"></span><br>
-												
-										<small ><strong>Domain: </strong><span th:text="${notif.demandeStage.domaine}"></span></small><br>
-												
-										<small th:text="${'--'+notif.date+'--'}"></small>
-									</span>
-									
-								</a>
-								
+							<li th:if="${notifications.empty==true}"><div align="center">Nothing
+									new</div></li>
+							<li th:if="${notifications.empty==false}"
+								th:each="notif:${notifications}"><a
+								th:href="@{EditNotification(request=${notif.demandeStage.id},notification=${notif.id})}"
+								style="display: flex; justify-content: center; border-bottom: 1px solid #DDDDDD;">
+									<i class="fa fa-envelope-o"
+									style="color: #DDDDDD; padding-right: 20px; padding-top: 15px; font-size: 25px;"></i>
 
-								
-							</li>
-							
-							
+									<span> <span th:text="${notif.contenu}"></span><br>
+
+										<small><strong>Domain: </strong><span
+											th:text="${notif.demandeStage.domaine}"></span></small><br> <small
+										th:text="${'--'+notif.date+'--'}"></small>
+								</span>
+
+							</a></li>
+
+
 						</ul></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification rounded"
 						style="border: 2px solid #1545B3; box-shadow: 0 0 10px rgba(21, 69, 179, 0.4); background-color: #1545B3;">
-						<a
-						style="color: #fff;"
-						th:text="${session.user.nom[0]+session.user.prenom[0]}"
-						href="">
-						</a>
+						<a style="color: #fff;"
+						th:text="${session.user.nom[0]+session.user.prenom[0]}" href="">
+					</a>
 						<ul>
 							<li><a th:href="@{logout}">Log out</a></li>
 
 
-						</ul></li>
+						</ul>
+					</li>
 					<li sec:authorize="isAnonymous()" class="btns_login rounded"><a
 						th:href="@{/login}"> Log In</a></li>
 				</ul>
@@ -126,154 +123,176 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	</header>
 	<!-- #header -->
 
-  <main id="main">
+	<main id="main">
 
-    <!-- ======= Breadcrumbs Section ======= -->
-    <section class="breadcrumbs">
-      <div class="container">
+		<!-- ======= Breadcrumbs Section ======= -->
+		<section class="breadcrumbs">
+			<div class="container">
 
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>Contact Us</h2>
-          <ol>
-            <li><a th:href="@{home}">Home</a></li>
-            <li>Contact Us</li>
-          </ol>
-        </div>
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>Contact Us</h2>
+					<ol>
+						<li><a th:href="@{home}">Home</a></li>
+						<li>Contact Us</li>
+					</ol>
+				</div>
 
-      </div>
-    </section><!-- End Breadcrumbs Section -->
-
- 
-      
-      
-
-    <!-- ======= Contact Section ======= -->
-    <section  class="pt-4" id="contact">
-      <div class="container-fluid" data-aos="fade-up">
-
-
-        <div class="row">
+			</div>
+		</section>
+		<!-- End Breadcrumbs Section -->
 
 
 
-          <div class="col-lg-6">
-            <div class="map mb-4 mb-lg-0">
-              <iframe src="https://maps.google.com/maps?q=casablanca&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" style="border:0; width: 100%; height: 312px;" allowfullscreen></iframe>
-            </div>
-          </div>
 
-          <div class="col-lg-6">
-            <div class="row">
-              <div class="col-md-4 info">
-                <i class="ion-ios-location-outline"></i>
-                <p>A108 Adam Street, NY 535022</p>
-              </div>
-              <div class="col-md-5 info">
-                <i class="ion-ios-email-outline"></i>
-                <p>InternshipTeam@gmail.com</p>
-              </div>
 
-              <div class="col-md-3 info">
-                <i class="ion-ios-telephone-outline"></i>
-                <p>+212 65 895 54 88</p>
-              </div>
-            </div>
+		<!-- ======= Contact Section ======= -->
+		<section class="pt-4" id="contact">
+			<div class="container-fluid" data-aos="fade-up">
 
-            <div class="form">
-              <form action="" method="post" role="form" class="contactUs-form">
-                <div class="form-row">
-                  <div class="form-group col-lg-6">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                    <div class="validate"></div>
-                  </div>
-                  <div class="form-group col-lg-6">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                    <div class="validate"></div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                  <div class="validate"></div>
-                </div>
-                <div class="form-group">
-                  <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                  <div class="validate"></div>
-                </div>
-                <div class="mb-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-                </div>
-                <div class="text-center"><button type="submit" title="Send Message">Send Message</button></div>
-              </form>
-            </div>
-          </div>
 
-        </div>
-
-      </div>
-    </section><!-- End Contact Section -->
+				<div class="row">
 
 
 
-  </main><!-- End #main -->
+					<div class="col-lg-6">
+						<div class="map mb-4 mb-lg-0">
+							<iframe
+								src="https://maps.google.com/maps?q=casablanca&t=&z=13&ie=UTF8&iwloc=&output=embed"
+								frameborder="0" style="border: 0; width: 100%; height: 312px;"
+								allowfullscreen></iframe>
+						</div>
+					</div>
 
-   <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
+					<div class="col-lg-6">
+						<div class="row">
+							<div class="col-md-4 info">
+								<i class="ion-ios-location-outline"></i>
+								<p>A108 Adam Street, NY 535022</p>
+							</div>
+							<div class="col-md-5 info">
+								<i class="ion-ios-email-outline"></i>
+								<p>InternshipTeam@gmail.com</p>
+							</div>
 
-          <div class="col-lg-4 col-md-6 footer-info">
-            <h3>INTERNSHIP</h3>
-            <p>With our service, you can send your internship requests more easily. The processing of requests will therefore be easier and the response will also be sent to you in a shorter time.</p>
-          </div>
-          <div class="col-lg-1 col-md-6 "></div>
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="index.html">Services</a></li>
-              <li><a href="contact_us.html">Contact us</a></li>
-              <li><a href="about_us.html">About us</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-1 col-md-6 "></div>
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h4>Contact Us</h4>
-            <p>
-              A108 Adam Street, NY 535022<br>
-              <strong>Phone:</strong> +212 65 895 54 88<br>
-              <strong>Email:</strong> InternshipTeam@gmail.com<br>
-            </p>
-            <div class="social-links">
-              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
-              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-            </div>
+							<div class="col-md-3 info">
+								<i class="ion-ios-telephone-outline"></i>
+								<p>+212 65 895 54 88</p>
+							</div>
+						</div>
 
-          </div>
+						<div class="form">
+							<form action="" method="post" role="form" class="contactUs-form">
+								<div class="form-row">
+									<div class="form-group col-lg-6">
+										<input type="text" name="name" class="form-control" id="name"
+											placeholder="Your Name" data-rule="minlen:4"
+											data-msg="Please enter at least 4 chars" />
+										<div class="validate"></div>
+									</div>
+									<div class="form-group col-lg-6">
+										<input type="email" class="form-control" name="email"
+											id="email" placeholder="Your Email" data-rule="email"
+											data-msg="Please enter a valid email" />
+										<div class="validate"></div>
+									</div>
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" name="subject"
+										id="subject" placeholder="Subject" data-rule="minlen:4"
+										data-msg="Please enter at least 8 chars of subject" />
+									<div class="validate"></div>
+								</div>
+								<div class="form-group">
+									<textarea class="form-control" name="message" rows="5"
+										data-rule="required" data-msg="Please write something for us"
+										placeholder="Message"></textarea>
+									<div class="validate"></div>
+								</div>
+								<div class="mb-3">
+									<div class="loading">Loading</div>
+									<div class="error-message"></div>
+									<div class="sent-message">Your message has been sent.
+										Thank you!</div>
+								</div>
+								<div class="text-center">
+									<button type="submit" title="Send Message">Send
+										Message</button>
+								</div>
+							</form>
+						</div>
+					</div>
 
-         
+				</div>
 
-        </div>
-      </div>
-    </div>
+			</div>
+		</section>
+		<!-- End Contact Section -->
 
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-       
-        <a href="#">internship Team</a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+	</main>
+	<!-- End #main -->
+
+	<!-- ======= Footer ======= -->
+	<footer id="footer">
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-lg-4 col-md-6 footer-info">
+						<h3>INTERNSHIP</h3>
+						<p>With our service, you can send your internship requests
+							more easily. The processing of requests will therefore be easier
+							and the response will also be sent to you in a shorter time.</p>
+					</div>
+					<div class="col-lg-1 col-md-6 "></div>
+					<div class="col-lg-2 col-md-6 footer-links">
+						<h4>Useful Links</h4>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="index.html">Services</a></li>
+							<li><a href="contact_us.html">Contact us</a></li>
+							<li><a href="about_us.html">About us</a></li>
+						</ul>
+					</div>
+					<div class="col-lg-1 col-md-6 "></div>
+					<div class="col-lg-3 col-md-6 footer-contact">
+						<h4>Contact Us</h4>
+						<p>
+							A108 Adam Street, NY 535022<br> <strong>Phone:</strong> +212
+							65 895 54 88<br> <strong>Email:</strong>
+							InternshipTeam@gmail.com<br>
+						</p>
+						<div class="social-links">
+							<a href="#" class="twitter"><i class="fa fa-twitter"></i></a> <a
+								href="#" class="facebook"><i class="fa fa-facebook"></i></a> <a
+								href="#" class="instagram"><i class="fa fa-instagram"></i></a> <a
+								href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+							<a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+						</div>
+
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="copyright">
+				&copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>.
+				All Rights Reserved
+			</div>
+			<div class="credits">
+
+				<a href="#">internship Team</a>
+			</div>
+		</div>
+	</footer>
+	<!-- End Footer -->
+
+	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
 	<!-- Vendor JS Files -->
 	<script th:src="@{assets/vendor/jquery/jquery.min.js}"
