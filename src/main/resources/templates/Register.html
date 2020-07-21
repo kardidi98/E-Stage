@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Registration</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+<title>Registration</title>
+<meta content="" name="descriptison">
+<meta content="" name="keywords">
 
 <!-- Select -->
 <link rel="stylesheet"
@@ -51,7 +51,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <body>
 
- 	<!-- ======= Header ======= -->
+	<!-- ======= Header ======= -->
 	<header id="header" class="fixed-top">
 		<div class="container">
 
@@ -63,19 +63,26 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 			<nav class="main-nav float-right d-none d-lg-block">
 				<ul>
-					<li ><a th:href="@{home}">Home</a></li>
+					<li><a th:href="@{home}">Home</a></li>
 
 
-					<li class="drop-down"><a href="">Domains</a>
+					<li class="drop-down"><a href=""
+						sec:authorize="hasAnyAuthority('Role_ResponsableDomaine','Role_ResponsableStage')">Domains</a>
+						<a href="" sec:authorize="hasAnyAuthority('Role_Stagiaire')">My
+							Requests</a>
 						<ul>
-							<li th:each="d:${T(com.stage.entities.Domaine).values()}">
-								<a th:href="@{requests(domain=__${d}__)}" th:text="${d}"></a>
+							<li
+								sec:authorize="hasAnyAuthority('Role_ResponsableDomaine','Role_ResponsableStage')"
+								th:each="d:${T(com.stage.entities.Domaine).values()}"><a
+								th:href="@{requests(domain=__${d}__)}" th:text="${d}"></a></li>
+							<li sec:authorize="hasAnyAuthority('Role_Stagiaire')"
+								th:each="d:${T(com.stage.entities.Domaine).values()}"><a
+								th:href="@{userSentRequests(domain=__${d}__)}" th:text="${d}"></a>
 							</li>
 
-
 						</ul></li>
-					<li><a th:href="@{about}" >About Us</a></li>
-					<li><a th:href="@{contact}" >Contact Us</a></li>
+					<li><a th:href="@{about}">About Us</a></li>
+					<li><a th:href="@{contact}">Contact Us</a></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification" data-aos="zoom-out-down"><a
 						href="#"> <i class="fa fa-bell"></i> <span
@@ -85,10 +92,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 						<ul>
 							<li th:if="${notifications.empty==true}"><div align="center">Nothing
 									new</div></li>
-							<li  th:if="${notifications.empty==false}"
-								th:each="notif:${notifications}">
-							<a
-								
+							<li th:if="${notifications.empty==false}"
+								th:each="notif:${notifications}"><a
 								th:href="@{EditNotification(request=${notif.demandeStage.id},notification=${notif.id})}"
 								style="display: flex; justify-content: center; border-bottom: 1px solid #DDDDDD;">
 									<i class="fa fa-envelope-o"
@@ -102,7 +107,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 								</span>
 
 							</a></li>
-							
+
 
 						</ul></li>
 					<li sec:authorize="isAuthenticated()"
@@ -127,167 +132,193 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	</header>
 	<!-- #header -->
 
-  <main id="main">
+	<main id="main">
 
-    <!-- ======= Breadcrumbs Section ======= -->
-    <section class="breadcrumbs">
-      <div class="container">
+		<!-- ======= Breadcrumbs Section ======= -->
+		<section class="breadcrumbs">
+			<div class="container">
 
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>Register</h2>
-          <ol>
-            <li><a th:href="@{home}">Home</a></li>
-            <li>Register</li>
-          </ol>
-        </div>
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>Register</h2>
+					<ol>
+						<li><a th:href="@{home}">Home</a></li>
+						<li>Register</li>
+					</ol>
+				</div>
 
-      </div>
-    </section><!-- End Breadcrumbs Section -->
+			</div>
+		</section>
+		<!-- End Breadcrumbs Section -->
 
-	<section class="  pt-4" th:if="${param.existingEmail}">
-	<div class="row justify-content-center">
-		<div class="container col-lg-4 col-md-8 alert alert-danger alert-dismissible fade show" role="alert">
-		  This email address is already in use ! Try an other one.
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		    <span aria-hidden="true">&times;</span>
-		  </button>
+		<section class="  pt-4" th:if="${param.existingEmail}">
+			<div class="row justify-content-center">
+				<div
+					class="container col-lg-4 col-md-8 alert alert-danger alert-dismissible fade show"
+					role="alert">
+					This email address is already in use ! Try an other one.
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+		</section>
+
+		<section class="  pt-4" th:if="${param.passwordError}">
+			<div class="row justify-content-center">
+				<div
+					class="container col-lg-4 col-md-8 alert alert-danger alert-dismissible fade show"
+					role="alert">
+					the passwords you entered are not the same !
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+		</section>
+
+		<section class="login register pt-4" id="login">
+			<div class="row justify-content-center">
+
+				<div class="container col-lg-4 col-md-8">
+
+					<form th:action="@{register}" method="post"
+						th:object="${stagiaire}" class="p-4 border rounded"
+						data-aos="zoom-in">
+						<h3 class="text-black mb-5 border-bottom pb-2">Register</h3>
+						<div class="row form-group ">
+							<div class="col-md-6 mb-3 mb-md-0">
+
+								<input type="text" id="nom" name="nom" class="form-control p-3"
+									placeholder="Last Name" th:field="*{nom}" required="required">
+							</div>
+							<div class="col-md-6 mb-3 mb-md-0">
+
+								<input type="text" id="prenom" name="prenom"
+									class="form-control p-3" placeholder="First Name"
+									th:field="*{prenom}" required="required">
+							</div>
+
+						</div>
+						<div class="row form-group ">
+
+							<div class="col-md-12 mb-3 mb-md-0">
+
+								<input type="text" id="login" name="login"
+									class="form-control p-3" data-rule="minlen:4"
+									placeholder="Login" th:field="*{login}" required="required">
+							</div>
+						</div>
+
+						<div class="row form-group mb-4">
+							<div class="col-md-12 mb-3 mb-md-0">
+
+								<input type="email" id="email" name="email"
+									class="form-control p-3" placeholder="Email Address"
+									th:field="*{email}" required="required">
+							</div>
+
+						</div>
+						<div class="row form-group mb-4">
+
+							<div class="col-md-12 mb-3 mb-md-0">
+
+								<input type="password" id="password" name="password"
+									class="form-control p-3" placeholder="Password"
+									th:field="*{password}" required="required">
+							</div>
+						</div>
+						<div class="row form-group mb-4">
+
+							<div class="col-md-12 mb-3 mb-md-0">
+
+								<input type="password" id="Rpassword" name="Rpassword"
+									class="form-control p-3" placeholder="Confirm Password"
+									required="required">
+							</div>
+						</div>
+
+						<div class="row form-group ">
+							<div class="col-md-12">
+								<input type="submit" value="Register"
+									class="btn px-4 btn-primary text-white">
+							</div>
+						</div>
+
+
+					</form>
+
+				</div>
+			</div>
+
+		</section>
+
+
+	</main>
+	<!-- End #main -->
+
+	<!-- ======= Footer ======= -->
+	<footer id="footer">
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-lg-4 col-md-6 footer-info">
+						<h3>INTERNSHIP</h3>
+						<p>With our service, you can send your internship requests
+							more easily. The processing of requests will therefore be easier
+							and the response will also be sent to you in a shorter time.</p>
+					</div>
+					<div class="col-lg-1 col-md-6 "></div>
+					<div class="col-lg-2 col-md-6 footer-links">
+						<h4>Useful Links</h4>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="index.html">Services</a></li>
+							<li><a href="contact_us.html">Contact us</a></li>
+							<li><a href="about_us.html">About us</a></li>
+						</ul>
+					</div>
+					<div class="col-lg-1 col-md-6 "></div>
+					<div class="col-lg-3 col-md-6 footer-contact">
+						<h4>Contact Us</h4>
+						<p>
+							A108 Adam Street, NY 535022<br> <strong>Phone:</strong> +212
+							65 895 54 88<br> <strong>Email:</strong>
+							InternshipTeam@gmail.com<br>
+						</p>
+
+						<div class="social-links">
+							<a href="#" class="twitter"><i class="fa fa-twitter"></i></a> <a
+								href="#" class="facebook"><i class="fa fa-facebook"></i></a> <a
+								href="#" class="instagram"><i class="fa fa-instagram"></i></a> <a
+								href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+							<a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+						</div>
+
+					</div>
+
+
+
+				</div>
+			</div>
 		</div>
-	</div>
-	</section>
-	
-	<section class="  pt-4" th:if="${param.passwordError}">
-	<div class="row justify-content-center">
-		<div class="container col-lg-4 col-md-8 alert alert-danger alert-dismissible fade show" role="alert">
-		  the passwords you entered are not the same !
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		    <span aria-hidden="true">&times;</span>
-		  </button>
+
+		<div class="container">
+			<div class="copyright">
+				&copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>.
+				All Rights Reserved
+			</div>
+			<div class="credits">
+
+				<a href="#">internship Team</a>
+			</div>
 		</div>
-	</div>
-	</section>
-	
-    <section class="login register pt-4" id="login" >
-      <div class="row justify-content-center">
-        
-         <div class="container col-lg-4 col-md-8" >
-        
-            <form th:action="@{register}" method="post" th:object="${stagiaire}" class="p-4 border rounded"  data-aos="zoom-in">
-            	<h3 class="text-black mb-5 border-bottom pb-2">Register</h3>
-              <div class="row form-group ">
-                <div class="col-md-6 mb-3 mb-md-0">
-                  
-                  <input type="text" id="nom" name="nom" class="form-control p-3" placeholder="Last Name"  th:field="*{nom}" required="required">
-                </div>
-                <div class="col-md-6 mb-3 mb-md-0">
-                  
-                  <input type="text" id="prenom" name="prenom" class="form-control p-3" placeholder="First Name" th:field="*{prenom}" required="required">
-                </div>
-                 
-              </div>
-              <div class="row form-group ">
-                
-                 <div class="col-md-12 mb-3 mb-md-0">
-                  
-                  <input type="text" id="login" name="login" class="form-control p-3" data-rule="minlen:4" placeholder="Login" th:field="*{login}" required="required">
-                </div>
-              </div>
-              
-              <div class="row form-group mb-4">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  
-                  <input type="email" id="email" name="email" class="form-control p-3" placeholder="Email Address" th:field="*{email}" required="required">
-                </div>
-                
-              </div>
-               <div class="row form-group mb-4">
-               
-                 <div class="col-md-12 mb-3 mb-md-0">
-                  
-                  <input type="password" id="password" name="password" class="form-control p-3" placeholder="Password" th:field="*{password}" required="required">
-                </div>
-              </div>
-              <div class="row form-group mb-4">
-               
-                 <div class="col-md-12 mb-3 mb-md-0">
-                  
-                  <input type="password" id="Rpassword" name="Rpassword" class="form-control p-3" placeholder="Confirm Password" required="required">
-                </div>
-              </div>
+	</footer>
+	<!-- End Footer -->
 
-              <div class="row form-group ">
-                <div class="col-md-12">
-                  <input type="submit" value="Register" class="btn px-4 btn-primary text-white">
-                </div>
-              </div>
-              
-              
-            </form>
-            
-      </div>
-      </div>
-     
-    </section>
-
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-4 col-md-6 footer-info">
-            <h3>INTERNSHIP</h3>
-            <p>With our service, you can send your internship requests more easily. The processing of requests will therefore be easier and the response will also be sent to you in a shorter time.</p>
-          </div>
-          <div class="col-lg-1 col-md-6 "></div>
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="index.html">Services</a></li>
-              <li><a href="contact_us.html">Contact us</a></li>
-              <li><a href="about_us.html">About us</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-1 col-md-6 "></div>
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h4>Contact Us</h4>
-            <p>
-              A108 Adam Street, NY 535022<br>
-              <strong>Phone:</strong> +212 65 895 54 88<br>
-              <strong>Email:</strong> InternshipTeam@gmail.com<br>
-            </p>
-
-            <div class="social-links">
-              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
-              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-            </div>
-
-          </div>
-
-         
-
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-       
-        <a href="#">internship Team</a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
-
-  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
 	<!-- Vendor JS Files -->
 	<script th:src="@{assets/vendor/jquery/jquery.min.js}"

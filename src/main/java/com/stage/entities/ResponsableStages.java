@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 @Entity
-@DiscriminatorValue("Role_ResponsableStages")
+@DiscriminatorValue("Role_ResponsableStage")
 public class ResponsableStages extends Utilisateur {
 
 	private String CIN;

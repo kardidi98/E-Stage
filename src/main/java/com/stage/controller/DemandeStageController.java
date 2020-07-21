@@ -141,16 +141,15 @@ public class DemandeStageController {
 
 	@GetMapping("requests")
 	public String requests(Model model,@RequestParam(value = "domain") Domaine domain,HttpServletRequest hsr) {
-
 		HttpSession session = hsr.getSession(true);
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-		Utilisateur user=requestService.findbyUsername(auth.getName().toString());
-		session.setAttribute("user",user);
-
+		Utilisateur utilisateur=requestService.findbyUsername(auth.getName().toString());
+		session.setAttribute("user",utilisateur);
+		
 		List<DemandeStage> demandesStages = requestService.findByDomaine(domain);
 		model.addAttribute("demandesStages",demandesStages);
 
-		model.addAttribute("notifications", user.getNotifivations());
+		model.addAttribute("notifications", utilisateur.getNotifivations());
 		model.addAttribute("domaine",domain);
 		return "listRequests";
 	}
@@ -186,10 +185,17 @@ public class DemandeStageController {
 	}
 
 	@GetMapping("Delete")
-	public String Delete(Model model,@RequestParam(value = "id") Long id ) throws IOException, CloneNotSupportedException {
+	public String Delete(Model model,@RequestParam(value = "id") Long id) throws IOException, CloneNotSupportedException {
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		Utilisateur user=requestService.findbyUsername(auth.getName().toString());
+		
 		DemandeStage demandStage=requestService.findById(id);
 		requestService.deleteRequest(demandStage,dirDocumentAdministratif,dirLettreMotivation,dirPhotoIdentity);
 
+		
+		if(user instanceof Stagiaire) {
+			return "redirect:userSentRequests?domain="+demandStage.getDomaine()+"&requestDeleted";
+		}
 
 		return "redirect:requests?domain="+demandStage.getDomaine()+"&requestDeleted";
 	}
@@ -247,7 +253,6 @@ public class DemandeStageController {
 			return "redirect:Edit?id="+id+"&statusChanged";
 		}
 
-	
 
 		model.addAttribute("notifications", user.getNotifivations());
 		model.addAttribute("demandStage", demandStage);
@@ -271,10 +276,10 @@ public class DemandeStageController {
 		else{
 			demandStage.setEntretien(entretien);
 		}
-		demandStage.setDecisionTomake(true);
+		
 		requestService.save(demandStage);
 		requestService.addNotification(demandStage,"DecisionPrise",demandStage.getStagiaire().getEmail());
-		requestService.addNotification(demandStage,"PrendreDecisionFinale","ChoukriAnwar@gmail.com");
+		//requestService.addNotification(demandStage,"PrendreDecisionFinale","ChoukriAnwar@gmail.com");
 		return "redirect:Edit?id="+id+"&interviewSaved";
 
 	}

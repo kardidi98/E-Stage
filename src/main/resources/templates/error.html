@@ -63,19 +63,26 @@
 
 			<nav class="main-nav float-right d-none d-lg-block">
 				<ul>
-					<li ><a th:href="@{home}">Home</a></li>
+					<li><a th:href="@{home}">Home</a></li>
 
 
-					<li class="drop-down"><a href="">Domains</a>
+					<li class="drop-down"><a href=""
+						sec:authorize="hasAnyAuthority('Role_ResponsableDomaine','Role_ResponsableStage')">Domains</a>
+						<a href="" sec:authorize="hasAnyAuthority('Role_Stagiaire')">My
+							Requests</a>
 						<ul>
-							<li th:each="d:${T(com.stage.entities.Domaine).values()}">
-								<a th:href="@{requests(domain=__${d}__)}" th:text="${d}"></a>
+							<li
+								sec:authorize="hasAnyAuthority('Role_ResponsableDomaine','Role_ResponsableStage')"
+								th:each="d:${T(com.stage.entities.Domaine).values()}"><a
+								th:href="@{requests(domain=__${d}__)}" th:text="${d}"></a></li>
+							<li sec:authorize="hasAnyAuthority('Role_Stagiaire')"
+								th:each="d:${T(com.stage.entities.Domaine).values()}"><a
+								th:href="@{userSentRequests(domain=__${d}__)}" th:text="${d}"></a>
 							</li>
 
-
 						</ul></li>
-					<li><a th:href="@{about}" >About Us</a></li>
-					<li><a th:href="@{contact}" >Contact Us</a></li>
+					<li><a th:href="@{about}">About Us</a></li>
+					<li><a th:href="@{contact}">Contact Us</a></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification" data-aos="zoom-out-down"><a
 						href="#"> <i class="fa fa-bell"></i> <span
@@ -85,10 +92,8 @@
 						<ul>
 							<li th:if="${notifications.empty==true}"><div align="center">Nothing
 									new</div></li>
-							<li  th:if="${notifications.empty==false}"
-								th:each="notif:${notifications}">
-							<a
-								
+							<li th:if="${notifications.empty==false}"
+								th:each="notif:${notifications}"><a
 								th:href="@{EditNotification(request=${notif.demandeStage.id},notification=${notif.id})}"
 								style="display: flex; justify-content: center; border-bottom: 1px solid #DDDDDD;">
 									<i class="fa fa-envelope-o"
@@ -102,7 +107,7 @@
 								</span>
 
 							</a></li>
-							
+
 
 						</ul></li>
 					<li sec:authorize="isAuthenticated()"
@@ -147,7 +152,9 @@
 
 		<section class="pt-4">
 			<div class="container">
-				<div align="center"><img src="../assets/img/Error/errorImg.jpg"/></div>
+				<div align="center">
+					<img src="../assets/img/Error/errorImg.jpg" />
+				</div>
 				<h1 align="center" style="font-size: 100px;">Unknown error</h1>
 				<h3 align="center">We are fixing this unexpected error ! try it
 					later</h3>
@@ -205,7 +212,10 @@
 
 		<div class="container">
 			<div class="copyright">
-				&copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>.
+				&copy; Copyright <strong><script>
+					var CurrentYear = new Date().getFullYear();
+					document.write(CurrentYear)
+				</script></strong>.
 				All Rights Reserved
 			</div>
 			<div class="credits">

@@ -1,5 +1,6 @@
 package com.stage.entities;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -39,6 +40,17 @@ public class Stagiaire extends Utilisateur {
 
 	public void setDemandeStages(List<DemandeStage> demandeStages) {
 		this.demandeStages = demandeStages;
+	}
+
+
+	public List<DemandeStage> getDemandeStagesByDomaine(Domaine domain) {
+		List<DemandeStage> demandesStage=new ArrayList<DemandeStage>();
+		for (DemandeStage demandeStage : this.demandeStages) {
+			if(demandeStage.getDomaine().equals(domain)) {
+				demandesStage.add(demandeStage);
+			}
+		}
+		return demandesStage;
 	}
 	
 	

@@ -64,19 +64,26 @@
 
 			<nav class="main-nav float-right d-none d-lg-block">
 				<ul>
-					<li ><a th:href="@{home}">Home</a></li>
+					<li><a th:href="@{home}">Home</a></li>
 
 
-					<li class="drop-down"><a href="">Domains</a>
+					<li class="drop-down"><a href=""
+						sec:authorize="hasAnyAuthority('Role_ResponsableDomaine','Role_ResponsableStage')">Domains</a>
+						<a href="" sec:authorize="hasAnyAuthority('Role_Stagiaire')">My
+							Requests</a>
 						<ul>
-							<li th:each="d:${T(com.stage.entities.Domaine).values()}">
-								<a th:href="@{requests(domain=__${d}__)}" th:text="${d}"></a>
+							<li
+								sec:authorize="hasAnyAuthority('Role_ResponsableDomaine','Role_ResponsableStage')"
+								th:each="d:${T(com.stage.entities.Domaine).values()}"><a
+								th:href="@{requests(domain=__${d}__)}" th:text="${d}"></a></li>
+							<li sec:authorize="hasAnyAuthority('Role_Stagiaire')"
+								th:each="d:${T(com.stage.entities.Domaine).values()}"><a
+								th:href="@{userSentRequests(domain=__${d}__)}" th:text="${d}"></a>
 							</li>
 
-
 						</ul></li>
-					<li><a th:href="@{about}" >About Us</a></li>
-					<li><a th:href="@{contact}" >Contact Us</a></li>
+					<li><a th:href="@{about}">About Us</a></li>
+					<li><a th:href="@{contact}">Contact Us</a></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification" data-aos="zoom-out-down"><a
 						href="#"> <i class="fa fa-bell"></i> <span
@@ -86,10 +93,8 @@
 						<ul>
 							<li th:if="${notifications.empty==true}"><div align="center">Nothing
 									new</div></li>
-							<li  th:if="${notifications.empty==false}"
-								th:each="notif:${notifications}">
-							<a
-								
+							<li th:if="${notifications.empty==false}"
+								th:each="notif:${notifications}"><a
 								th:href="@{EditNotification(request=${notif.demandeStage.id},notification=${notif.id})}"
 								style="display: flex; justify-content: center; border-bottom: 1px solid #DDDDDD;">
 									<i class="fa fa-envelope-o"
@@ -103,7 +108,7 @@
 								</span>
 
 							</a></li>
-							
+
 
 						</ul></li>
 					<li sec:authorize="isAuthenticated()"
@@ -152,8 +157,12 @@
 		<section sec:authorize="hasAuthority('Role_ResponsableStage')"
 			class="pt-4"
 			style="display: flex; justify-content: center; margin-bottom: 10px;">
-			<button class="btn btn-primary" data-toggle="modal"
-				data-target="#statusModal">Change Status</button>
+			<button th:if="${demandStage.statut==null}" class="btn btn-primary"
+				data-toggle="modal" data-target="#statusModal">Change
+				Status</button>
+			<button th:if="${demandStage.DecisionTomake==true}"
+				class="btn btn-primary" data-toggle="modal"
+				data-target="#statusModal">Make Your decision</button>
 			&nbsp;
 			<button class="btn btn-secondary" data-toggle="modal"
 				data-target="#AssignmentModal">Assign to a responsible</button>
@@ -164,7 +173,11 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Change Status</h5>
+							<h5 class="modal-title" id="exampleModalLabel"
+								th:if="${demandStage.statut==null}">Change Status</h5>
+							<h5 class="modal-title" id="exampleModalLabel"
+								th:if="${demandStage.DecisionTomake==true}">Make Your
+								decision</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -179,8 +192,7 @@
 										<div>
 											<input type="text" id="id" name="id"
 												th:field="${demandStage.id}" style="display: none;" /> <label
-												for="status">Status</label> 
-											<select
+												for="status">Status</label> <select
 												th:if="${demandStage.statut==null}"
 												class="selectpicker border rounded " id="status"
 												name="status" data-style="btn-black" data-width="100%"

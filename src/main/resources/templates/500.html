@@ -65,11 +65,19 @@
 				<ul>
 					<li><a th:href="@{home}">Home</a></li>
 
-					<li class="drop-down"><a href="">Domains</a>
+					<li class="drop-down"><a href=""
+						sec:authorize="hasAnyAuthority('Role_ResponsableDomaine','Role_ResponsableStage')">Domains</a>
+						<a href="" sec:authorize="hasAnyAuthority('Role_Stagiaire')">My
+							Requests</a>
 						<ul>
-							<li th:each="d:${T(com.stage.entities.Domaine).values()}"><a
+							<li
+								sec:authorize="hasAnyAuthority('Role_ResponsableDomaine','Role_ResponsableStage')"
+								th:each="d:${T(com.stage.entities.Domaine).values()}"><a
 								th:href="@{requests(domain=__${d}__)}" th:text="${d}"></a></li>
-
+							<li sec:authorize="hasAnyAuthority('Role_Stagiaire')"
+								th:each="d:${T(com.stage.entities.Domaine).values()}"><a
+								th:href="@{userSentRequests(domain=__${d}__)}" th:text="${d}"></a>
+							</li>
 
 						</ul></li>
 					<li><a th:href="@{about}">About Us</a></li>
