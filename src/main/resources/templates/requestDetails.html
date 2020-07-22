@@ -157,7 +157,7 @@
 		<section sec:authorize="hasAuthority('Role_ResponsableStage')"
 			class="pt-4"
 			style="display: flex; justify-content: center; margin-bottom: 10px;">
-			<button th:if="${demandStage.statut==null}" class="btn btn-primary"
+			<button th:if="${demandStage.statut==null or demandStage.DecisionTomake==false}" class="btn btn-primary"
 				data-toggle="modal" data-target="#statusModal">Change
 				Status</button>
 			<button th:if="${demandStage.DecisionTomake==true}"
@@ -193,7 +193,7 @@
 											<input type="text" id="id" name="id"
 												th:field="${demandStage.id}" style="display: none;" /> <label
 												for="status">Status</label> <select
-												th:if="${demandStage.statut==null}"
+												th:if="${demandStage.statut==null or demandStage.DecisionTomake==false}"
 												class="selectpicker border rounded " id="status"
 												name="status" data-style="btn-black" data-width="100%"
 												data-live-search="false" title="Select Status"
@@ -645,7 +645,7 @@
 						<p>
 							A108 Adam Street, NY 535022<br> <strong>Phone:</strong> +212
 							65 895 54 88<br> <strong>Email:</strong>
-							InternshipTeam@gmail.com<br>
+							InternshipTeam2020@gmail.com<br>
 						</p>
 
 						<div class="social-links">

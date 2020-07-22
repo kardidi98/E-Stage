@@ -2,34 +2,24 @@ package com.stage.service;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.stage.entities.DemandeStage;
 import com.stage.entities.DocumentAdministratif;
 import com.stage.entities.Domaine;
-import com.stage.entities.EtatCivile;
 import com.stage.entities.Experiences;
 import com.stage.entities.Formations;
-import com.stage.entities.LettreMotivation;
 import com.stage.entities.Notification;
-import com.stage.entities.ResponsableDomaine;
-import com.stage.entities.ResponsableStages;
-import com.stage.entities.Stagiaire;
 import com.stage.entities.Utilisateur;
 import com.stage.repositories.DemandeStageRepository;
 import com.stage.repositories.NotificationRepository;
 import com.stage.repositories.ResponsableDomaineRepository;
-import com.stage.repositories.ResponsableStagesRepository;
-import com.stage.repositories.StagiaireRepository;
 import com.stage.repositories.UtilisateurRepository;
 
 @Service
@@ -39,6 +29,8 @@ public class DemandeStageService {
 	@Autowired
 	private DemandeStageRepository requestRepository;
 
+	@Autowired
+	private MailNotificationService mailService;
 
 	@Autowired
 	private UtilisateurRepository userRepository;
@@ -46,7 +38,7 @@ public class DemandeStageService {
 
 	@Autowired
 	private ResponsableDomaineRepository responsableDomaineRepository;
-	
+
 	@Autowired
 	private NotificationRepository notificationRepository;
 
@@ -57,7 +49,7 @@ public class DemandeStageService {
 	}
 
 	public Utilisateur findResponsibleByDomaine(Domaine domaine) {
-		
+
 		return responsableDomaineRepository.findByDomaine(domaine);
 	}
 
@@ -155,50 +147,66 @@ public class DemandeStageService {
 
 		//deteleFiles(demandeStage,dirDocumentAdministratif,dirLettreMotivation,dirPhotoIdentity);
 		requestRepository.delete(request);
-		
+
 	}
 
 	public void addNotification(DemandeStage request,String messageSeparateurDuTraitement,String email) {
-		
+
 		Utilisateur user=userRepository.findByEmail(email);
 		Notification notification=null;
-		
+		String msg=null;
+
 		if(messageSeparateurDuTraitement==("NouvelleDemandeAjoutee")) {
 			notification=new Notification("A new request has been received", request,user);
+			msg="<div align='center' style='color:black;'><h2>A new request has been received</h2><h3><strong>Domain: </strong>"+request.getDomaine()+"</h3><div>--"+LocalDate.now()+"--</div><br/><div><a href='http://localhost:9090/home'><button style='background-color:#51A4FD;border:1px solid #51A4FD;border-radius:5px;box-shadow:0 0 10px rgba(0,0,0,0.3);font-size:25px;'>Click Here</button></a></div><div>";
 		}
-		
+
 		if(messageSeparateurDuTraitement==("NouvelleDemandeAffectee")) {
 			notification=new Notification("A new request has been assigned to you", request,user);
+			
+			msg="<div align='center' style='color:black;'><h2>\"A new request has been received\"</h2><h3><strong>Domain: </strong>"+request.getDomaine()+"</h3><div>--"+LocalDate.now()+"--</div><br/><div><a href='http://localhost:9090/home'><button style='background-color:#51A4FD;border:1px solid #51A4FD;border-radius:5px;box-shadow:0 0 10px rgba(0,0,0,0.3);font-size:25px;'>Click Here</button></a></div><div>";
+			
 		}
-		
+
 		if(messageSeparateurDuTraitement==("DecisionPrise")) {
 			notification=new Notification("Check The status of your  request", request,user);
+			
+			msg="<div align='center' style='color:black;'><h2>A new request has been received</h2><h3><strong>Domain: </strong>"+request.getDomaine()+"</h3><div>--"+LocalDate.now()+"--</div><br/><div><a href='http://localhost:9090/home'><button style='background-color:#51A4FD;border:1px solid #51A4FD;border-radius:5px;box-shadow:0 0 10px rgba(0,0,0,0.3);font-size:25px;'>Click Here</button></a></div><div>";
+			
 		}
-		
+
 		if(messageSeparateurDuTraitement==("PrendreDecisionFinale")) {
 			notification=new Notification("Make final decision", request,user);
+			
+			msg="<div align='center' style='color:black;'><h2>Make final decision</h2><h3><strong>Domain: </strong>"+request.getDomaine()+"</h3><div>--"+LocalDate.now()+"--</div><br/><div><a href='http://localhost:9090/home'><button style='background-color:#51A4FD;border:1px solid #51A4FD;border-radius:5px;box-shadow:0 0 10px rgba(0,0,0,0.3);font-size:25px;'>Click Here</button></a></div><div>";
+			
 		}
-		
-		
+
+
 
 		notification.setDemandeStage(request);
 		request.getNotifications().add(notification);
 		request.setNotifications(request.getNotifications());
 		requestRepository.save(request);
+		try {
+			mailService.sendNotification(user, msg);
+		} catch (Exception e) {
+
+		}
 	}
 
 	public void removeNotification(Long notification,Long request) {
-		
+
 		Notification notif=notificationRepository.getOne(notification);
 		DemandeStage demandeStage=requestRepository.getOne(request);
 		demandeStage.getNotifications().remove(notif);
 		requestRepository.save(demandeStage);
-		
+
 	}
 
 
 
-	
+
 
 
 

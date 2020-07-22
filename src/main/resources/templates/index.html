@@ -437,7 +437,7 @@
 						<p>
 							A108 Adam Street, NY 535022<br> <strong>Phone:</strong> +212
 							65 895 54 88<br> <strong>Email:</strong>
-							InternshipTeam@gmail.com<br>
+							InternshipTeam2020@gmail.com<br>
 						</p>
 
 						<div class="social-links">
@@ -496,6 +496,13 @@
 		src="../static/assets/vendor/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
 	<!--  Main JS File -->
 	<script th:src="@{assets/js/main.js}" src="../static/assets/js/main.js"></script>
+
+	<script type="text/javascript">
+	
+		if([[${notifications.empty==false}]]>0){
+			SendNotification();
+		}
+	</script>
 
 </body>
 

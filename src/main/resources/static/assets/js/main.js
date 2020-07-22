@@ -276,7 +276,37 @@ var AdministrativeDocSection=1;
 	});
 
 
+
+
 })(jQuery);
+
+
+function showNotification(newNotif){
+
+	const notification=new Notification("Internship Team",{
+		body:"Check the new notifications you received !",
+		icon:"assets/img/favicon.png"
+	});
+	notification.onclick = (e) =>{
+		window.location.href="http://localhost:9090/home";
+	};
+
+
+}
+function SendNotification(){
+
+	if(Notification.permission === "granted"){
+		showNotification();
+	}
+	else if(Notification.permission !== "denied"){
+		Notification.requestPermission().then(permission => {
+			if(Notification.permission === "granted"){
+				showNotification();
+			};
+		});
+	}
+
+}
 
 
 

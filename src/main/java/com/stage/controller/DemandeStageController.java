@@ -39,6 +39,7 @@ import com.stage.entities.Stagiaire;
 import com.stage.entities.Statut;
 import com.stage.entities.Utilisateur;
 import com.stage.service.DemandeStageService;
+import com.stage.service.MailNotificationService;
 
 @Controller
 public class DemandeStageController {
@@ -46,6 +47,8 @@ public class DemandeStageController {
 
 	@Autowired
 	private DemandeStageService requestService;
+	
+	
 
 	@Value("${dir.dirPhotoIdentity}")
 	private String dirPhotoIdentity;
@@ -133,6 +136,7 @@ public class DemandeStageController {
 
 		requestService.createAndSaveFile(photo,dirPhotoIdentity,titre,dirLettreMotivation,titreDoc,dirDocumentAdministratif,request);
 		requestService.addNotification(request,"NouvelleDemandeAjoutee","ChoukriAnwar@gmail.com");
+		
 
 		return "redirect:/Edit?id="+request.getId()+"&requestAdded";
 	}
