@@ -10,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.stage.entities.Commentaire;
 import com.stage.entities.DemandeStage;
 import com.stage.entities.DocumentAdministratif;
 import com.stage.entities.Domaine;
 import com.stage.entities.Experiences;
 import com.stage.entities.Formations;
 import com.stage.entities.Notification;
+import com.stage.entities.ResponsableStages;
 import com.stage.entities.Utilisateur;
 import com.stage.repositories.DemandeStageRepository;
 import com.stage.repositories.NotificationRepository;
@@ -202,6 +204,12 @@ public class DemandeStageService {
 		demandeStage.getNotifications().remove(notif);
 		requestRepository.save(demandeStage);
 
+	}
+
+	public void addComment(String commentaire,DemandeStage demandStage) {
+		Commentaire comment=new Commentaire(commentaire);
+		demandStage.setOrUpdate(comment);
+		
 	}
 
 

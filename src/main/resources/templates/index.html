@@ -87,7 +87,7 @@
 					<li><a th:href="@{contact}">Contact Us</a></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification" data-aos="zoom-out-down"><a
-						href="#"> <i class="fa fa-bell"></i> <span
+						href="#"> <i th:class="${notifications.empty==false ? 'fa fa-bell faa-ring animated fa-3x':'fa fa-bell'} "></i> <span
 							class="counter counter-lg"
 							th:text="${#lists.size(notifications)}">10</span>
 					</a>
@@ -116,7 +116,7 @@
 						class="drop-down notification rounded"
 						style="border: 2px solid #1545B3; box-shadow: 0 0 10px rgba(21, 69, 179, 0.4); background-color: #1545B3;">
 						<a style="color: #fff;"
-						th:text="${session.user.nom[0]+session.user.prenom[0]}" href="">
+						th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}" href="">
 					</a>
 						<ul>
 
@@ -498,7 +498,7 @@
 	<script th:src="@{assets/js/main.js}" src="../static/assets/js/main.js"></script>
 
 	<script type="text/javascript">
-	
+		
 		if([[${notifications.empty==false}]]>0){
 			SendNotification();
 		}

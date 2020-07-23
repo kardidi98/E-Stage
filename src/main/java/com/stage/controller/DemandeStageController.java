@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.stage.entities.Commentaire;
 import com.stage.entities.DecisionFinale;
 import com.stage.entities.DemandeStage;
 import com.stage.entities.DocumentAdministratif;
@@ -35,6 +36,7 @@ import com.stage.entities.Entretien;
 import com.stage.entities.Experiences;
 import com.stage.entities.Formations;
 import com.stage.entities.ResponsableDomaine;
+import com.stage.entities.ResponsableStages;
 import com.stage.entities.Stagiaire;
 import com.stage.entities.Statut;
 import com.stage.entities.Utilisateur;
@@ -205,11 +207,16 @@ public class DemandeStageController {
 	}
 
 	@GetMapping("changeStatus")
-	public String changeStatus(Model model,@RequestParam(value = "id") Long id,@RequestParam("status") Object status ) {
+	public String changeStatus(Model model,HttpServletRequest hsr,@RequestParam(value = "id") Long id,@RequestParam("status") Object status, @RequestParam(name="commentaire") String commentaire) {
 
+		
 		DemandeStage demandStage = requestService.findById(id);
 		
 		if((status.toString().equals("Accepted") || status.toString().equals("Refused")) && demandStage.getStatut()!=null) {
+			if(!commentaire.isEmpty()) {
+				requestService.addComment(commentaire,demandStage);
+				
+			}
 			demandStage.setFinalDecision(DecisionFinale.valueOf(status.toString()));
 		}
 		else {

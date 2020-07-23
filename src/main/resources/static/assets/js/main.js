@@ -275,15 +275,24 @@ var AdministrativeDocSection=1;
 
 	});
 
-
-
+	$("#status").change(function(){
+		if($("#status option:selected").val()==="Refused"){
+			$(".comment").fadeIn();
+			$(".comment").prop('required',true);
+		}
+		else{
+			$(".comment").hide();
+			$(".comment").val('');
+			$(".comment").prop('required',false);
+		}
+	});
 
 })(jQuery);
 
 
 function showNotification(newNotif){
 
-	const notification=new Notification("Internship Team",{
+	const notification=new Notification("Internship Team: Reminder",{
 		body:"Check the new notifications you received !",
 		icon:"assets/img/favicon.png"
 	});
@@ -307,6 +316,14 @@ function SendNotification(){
 	}
 
 }
+
+function confirmIfRefused(){
+	if($(".selectStatus option:selected").val()==="Refused"){
+		confirm('Are you sure you want to refuse this internship request ?');
+	}
+}
+
+
 
 
 

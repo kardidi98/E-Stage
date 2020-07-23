@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Commentaire {
@@ -19,20 +20,19 @@ public class Commentaire {
 	private String contenu;
 	private LocalDate date;
 	
-	@ManyToOne
-	@JoinColumn(name = "responsableStages")
-	private ResponsableStages responsableStages;
+	
 
-	public Commentaire(long id, String contenu, ResponsableStages responsableStages) {
-		this.id = id;
+	
+	public Commentaire(String contenu) {
 		this.contenu = contenu;
-		this.date = LocalDate.now();
-		this.responsableStages = responsableStages;
+		this.date=LocalDate.now();
 	}
-
+	
 	public Commentaire() {
 		
 	}
+
+
 
 	public long getId() {
 		return id;
@@ -58,14 +58,7 @@ public class Commentaire {
 		this.date = date;
 	}
 
-	public ResponsableStages getResponsableStages() {
-		return responsableStages;
-	}
 
-	public void setResponsableStages(ResponsableStages responsableStages) {
-		this.responsableStages = responsableStages;
-	}
-	
 	
 	
 	

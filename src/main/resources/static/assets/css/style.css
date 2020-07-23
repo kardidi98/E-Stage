@@ -1621,7 +1621,7 @@ select.invalid {
   display: none;
 }
 
-#invalidForm,#invalidDates,#SendingRequest{
+#invalidForm,#invalidDates,#SendingRequest,.comment{
 	display: none;
 	
 }
@@ -1864,4 +1864,13 @@ select.invalid {
   border-radius:5px;
   color: #fff;
   border-bottom:3px solid #fff;
+}
+
+div.dropdown-menu.open{
+  max-height: 314px !important;
+  overflow: hidden;
+}
+ul.dropdown-menu.inner{
+  max-height: 260px !important;
+  overflow-y: auto;
 }

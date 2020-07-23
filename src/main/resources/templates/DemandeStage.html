@@ -88,7 +88,7 @@
 					<li><a th:href="@{contact}">Contact Us</a></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification" data-aos="zoom-out-down"><a
-						href="#"> <i class="fa fa-bell"></i> <span
+						href="#"><i th:class="${notifications.empty==false ? 'fa fa-bell faa-ring animated fa-3x':'fa fa-bell'} "></i>  <span
 							class="counter counter-lg"
 							th:text="${#lists.size(notifications)}">10</span>
 					</a>
@@ -117,7 +117,7 @@
 						class="drop-down notification rounded"
 						style="border: 2px solid #1545B3; box-shadow: 0 0 10px rgba(21, 69, 179, 0.4); background-color: #1545B3;">
 						<a style="color: #fff;"
-						th:text="${session.user.nom[0]+session.user.prenom[0]}" href="">
+						th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}" href="">
 					</a>
 						<ul>
 							<li><a th:href="@{logout}">Log out</a></li>
@@ -306,6 +306,7 @@
 											required="required">
 											<option value="Morocco">Morocco</option>
 											<option value="France">France</option>
+											
 										</select>
 									</div>
 									<div class="col-lg-6 col-md-6">
@@ -334,7 +335,7 @@
 							</div>
 
 							<div class="col-lg-6 col-md-6">
-								<label for="codePostal">Postal Code</label> <input type="text"
+								<label for="codePostal">Postal Code</label> <input type="number"
 									class="form-control p-3" id="codePostal" name="codePostal"
 									th:field="*{etatCivile.codePostal}" placeholder="Postal Code">
 							</div>

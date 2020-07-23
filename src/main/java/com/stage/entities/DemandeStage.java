@@ -64,6 +64,9 @@ public class DemandeStage implements Cloneable {
 
 	@OneToMany(mappedBy = "demandeStage",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Notification> notifications= new ArrayList<Notification>();
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Commentaire commentaire;
 
 
 	@ManyToOne
@@ -81,16 +84,18 @@ public class DemandeStage implements Cloneable {
 
 
 
+
 	public DemandeStage(Statut statut, DecisionFinale finalDecision, Domaine domaine, LocalDate dateDeb,
-			LocalDate dateFin, EtatCivile etatCivile, List<Formations> formations, List<Experiences> experiences,
-			LettreMotivation lettreMotivation, Hobbies hobbies, List<DocumentAdministratif> documentAdministratif,
-			List<Notification> notifications, Stagiaire stagiaire, Entretien entretien,
-			ResponsableDomaine responsableDomaine) {
+			LocalDate dateFin, boolean decisionTomake, EtatCivile etatCivile, List<Formations> formations,
+			List<Experiences> experiences, LettreMotivation lettreMotivation, Hobbies hobbies,
+			List<DocumentAdministratif> documentAdministratif, List<Notification> notifications,
+			Commentaire commentaire, Stagiaire stagiaire, Entretien entretien, ResponsableDomaine responsableDomaine) {
 		this.statut = statut;
 		this.finalDecision = finalDecision;
 		this.domaine = domaine;
 		this.dateDeb = dateDeb;
 		this.dateFin = dateFin;
+		DecisionTomake = decisionTomake;
 		this.etatCivile = etatCivile;
 		this.formations = formations;
 		this.experiences = experiences;
@@ -98,10 +103,10 @@ public class DemandeStage implements Cloneable {
 		this.hobbies = hobbies;
 		this.documentAdministratif = documentAdministratif;
 		this.notifications = notifications;
+		this.commentaire = commentaire;
 		this.stagiaire = stagiaire;
 		this.entretien = entretien;
 		this.responsableDomaine = responsableDomaine;
-		this.DecisionTomake=false;
 	}
 
 	public DemandeStage() {
@@ -249,6 +254,16 @@ public class DemandeStage implements Cloneable {
 		this.responsableDomaine = responsableDomaine;
 	}
 
+	
+	
+	public Commentaire getCommentaire() {
+		return commentaire;
+	}
+
+	public void setCommentaire(Commentaire commentaires) {
+		this.commentaire = commentaires;
+	}
+
 	public Object clone() throws
 	CloneNotSupportedException 
 	{ 
@@ -288,6 +303,20 @@ public class DemandeStage implements Cloneable {
 	public void removeExperience(Experiences experience) {
 		this.experiences.remove(experience);
 	}
+
+	public void setOrUpdate(Commentaire comment) {
+		if(this.getCommentaire()==null) {
+			this.setCommentaire(comment);
+			
+		}
+		else {
+			this.getCommentaire().setContenu(comment.getContenu());
+			System.out.println(this.getCommentaire().getId());
+		}
+		
+	}
+
+
 
 
 
