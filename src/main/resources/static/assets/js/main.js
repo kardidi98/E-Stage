@@ -324,6 +324,36 @@ function confirmIfRefused(){
 }
 
 
+function load_city_data(codePays){
+	$.ajax({
+		type : "GET",
+		url : "http://localhost:9090/Villes/"+codePays,
+		dataType: 'json',
+		success: function(result){
+
+			$('#ville').empty();
+			$.each(JSON.parse(JSON.stringify(result)), function(key, value){
+				
+				$('#ville').append("<option value="+value.id+">"+value.nom+"</option>").selectpicker('refresh');
+			});
+			
+
+		}
+	});  
+
+}
+
+$(document).on('change', '#pays', function(){
+	var codePays = $(this).val();
+	if(codePays != '')
+	{
+		load_city_data(codePays);
+	}
+	else
+	{
+		$('#ville').html('<option value="">Select City</option>');
+	}
+});
 
 
 

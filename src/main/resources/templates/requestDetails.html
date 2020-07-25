@@ -19,7 +19,8 @@
 	th:href="@{assets/img/favicon.png}" rel="icon">
 <link href="../static/assets/img/apple-touch-icon.png"
 	th:href="@{assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
-
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css" />
 <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,400,500,700"
@@ -86,10 +87,10 @@
 					<li><a th:href="@{contact}">Contact Us</a></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification" data-aos="zoom-out-down"><a
-						href="#"><i th:class="${notifications.empty==false ? 'fa fa-bell faa-ring animated fa-3x':'fa fa-bell'} "></i> <span
-							class="counter counter-lg"
-							th:text="${#lists.size(notifications)}">10</span>
-					</a>
+						href="#"><i
+							th:class="${notifications.empty==false ? 'fa fa-bell faa-ring animated fa-3x':'fa fa-bell'} "></i>
+							<span class="counter counter-lg"
+							th:text="${#lists.size(notifications)}">10</span> </a>
 						<ul>
 							<li th:if="${notifications.empty==true}"><div align="center">Nothing
 									new</div></li>
@@ -115,8 +116,8 @@
 						class="drop-down notification rounded"
 						style="border: 2px solid #1545B3; box-shadow: 0 0 10px rgba(21, 69, 179, 0.4); background-color: #1545B3;">
 						<a style="color: #fff;"
-						th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}" href="">
-					</a>
+						th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}"
+						href=""> </a>
 						<ul>
 							<li><a th:href="@{logout}">Log out</a></li>
 
@@ -165,7 +166,9 @@
 				class="btn btn-primary" data-toggle="modal"
 				data-target="#statusModal">Make Your decision</button>
 			&nbsp;
-			<button th:if="${demandStage.statut==null or demandStage.DecisionTomake==false}" class="btn btn-secondary" data-toggle="modal"
+			<button
+				th:if="${demandStage.statut==null or demandStage.DecisionTomake==false}"
+				class="btn btn-secondary" data-toggle="modal"
 				data-target="#AssignmentModal">Assign to a responsible</button>
 
 			<!-- Statut Modal -->
@@ -185,17 +188,15 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form th:action="@{changeStatus}" method="get" onsubmit="confirmIfRefused();"
-								class="p-4 rounded">
+							<form th:action="@{changeStatus}" method="get"
+								onsubmit="confirmIfRefused();" class="p-4 rounded">
 
 								<fieldset>
 									<div class=" form-group container">
 										<div>
 											<input type="text" id="id" name="id"
-												th:field="${demandStage.id}" style="display: none;" /> 
-											<label
-												for="status">Status</label> 
-											<select
+												th:field="${demandStage.id}" style="display: none;" /> <label
+												for="status">Status</label> <select
 												th:if="${demandStage.statut==null or demandStage.DecisionTomake==false}"
 												class="selectpicker border rounded selectStatus" id="status"
 												name="status" data-style="btn-black" data-width="100%"
@@ -207,22 +208,21 @@
 
 											</select>
 											<div th:if="${demandStage.DecisionTomake==true}">
-												<select class="selectpicker border rounded selectStatus" id="status"
-													name="status" data-style="btn-black" data-width="100%"
-													data-live-search="false" title="Final Decision"
-													required="required">
+												<select class="selectpicker border rounded selectStatus"
+													id="status" name="status" data-style="btn-black"
+													data-width="100%" data-live-search="false"
+													title="Final Decision" required="required">
 
 													<option
 														th:each="d:${T(com.stage.entities.DecisionFinale).values()}"
 														th:value="${d}" th:text="${d}"></option>
 
-												</select>
-												<label for="commentaire" class="pt-4 comment">Explain</label>
-												<textarea class="form-control comment" id="commentaire" name="commentaire"
-													 rows="5" data-rule="required"
-													data-msg="Why do you refused this request ?" placeholder="Why do you refused this request ?"
-													></textarea>
-												
+												</select> <label for="commentaire" class="pt-4 comment">Explain</label>
+												<textarea class="form-control comment" id="commentaire"
+													name="commentaire" rows="5" data-rule="required"
+													data-msg="Why do you refused this request ?"
+													placeholder="Why do you refused this request ?"></textarea>
+
 											</div>
 
 										</div>
@@ -308,18 +308,18 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form th:action="@{makeDecision}" onsubmit="confirmIfRefused();" method="get"
-								class="p-4  rounded">
+							<form th:action="@{makeDecision}" onsubmit="confirmIfRefused();"
+								method="get" class="p-4  rounded">
 
 								<fieldset>
 									<div class=" form-group container">
 										<div>
 											<input type="text" name="id" th:field="${demandStage.id}"
 												style="display: none;"> <label for="decision">Decision</label>
-											<select class="selectpicker border rounded selectStatus" id="decision"
-												name="decision" data-style="btn-black" data-width="100%"
-												data-live-search="false" title="Make Decision"
-												required="required">
+											<select class="selectpicker border rounded selectStatus"
+												id="decision" name="decision" data-style="btn-black"
+												data-width="100%" data-live-search="false"
+												title="Make Decision" required="required">
 												<option value="Interview">Interview</option>
 												<option value="Refused">Refused</option>
 

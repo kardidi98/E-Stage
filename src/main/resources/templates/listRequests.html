@@ -19,9 +19,7 @@
 <link href="../static/assets/img/apple-touch-icon.png"
 	th:href="@{assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css"
-	integrity="sha512-Po8rrCwchD03Wo+2ibHFielZ8luDAVoCyE9i6iFMPyn9+V1tIhGk5wl8iKC9/JfDah5Oe9nV8QzE8HHgjgzp3g=="
-	crossorigin="anonymous" />
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css" />
 
 <!-- Google Fonts -->
 <link
@@ -87,13 +85,11 @@
 					<li><a th:href="@{about}">About Us</a></li>
 					<li><a th:href="@{contact}">Contact Us</a></li>
 					<li sec:authorize="isAuthenticated()"
-						class="drop-down notification" data-aos="zoom-out-down">
-						<a
-						href="#"> 
-							<i th:class="${notifications.empty==false ? 'fa fa-bell faa-ring animated fa-3x':'fa fa-bell'} "></i> 
-						
-						<span
-							class="counter counter-lg"
+						class="drop-down notification" data-aos="zoom-out-down"><a
+						href="#"> <i
+							th:class="${notifications.empty==false ? 'fa fa-bell faa-ring animated fa-3x':'fa fa-bell'} "></i>
+
+							<span class="counter counter-lg"
 							th:text="${#lists.size(notifications)}">10</span>
 					</a>
 						<ul>
@@ -178,10 +174,10 @@
 				</div>
 			</div>
 
-			<div th:if="${demandesStages.empty==true}" class="container">
+			<div th:if="${demandesStages.empty==true}" class=" table-responsive">
 				<table
 					sec:authorize="hasAnyAuthority('Role_ResponsableDomaine','Role_ResponsableStage')"
-					class="table table-striped table-hover table-bordered table-responsive">
+					class="table table-striped table-hover table-bordered">
 
 					<!--Table head-->
 					<thead>
@@ -208,7 +204,7 @@
 
 
 				<table sec:authorize="hasAuthority('Role_Stagiaire')"
-					class="table table-striped table-hover table-bordered table-responsive">
+					class="table table-responsive table-striped table-hover table-bordered ">
 
 
 					<thead sec:authorize="hasAuthority('Role_Stagiaire')">
@@ -234,26 +230,15 @@
 				</table>
 
 			</div>
-			<div th:if="${demandesStages.empty==false}"
-				class="  table-responsive">
+			<div th:if="${demandesStages.empty==false}" class="table-responsive">
 				<!--Table-->
-				<table class="table table-striped table-hover table-bordered table-responsive">
+				<table sec:authorize="hasAuthority('Role_Stagiaire')"
+					class="table  table-striped table-hover table-bordered ">
 
 					<!--Table head-->
-					<thead
-						sec:authorize="hasAnyAuthority('Role_ResponsableDomaine','Role_ResponsableStage')">
-						<tr>
-							<th>id</th>
-							<th>Sender</th>
-							<th>Status</th>
-							<th>Assigned To</th>
-							<th>Final Decision</th>
-							<th>Comment</th>
-							<th>Action</th>
-						</tr>
-					</thead>
 
-					<thead sec:authorize="hasAuthority('Role_Stagiaire')">
+
+					<thead>
 						<tr>
 							<th>Start Date</th>
 							<th>End Date</th>
@@ -265,11 +250,8 @@
 							<th>Action</th>
 						</tr>
 					</thead>
-					<!--Table head-->
-
 					<!--Table body-->
-					<tbody class="contents"
-						sec:authorize="hasAuthority('Role_Stagiaire')">
+					<tbody class="contents">
 						<tr th:each="request:${demandesStages}">
 
 							<td th:text="${request.dateDeb}"></td>
@@ -284,7 +266,6 @@
 								th:text="${request.entretien.date+', at '+request.entretien.time}"></td>
 							<td th:if="${request.entretien == null}">Refused or Not
 								treated yet</td>
-							<td th:if="${request.statut == null}">Not Yet</td>
 							<td th:if="${request.finalDecision != null}"
 								th:text="${request.finalDecision}"></td>
 							<td th:if="${request.finalDecision == null}">Not Yet</td>
@@ -303,8 +284,30 @@
 
 					</tbody>
 
-					<tbody class="contents"
-						sec:authorize="hasAnyAuthority('Role_ResponsableDomaine','Role_ResponsableStage')">
+
+				</table>
+
+				<table class="table table-striped table-hover table-bordered "
+					sec:authorize="hasAnyAuthority('Role_ResponsableDomaine','Role_ResponsableStage')">
+
+					<!--Table head-->
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>Sender</th>
+							<th>Status</th>
+							<th>Assigned To</th>
+							<th>Final Decision</th>
+							<th>Comment</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+
+
+					<!--Table body-->
+
+
+					<tbody class="contents">
 						<tr th:each="request:${demandesStages}">
 
 							<td th:text="${request.id}"></td>

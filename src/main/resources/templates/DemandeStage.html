@@ -9,6 +9,9 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
 <!-- Select -->
 <link rel="stylesheet"
 	href="assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.css">
@@ -23,7 +26,8 @@
 	th:href="@{assets/img/favicon.png}" rel="icon">
 <link href="../static/assets/img/apple-touch-icon.png"
 	th:href="@{assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
-
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css" />
 <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,400,500,700"
@@ -88,10 +92,10 @@
 					<li><a th:href="@{contact}">Contact Us</a></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification" data-aos="zoom-out-down"><a
-						href="#"><i th:class="${notifications.empty==false ? 'fa fa-bell faa-ring animated fa-3x':'fa fa-bell'} "></i>  <span
-							class="counter counter-lg"
-							th:text="${#lists.size(notifications)}">10</span>
-					</a>
+						href="#"><i
+							th:class="${notifications.empty==false ? 'fa fa-bell faa-ring animated fa-3x':'fa fa-bell'} "></i>
+							<span class="counter counter-lg"
+							th:text="${#lists.size(notifications)}">10</span> </a>
 						<ul>
 							<li th:if="${notifications.empty==true}"><div align="center">Nothing
 									new</div></li>
@@ -117,8 +121,8 @@
 						class="drop-down notification rounded"
 						style="border: 2px solid #1545B3; box-shadow: 0 0 10px rgba(21, 69, 179, 0.4); background-color: #1545B3;">
 						<a style="color: #fff;"
-						th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}" href="">
-					</a>
+						th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}"
+						href=""> </a>
 						<ul>
 							<li><a th:href="@{logout}">Log out</a></li>
 
@@ -201,6 +205,7 @@
 							Domaine & Specify The Period</h3>
 						<div class="row justify-content-center">
 							<div class="container col-lg-4 col-md-4">
+
 								<div class=" form-group">
 
 									<label for="domaine">Domaine <small class="important">*</small></label>
@@ -300,24 +305,23 @@
 									<div class="col-lg-6 col-md-6">
 										<label for="pays">Country <small class="important">*</small></label>
 										<select class="selectpicker border rounded " id="pays"
-											name="pays" th:field="*{etatCivile.pays}"
-											data-style="btn-black" data-width="100%"
+											name="pays" data-style="btn-black" data-width="100%"
 											data-live-search="false" title="Select Country"
 											required="required">
-											<option value="Morocco">Morocco</option>
-											<option value="France">France</option>
-											
+											<option th:each="pays:${pays}" th:value="${pays.code}"
+												th:text="${pays.nom}"></option>
+
+
 										</select>
 									</div>
 									<div class="col-lg-6 col-md-6">
 										<label for="ville">City <small class="important">*</small></label>
 										<select class="selectpicker border rounded " id="ville"
-											name="ville" th:field="*{etatCivile.ville}"
-											data-style="btn-black" data-width="100%"
+											name="ville" data-style="btn-black" data-width="100%"
 											data-live-search="false" title="Select City"
 											required="required">
-											<option value="Casablanca">Casablanca</option>
-											<option value="Rabat">Rabat</option>
+
+
 										</select>
 									</div>
 
@@ -336,8 +340,9 @@
 
 							<div class="col-lg-6 col-md-6">
 								<label for="codePostal">Postal Code</label> <input type="number"
-									class="form-control p-3" id="codePostal" name="codePostal"
-									th:field="*{etatCivile.codePostal}" placeholder="Postal Code">
+									max="5" min="5" class="form-control p-3" id="codePostal"
+									name="codePostal" th:field="*{etatCivile.codePostal}"
+									placeholder="Postal Code">
 							</div>
 						</div>
 
@@ -833,7 +838,7 @@
 					var date1 = new Date(dates[0].value);
 					var date2 = new Date(dates[1].value);
 					var nbreJour = (date2.getTime() - date1.getTime()) / 86400000;
-					
+
 					if (nbreJour < 0) {
 						dates[0].className += " invalid";
 						dates[1].className += " invalid";
@@ -845,7 +850,7 @@
 						var date1 = new Date(dates[i].value);
 						var date2 = new Date(dates[i + 1].value);
 						var nbreJour = (date2.getTime() - date1.getTime()) / 86400000;
-						
+
 						if (nbreJour < 0) {
 							dates[i].className += " invalid";
 							dates[i + 1].className += " invalid";
@@ -866,6 +871,10 @@
 			}
 			x[n].className += " active";
 		}
+		
+		
+		
+		
 	</script>
 </body>
 

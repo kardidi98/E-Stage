@@ -52,7 +52,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests().antMatchers(
 				"/home",
 				"/login",
-
 				"/register",
 				"/listRequests",
 				"/about",
@@ -85,6 +84,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		.and()
 		.authorizeRequests()
 		.antMatchers("/Edit")
+		.hasAuthority("Role_Utilisateur")
+		.and()
+		.authorizeRequests()
+		.antMatchers("/Villes/**","/Pays/**")
 		.hasAuthority("Role_Utilisateur")
 		.and()
 		.authorizeRequests()

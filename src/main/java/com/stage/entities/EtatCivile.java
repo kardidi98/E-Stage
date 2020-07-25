@@ -8,9 +8,12 @@ import java.nio.file.Paths;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -24,14 +27,18 @@ public class EtatCivile {
 	private String numTel;
 	private String profile;
 	private String photo;
-	private String pays;
-	private String ville;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pays")
+	private Pays pays;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ville")
+	private Ville ville;
 	private String adresse;
 	private int codePostal;
 	
 	
 
-	public EtatCivile(String numTel, String profile, String photo, String pays, String ville, String adresse,
+	public EtatCivile(String numTel, String profile, String photo, Pays pays, Ville ville, String adresse,
 			int codePostal) {
 		
 		this.numTel = numTel;
@@ -79,19 +86,19 @@ public class EtatCivile {
 		this.photo = photo;
 	}
 
-	public String getPays() {
+	public Pays getPays() {
 		return pays;
 	}
 
-	public void setPays(String pays) {
+	public void setPays(Pays pays) {
 		this.pays = pays;
 	}
 
-	public String getVille() {
+	public Ville getVille() {
 		return ville;
 	}
 
-	public void setVille(String ville) {
+	public void setVille(Ville ville) {
 		this.ville = ville;
 	}
 

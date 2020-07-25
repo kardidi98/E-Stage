@@ -20,6 +20,7 @@
 <link href="../static/assets/img/apple-touch-icon.png"
 	th:href="@{assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
 
+
 <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,400,500,700"
@@ -84,39 +85,13 @@
 						</ul></li>
 					<li><a th:href="@{about}">About Us</a></li>
 					<li><a th:href="@{contact}">Contact Us</a></li>
-					<li sec:authorize="isAuthenticated()"
-						class="drop-down notification" data-aos="zoom-out-down"><a
-						href="#"> <i th:class="${notifications.empty==false ? 'fa fa-bell faa-ring animated fa-3x':'fa fa-bell'} "></i>  <span
-							class="counter counter-lg"
-							th:text="${#lists.size(notifications)}">10</span>
-					</a>
-						<ul>
-							<li th:if="${notifications.empty==true}"><div align="center">Nothing
-									new</div></li>
-							<li th:if="${notifications.empty==false}"
-								th:each="notif:${notifications}"><a
-								th:href="@{EditNotification(request=${notif.demandeStage.id},notification=${notif.id})}"
-								style="display: flex; justify-content: center; border-bottom: 1px solid #DDDDDD;">
-									<i class="fa fa-envelope-o"
-									style="color: #DDDDDD; padding-right: 20px; padding-top: 15px; font-size: 25px;"></i>
 
-									<span> <span th:text="${notif.contenu}"></span><br>
-
-										<small><strong>Domain: </strong><span
-											th:text="${notif.demandeStage.domaine}"></span></small><br> <small
-										th:text="${'--'+notif.date+'--'}"></small>
-								</span>
-
-							</a></li>
-
-
-						</ul></li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification rounded"
 						style="border: 2px solid #1545B3; box-shadow: 0 0 10px rgba(21, 69, 179, 0.4); background-color: #1545B3;">
 						<a style="color: #fff;"
-						th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}" href="">
-					</a>
+						th:text="${#authentication.principal.username[0].toUpperCase()+#authentication.principal.username[1].toUpperCase()}"
+						href=""> </a>
 						<ul>
 							<li><a th:href="@{logout}">Log out</a></li>
 
@@ -212,8 +187,10 @@
 
 		<div class="container">
 			<div class="copyright">
-				&copy; Copyright <strong><script> var CurrentYear = new Date().getFullYear(); document.write(CurrentYear)</script></strong>.
-				All Rights Reserved
+				&copy; Copyright <strong><script>
+					var CurrentYear = new Date().getFullYear();
+					document.write(CurrentYear)
+				</script></strong>. All Rights Reserved
 			</div>
 			<div class="credits">
 

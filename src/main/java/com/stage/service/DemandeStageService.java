@@ -17,12 +17,16 @@ import com.stage.entities.Domaine;
 import com.stage.entities.Experiences;
 import com.stage.entities.Formations;
 import com.stage.entities.Notification;
+import com.stage.entities.Pays;
 import com.stage.entities.ResponsableStages;
 import com.stage.entities.Utilisateur;
+import com.stage.entities.Ville;
 import com.stage.repositories.DemandeStageRepository;
 import com.stage.repositories.NotificationRepository;
+import com.stage.repositories.PaysRepository;
 import com.stage.repositories.ResponsableDomaineRepository;
 import com.stage.repositories.UtilisateurRepository;
+import com.stage.repositories.VilleRepository;
 
 @Service
 public class DemandeStageService {
@@ -37,6 +41,10 @@ public class DemandeStageService {
 	@Autowired
 	private UtilisateurRepository userRepository;
 
+	@Autowired
+	private PaysRepository paysRepository;
+	@Autowired
+	private VilleRepository villeRepository;
 
 	@Autowired
 	private ResponsableDomaineRepository responsableDomaineRepository;
@@ -211,6 +219,23 @@ public class DemandeStageService {
 		demandStage.setOrUpdate(comment);
 		
 	}
+
+	public List<Pays> selectCountries() {
+		return paysRepository.findAll();
+	}
+
+	public List<Ville> selectCities() {
+		return villeRepository.findAll();
+	}
+
+	public void  setPaysVille(DemandeStage request, String pays, Long ville) {
+		request.getEtatCivile().setPays(paysRepository.getOne(pays));
+		request.getEtatCivile().setVille(villeRepository.getOne(ville));
+	}
+
+
+	
+	
 
 
 

@@ -106,7 +106,7 @@ public class DemandeStageController {
 		demandeStage.getDocumentAdministratif().add(new DocumentAdministratif());
 
 
-
+		model.addAttribute("pays", requestService.selectCountries());
 		model.addAttribute("request", demandeStage);
 		model.addAttribute("stagiaire", user);
 
@@ -117,10 +117,13 @@ public class DemandeStageController {
 
 	@PostMapping(value="saveRequest")
 	public String saveRequest(Model model,@ModelAttribute("request") DemandeStage request,
+			@RequestParam(name="pays") String pays,@RequestParam(name="ville") Long ville,
 			@RequestParam(name="photo") MultipartFile photo,
 			@RequestParam(name="titreDoc") List<MultipartFile> titreDoc,
 			@RequestParam(name="titre") MultipartFile titre) throws IllegalStateException, IOException { 
 
+		
+		requestService.setPaysVille(request,pays,ville);
 		requestService.setMultipartFiles(request,photo,titreDoc,titre);
 
 
@@ -207,7 +210,7 @@ public class DemandeStageController {
 	}
 
 	@GetMapping("changeStatus")
-	public String changeStatus(Model model,HttpServletRequest hsr,@RequestParam(value = "id") Long id,@RequestParam("status") Object status, @RequestParam(name="commentaire") String commentaire) {
+	public String changeStatus(Model model,HttpServletRequest hsr,@RequestParam(value = "id") Long id,@RequestParam("status") Object status, @RequestParam(name="commentaire",required = false) String commentaire) {
 
 		
 		DemandeStage demandStage = requestService.findById(id);
@@ -220,7 +223,7 @@ public class DemandeStageController {
 			demandStage.setFinalDecision(DecisionFinale.valueOf(status.toString()));
 		}
 		else {
-			
+			System.out.println("dfdf");
 			demandStage.setStatut(Statut.valueOf(status.toString()));
 		}
 		requestService.save(demandStage);
