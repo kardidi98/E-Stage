@@ -1,5 +1,6 @@
 package com.stage.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -53,6 +54,17 @@ public class Stagiaire extends Utilisateur {
 		return demandesStage;
 	}
 	
+	public List<DemandeStage> getDemandeStagesByDomaineStatusAndDates(Domaine domain, LocalDate dateStart, LocalDate dateFin, Statut status) {
+		
+		List<DemandeStage> demandesStage=new ArrayList<DemandeStage>();
+		for (DemandeStage demandeStage : getDemandeStagesByDomaine(domain)) {
+			
+			if((demandeStage.getDateDeb().compareTo(LocalDate.parse(dateStart.toString()))<=0 && demandeStage.getDateFin().compareTo(LocalDate.parse(dateFin.toString()))>=0) || demandeStage.getStatut().equals(status)) {
+				demandesStage.add(demandeStage);
+			}
+		}
+		return demandesStage;
+	}
 	
 	
 }

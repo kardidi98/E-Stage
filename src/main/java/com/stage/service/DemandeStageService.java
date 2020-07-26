@@ -3,6 +3,7 @@ package com.stage.service;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.stage.entities.Commentaire;
+import com.stage.entities.DecisionFinale;
 import com.stage.entities.DemandeStage;
 import com.stage.entities.DocumentAdministratif;
 import com.stage.entities.Domaine;
@@ -19,6 +21,7 @@ import com.stage.entities.Formations;
 import com.stage.entities.Notification;
 import com.stage.entities.Pays;
 import com.stage.entities.ResponsableStages;
+import com.stage.entities.Statut;
 import com.stage.entities.Utilisateur;
 import com.stage.entities.Ville;
 import com.stage.repositories.DemandeStageRepository;
@@ -126,6 +129,18 @@ public class DemandeStageService {
 		return requestRepository.findByDomaine(domain);
 	}
 
+	public List<DemandeStage> FindByFilters(Domaine domain, String dateStart, String dateFin, String entretien,
+			Statut status, DecisionFinale decision) {
+		List<DemandeStage> demandesStage=new ArrayList<DemandeStage>();
+		for (DemandeStage demandeStage : findByDomaine(domain)) {
+			if((demandeStage.getDateDeb().compareTo(LocalDate.parse(dateStart.toString()))<=0 && demandeStage.getDateFin().compareTo(LocalDate.parse(dateFin.toString()))>=0) || demandeStage.getStatut().equals(status) || demandeStage.getEntretien().getDate().compareTo(LocalDate.parse(entretien.toString()))==0 || demandeStage.getFinalDecision().equals(decision)) {
+				demandesStage.add(demandeStage);
+			}
+		}
+
+		return demandesStage;
+	}
+
 	public DemandeStage findById(Long id) {
 
 		return requestRepository.getOne(id);
@@ -173,23 +188,23 @@ public class DemandeStageService {
 
 		if(messageSeparateurDuTraitement==("NouvelleDemandeAffectee")) {
 			notification=new Notification("A new request has been assigned to you", request,user);
-			
+
 			msg="<div align='center' style='color:black;'><h2>\"A new request has been received\"</h2><h3><strong>Domain: </strong>"+request.getDomaine()+"</h3><div>--"+LocalDate.now()+"--</div><br/><div><a href='http://localhost:9090/home'><button style='background-color:#51A4FD;border:1px solid #51A4FD;border-radius:5px;box-shadow:0 0 10px rgba(0,0,0,0.3);font-size:25px;'>Click Here</button></a></div><div>";
-			
+
 		}
 
 		if(messageSeparateurDuTraitement==("DecisionPrise")) {
 			notification=new Notification("Check The status of your  request", request,user);
-			
+
 			msg="<div align='center' style='color:black;'><h2>A new request has been received</h2><h3><strong>Domain: </strong>"+request.getDomaine()+"</h3><div>--"+LocalDate.now()+"--</div><br/><div><a href='http://localhost:9090/home'><button style='background-color:#51A4FD;border:1px solid #51A4FD;border-radius:5px;box-shadow:0 0 10px rgba(0,0,0,0.3);font-size:25px;'>Click Here</button></a></div><div>";
-			
+
 		}
 
 		if(messageSeparateurDuTraitement==("PrendreDecisionFinale")) {
 			notification=new Notification("Make final decision", request,user);
-			
+
 			msg="<div align='center' style='color:black;'><h2>Make final decision</h2><h3><strong>Domain: </strong>"+request.getDomaine()+"</h3><div>--"+LocalDate.now()+"--</div><br/><div><a href='http://localhost:9090/home'><button style='background-color:#51A4FD;border:1px solid #51A4FD;border-radius:5px;box-shadow:0 0 10px rgba(0,0,0,0.3);font-size:25px;'>Click Here</button></a></div><div>";
-			
+
 		}
 
 
@@ -217,7 +232,7 @@ public class DemandeStageService {
 	public void addComment(String commentaire,DemandeStage demandStage) {
 		Commentaire comment=new Commentaire(commentaire);
 		demandStage.setOrUpdate(comment);
-		
+
 	}
 
 	public List<Pays> selectCountries() {
@@ -234,8 +249,10 @@ public class DemandeStageService {
 	}
 
 
-	
-	
+
+
+
+
 
 
 

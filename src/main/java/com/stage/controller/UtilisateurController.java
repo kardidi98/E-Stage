@@ -50,6 +50,9 @@ public class UtilisateurController {
 			session.setAttribute("user",user);
 			model.addAttribute("notifications", user.getNotifivations());
 		}
+		else {
+			session.invalidate();
+		}
 
 
 		return "login";

@@ -162,6 +162,25 @@ public class DemandeStageController {
 		model.addAttribute("domaine",domain);
 		return "listRequests";
 	}
+	@PostMapping("requests")
+	public String requestsFilter(Model model,@RequestParam(value = "domain") Domaine domain,
+			@RequestParam(value = "dateStart",defaultValue = "2000-01-01",required = false) String dateStart,
+			@RequestParam(value = "dateFin",defaultValue = "2000-01-01",required = false) String dateFin,
+			@RequestParam(value = "entretien",defaultValue = "2000-01-01",required = false) String entretien,
+			@RequestParam(value = "Status",defaultValue = "",required = false) Statut Status,
+			@RequestParam(value = "decision",defaultValue = "",required = false) DecisionFinale decision,HttpServletRequest hsr) {
+		HttpSession session = hsr.getSession(true);
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		Utilisateur utilisateur=requestService.findbyUsername(auth.getName().toString());
+		session.setAttribute("user",utilisateur);
+		
+		List<DemandeStage> demandesStages = requestService.FindByFilters(domain,dateStart,dateFin,entretien,Status,decision);
+		model.addAttribute("demandesStages",demandesStages);
+
+		model.addAttribute("notifications", utilisateur.getNotifivations());
+		model.addAttribute("domaine",domain);
+		return "listRequests";
+	}
 
 
 	@GetMapping("Edit")
