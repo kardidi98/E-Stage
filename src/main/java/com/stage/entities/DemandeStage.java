@@ -311,7 +311,6 @@ public class DemandeStage implements Cloneable {
 		}
 		else {
 			this.getCommentaire().setContenu(comment.getContenu());
-			System.out.println(this.getCommentaire().getId());
 		}
 		
 	}

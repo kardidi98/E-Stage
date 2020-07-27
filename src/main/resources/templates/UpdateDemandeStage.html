@@ -5,12 +5,10 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Internship Request</title>
+<title>Update Internship Request</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 <!-- Select -->
 <link rel="stylesheet"
@@ -146,10 +144,10 @@
 			<div class="container">
 
 				<div class="d-flex justify-content-between align-items-center">
-					<h2>Internship Request</h2>
+					<h2>Update Internship Request</h2>
 					<ol>
 						<li><a th:href="@{home}">Home</a></li>
-						<li>Internship Request</li>
+						<li>Update Internship Request</li>
 					</ol>
 				</div>
 
@@ -188,9 +186,9 @@
 					</div>
 				</div>
 				<form class="p-4 border rounded requestForms" id="requestForms"
-					th:action="@{saveRequest}" method="post" th:object="${request}"
+					th:action="@{update}" method="post" th:object="${request}"
 					enctype="multipart/form-data">
-
+					
 					<div class="p-5" id="SendingRequest">
 						<div class="loading">
 							<div class="dot"></div>
@@ -199,7 +197,10 @@
 							<div class="dot"></div>
 							<div class="dot"></div>
 						</div>
-						<div align="center">Sending ...</div>
+						<div align="center">Updating ...</div>
+					</div>
+					<div>
+						<input type="text" name="id" th:value="${request.id}" style="display:none;"/>
 					</div>
 					<fieldset class="fieldset">
 
@@ -253,6 +254,7 @@
 					<fieldset class="fieldset">
 						<h3 class="text-black mb-5 border-bottom pb-2">Personal
 							Information</h3>
+							<input type="text" th:field="*{etatCivile.id}" style="display: none;"/>
 						<div class="row">
 							<div class="col-lg-4 col-md-4">
 								<div class="form-group">
@@ -305,9 +307,11 @@
 								</div>
 								<div class="row form-group">
 									<div class="col-lg-6 col-md-6">
+									
 										<label for="pays">Country <small class="important">*</small></label>
 										<select class="selectpicker border rounded " id="pays"
-											name="pays" data-style="btn-black" data-width="100%"
+											name="pays" th:field="*{etatCivile.pays.code}"
+											data-style="btn-black" data-width="100%"
 											data-live-search="false" title="Select Country"
 											required="required">
 											<option th:each="pays:${pays}" th:value="${pays.code}"
@@ -315,16 +319,21 @@
 
 
 										</select>
+										
 									</div>
 									<div class="col-lg-6 col-md-6">
 										<label for="ville">City <small class="important">*</small></label>
 										<select class="selectpicker border rounded " id="ville"
-											name="ville" data-style="btn-black" data-width="100%"
+											name="ville" th:field="*{etatCivile.ville.id}"
+											data-style="btn-black" data-width="100%"
 											data-live-search="false" title="Select City"
 											required="required">
+											<option class="villes" th:each="ville:${villes}"
+												th:value="${ville.id}" th:text="${ville.nom}"></option>
 
 
 										</select>
+
 									</div>
 
 								</div>
@@ -335,13 +344,13 @@
 
 						<div class="row form-group">
 							<div class="col-lg-6 col-md-6">
-								<label for="adresse">Address</label> <input type="text"
+								<label for="adresse">Address <small class="important">*</small></label> <input type="text"
 									class="form-control p-3" id="adresse" name="adresse"
 									th:field="*{etatCivile.adresse}" placeholder="Address">
 							</div>
 
 							<div class="col-lg-6 col-md-6">
-								<label for="codePostal">Postal Code</label> <input type="number"
+								<label for="codePostal">Postal Code <small class="important">*</small></label> <input type="number"
 									max="5" min="5" class="form-control p-3" id="codePostal"
 									name="codePostal" th:field="*{etatCivile.codePostal}"
 									placeholder="Postal Code">
@@ -409,6 +418,13 @@
 										placeholder="Write.." required="required"></textarea>
 									<div class="validate"></div>
 								</div>
+								<div
+									th:if="${__Stat.index__} < ${#lists.size(request.formations)-1}">
+									&nbsp;
+									<hr>
+									&nbsp;
+								</div>
+
 							</div>
 						</div>
 
@@ -474,6 +490,13 @@
 										placeholder="Write.." required="required"></textarea>
 									<div class="validate"></div>
 								</div>
+
+								<div
+									th:if="${__Stat.index__} < ${#lists.size(request.experiences)-1}">
+									&nbsp;
+									<hr>
+									&nbsp;
+								</div>
 							</div>
 						</div>
 						&nbsp;
@@ -486,6 +509,7 @@
 
 					<fieldset class="fieldset">
 						<h3 class="text-black mb-5 border-bottom pb-2">Hobbies</h3>
+						<input type="text" th:field="*{hobbies.id}" style="display: none;"/>
 						<label for="hobbies">Specify Your Hobbies <small
 							class="important">*</small></label>
 						<textarea class="form-control" id="hobbies" name="hobbies"
@@ -501,7 +525,7 @@
 						<h3 class="text-black mb-5 border-bottom pb-2">
 							Cover Letter (Write or Upload it) <small class="important">*</small>
 						</h3>
-
+<input type="text" th:field="*{lettreMotivation.id}" style="display: none;"/>
 						<div class="row form-group">
 							<div class="col-lg-6 col-md-6">
 
@@ -540,8 +564,7 @@
 							Administrative Documents (Optional)</h3>
 						<div id="AdministartiveDocSection">
 
-							<div class=" form-group"
-								th:each="doc,Stat : *{documentAdministratif}">
+							<div class=" form-group">
 								<div class="choose-file text-center py-1 rounded"
 									style="border: 2px dashed #DCDCDC;">
 									<label for="document" class="LabelDocsUpload">
@@ -676,8 +699,10 @@
 
 
 
-	<script>
+	<script type="text/javascript">
+
 		var currentTab = 0;
+
 		showTab(currentTab);
 
 		function showTab(n) {
@@ -873,6 +898,8 @@
 			}
 			x[n].className += " active";
 		}
+
+		
 	</script>
 </body>
 

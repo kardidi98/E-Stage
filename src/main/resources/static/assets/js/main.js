@@ -1,5 +1,6 @@
-var EducationSection=1;
-var ExperienceSection=1;
+var EducationSection=$("#EducationSection").children().length+1;
+var ExperienceSection=$("#ExperienceSection").children().length+1;
+//alert($("#document").val());
 var AdministrativeDocSection=1;
 
 (function($) {
@@ -354,6 +355,9 @@ $(document).on('change', '#pays', function(){
 		$('#ville').html('<option value="">Select City</option>');
 	}
 });
+
+
+
 
 
 

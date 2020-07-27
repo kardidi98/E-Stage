@@ -49,8 +49,8 @@ public class DemandeStageController {
 
 	@Autowired
 	private DemandeStageService requestService;
-	
-	
+
+
 
 	@Value("${dir.dirPhotoIdentity}")
 	private String dirPhotoIdentity;
@@ -91,6 +91,7 @@ public class DemandeStageController {
 	}
 
 
+
 	@GetMapping("request")
 	public String request(Model model,HttpServletRequest hsr) {
 
@@ -115,6 +116,28 @@ public class DemandeStageController {
 		return "DemandeStage";
 	}
 
+	@GetMapping("update")
+	public String request(Model model,@RequestParam(value="id") Long id, HttpServletRequest hsr) {
+
+
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		Utilisateur user=requestService.findbyUsername(auth.getName().toString());
+
+		model.addAttribute("notifications", user.getNotifivations());
+
+
+		DemandeStage demandStage = requestService.findById(id);
+
+		model.addAttribute("pays", requestService.selectCountries());
+		model.addAttribute("request", demandStage);
+		model.addAttribute("villes", requestService.selectCities(demandStage.getEtatCivile().getVille().getPays()));
+		model.addAttribute("stagiaire", user);
+
+
+
+		return "UpdateDemandeStage";
+	}
+
 	@PostMapping(value="saveRequest")
 	public String saveRequest(Model model,@ModelAttribute("request") DemandeStage request,
 			@RequestParam(name="pays") String pays,@RequestParam(name="ville") Long ville,
@@ -122,7 +145,7 @@ public class DemandeStageController {
 			@RequestParam(name="titreDoc") List<MultipartFile> titreDoc,
 			@RequestParam(name="titre") MultipartFile titre) throws IllegalStateException, IOException { 
 
-		
+
 		requestService.setPaysVille(request,pays,ville);
 		requestService.setMultipartFiles(request,photo,titreDoc,titre);
 
@@ -141,7 +164,42 @@ public class DemandeStageController {
 
 		requestService.createAndSaveFile(photo,dirPhotoIdentity,titre,dirLettreMotivation,titreDoc,dirDocumentAdministratif,request);
 		requestService.addNotification(request,"NouvelleDemandeAjoutee","ChoukriAnwar@gmail.com");
+
+
+		return "redirect:/Edit?id="+request.getId()+"&requestAdded";
+	}
+
+	@PostMapping(value="update")
+	public String update(Model model,@ModelAttribute("request") DemandeStage request,
+			@RequestParam(value="etatCivile.pays.code") String pays,@RequestParam(value="etatCivile.ville.id") Long ville,
+			@RequestParam(value="photo") MultipartFile photo,
+			@RequestParam(value="titreDoc") List<MultipartFile> titreDoc,
+			@RequestParam(value="titre") MultipartFile titre) throws IllegalStateException, IOException { 
+
+
+		requestService.setPaysVille(request,pays,ville);
+		System.out.println(request.getFormations().get(0).getTitre());
+		//		
+		//		
+		//		
+		//		requestService.setMultipartFiles(request,photo,titreDoc,titre);
+		//
+		//
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		Utilisateur user =  requestService.findbyUsername(auth.getName().toString());
+		request.setStagiaire((Stagiaire) user);
+		requestService.save(request);
+
+		request.setFormations();
+		request.setExperiences();
+		if(!titreDoc.get(0).getOriginalFilename().isEmpty()) {
+			request.setDocumentsAdministratifs();
+		}
+		requestService.save(request);
 		
+		//		requestService.createAndSaveFile(photo,dirPhotoIdentity,titre,dirLettreMotivation,titreDoc,dirDocumentAdministratif,request);
+		//		requestService.addNotification(request,"NouvelleDemandeAjoutee","ChoukriAnwar@gmail.com");
+
 
 		return "redirect:/Edit?id="+request.getId()+"&requestAdded";
 	}
@@ -154,7 +212,7 @@ public class DemandeStageController {
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
 		Utilisateur utilisateur=requestService.findbyUsername(auth.getName().toString());
 		session.setAttribute("user",utilisateur);
-		
+
 		List<DemandeStage> demandesStages = requestService.findByDomaine(domain);
 		model.addAttribute("demandesStages",demandesStages);
 
@@ -173,7 +231,7 @@ public class DemandeStageController {
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
 		Utilisateur utilisateur=requestService.findbyUsername(auth.getName().toString());
 		session.setAttribute("user",utilisateur);
-		
+
 		List<DemandeStage> demandesStages = requestService.FindByFilters(domain,dateStart,dateFin,entretien,Status,decision);
 		model.addAttribute("demandesStages",demandesStages);
 
@@ -193,13 +251,13 @@ public class DemandeStageController {
 		model.addAttribute("notifications", user.getNotifivations());
 
 		DemandeStage demandStage = requestService.findById(id);
-		
+
 		model.addAttribute("demandStage", demandStage);
 		model.addAttribute("ResponsableDomaine", requestService.findResponsibleByDomaine(demandStage.getDomaine()) );
 
 		return "requestDetails";
 	}
-	
+
 	@GetMapping("EditNotification")
 	public String EditNotification(Model model,@RequestParam(value = "request") Long request,@RequestParam(value = "notification") Long notification,HttpServletRequest hsr ) {
 
@@ -208,7 +266,7 @@ public class DemandeStageController {
 		Utilisateur user=requestService.findbyUsername(auth.getName().toString());
 		session.setAttribute("user",user);
 		requestService.removeNotification(notification,request);
-		
+
 		return "redirect:Edit?id="+request;
 	}
 
@@ -216,11 +274,11 @@ public class DemandeStageController {
 	public String Delete(Model model,@RequestParam(value = "id") Long id) throws IOException, CloneNotSupportedException {
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
 		Utilisateur user=requestService.findbyUsername(auth.getName().toString());
-		
+
 		DemandeStage demandStage=requestService.findById(id);
 		requestService.deleteRequest(demandStage,dirDocumentAdministratif,dirLettreMotivation,dirPhotoIdentity);
 
-		
+
 		if(user instanceof Stagiaire) {
 			return "redirect:userSentRequests?domain="+demandStage.getDomaine()+"&requestDeleted";
 		}
@@ -231,13 +289,13 @@ public class DemandeStageController {
 	@GetMapping("changeStatus")
 	public String changeStatus(Model model,HttpServletRequest hsr,@RequestParam(value = "id") Long id,@RequestParam("status") Object status, @RequestParam(name="commentaire",required = false) String commentaire) {
 
-		
+
 		DemandeStage demandStage = requestService.findById(id);
-		
+
 		if((status.toString().equals("Accepted") || status.toString().equals("Refused")) && demandStage.getStatut()!=null) {
 			if(!commentaire.isEmpty()) {
 				requestService.addComment(commentaire,demandStage);
-				
+
 			}
 			demandStage.setFinalDecision(DecisionFinale.valueOf(status.toString()));
 		}
@@ -246,7 +304,7 @@ public class DemandeStageController {
 			demandStage.setStatut(Statut.valueOf(status.toString()));
 		}
 		requestService.save(demandStage);
-		
+
 		return "redirect:Edit?id="+id+"&statusChanged";
 	}
 
@@ -266,14 +324,14 @@ public class DemandeStageController {
 	public String makeDecision(Model model,HttpServletRequest hsr, @RequestParam(value = "id") Long id,@RequestParam(name="decision",defaultValue = "") String decision) {
 
 		DemandeStage demandStage = requestService.findById(id);
-		
+
 		HttpSession session = hsr.getSession(true);
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
 		Utilisateur user=requestService.findbyUsername(auth.getName().toString());
 		session.setAttribute("user",user);
-		
+
 		if(decision.equals("Refused")) {
-			
+
 			Statut status=Statut.valueOf(decision);
 
 			demandStage.setStatut(status);
@@ -282,7 +340,7 @@ public class DemandeStageController {
 			requestService.addNotification(demandStage,"DecisionPrise",demandStage.getStagiaire().getEmail());
 			requestService.addNotification(demandStage,"PrendreDecisionFinale","ChoukriAnwar@gmail.com");
 
-			
+
 			return "redirect:Edit?id="+id+"&statusChanged";
 		}
 
@@ -309,7 +367,7 @@ public class DemandeStageController {
 		else{
 			demandStage.setEntretien(entretien);
 		}
-		
+
 		requestService.save(demandStage);
 		requestService.addNotification(demandStage,"DecisionPrise",demandStage.getStagiaire().getEmail());
 		//requestService.addNotification(demandStage,"PrendreDecisionFinale","ChoukriAnwar@gmail.com");

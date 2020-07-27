@@ -239,14 +239,15 @@ public class DemandeStageService {
 		return paysRepository.findAll();
 	}
 
-	public List<Ville> selectCities() {
-		return villeRepository.findAll();
+	public List<Ville> selectCities(String pays) {
+		return villeRepository.findByPays(pays);
 	}
 
 	public void  setPaysVille(DemandeStage request, String pays, Long ville) {
 		request.getEtatCivile().setPays(paysRepository.getOne(pays));
 		request.getEtatCivile().setVille(villeRepository.getOne(ville));
 	}
+
 
 
 

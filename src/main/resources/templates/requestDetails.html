@@ -445,6 +445,9 @@
 							alt="picture">
 					</div>
 					<div class="col-lg-9 col-md-9">
+						<div th:if="${demandStage.finalDecision==null}" style="float: right; color: #218838;" title="Update">
+							<a th:href="@{update(id=${demandStage.id})}" style="color: #1646B3;"><i class="fa fa-edit faa-pulse animated fa-2x"></i></a>
+						</div>
 						<div>
 							<h1
 								th:text="${demandStage.stagiaire.nom+' '+demandStage.stagiaire.prenom}"></h1>
@@ -454,6 +457,7 @@
 						</div>
 						<div align="justify" th:text="${demandStage.etatCivile.profile}">
 						</div>
+
 					</div>
 				</div>
 				<hr>

@@ -18,6 +18,8 @@ import javax.persistence.OneToOne;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class EtatCivile {
 
@@ -29,9 +31,11 @@ public class EtatCivile {
 	private String photo;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pays")
+	@JsonIgnore
 	private Pays pays;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ville")
+	@JsonIgnore
 	private Ville ville;
 	private String adresse;
 	private int codePostal;

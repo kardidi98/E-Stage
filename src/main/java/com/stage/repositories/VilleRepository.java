@@ -13,7 +13,7 @@ import com.stage.entities.Ville;
 
 public interface VilleRepository extends JpaRepository<Ville, Long> {
 
-	@Query("SELECT v FROM Ville v WHERE v.pays LIKE :x")
+	@Query("SELECT v FROM Ville v WHERE v.pays = :x")
 	List<Ville> findByPays(@Param("x") String code);
 
 }

@@ -381,14 +381,14 @@
 								<td th:if="${request.commentaire != null}"
 									th:text="${request.commentaire.contenu}"></td>
 								<td th:if="${request.commentaire == null}">__</td>
-								<td align="center"><a th:href="@{Edit(id=${request.id})}"><button
+								<td ><div  style="display: flex;justify-content: center;"><div><a th:href="@{Edit(id=${request.id})}"><button
 											type="button" class="btn btn-success actions" title="Edit">
 											<i class="fa fa-edit"></i>
-										</button></a> <a th:href="@{Delete(id=${request.id})}"
+										</button></a></div> &nbsp;<div><a th:href="@{Delete(id=${request.id})}"
 									onclick="return confirm('Are you sure you want to delete this internship request ?');"><button
 											type="button" class="btn btn-danger actions" title="Delete">
 											<i class="fa fa-trash"></i>
-										</button></a></td>
+										</button></a></div></div></td>
 							</tr>
 
 						</tbody>
