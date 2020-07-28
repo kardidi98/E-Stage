@@ -4,6 +4,7 @@ package com.stage.service;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -25,6 +26,7 @@ import com.stage.entities.Statut;
 import com.stage.entities.Utilisateur;
 import com.stage.entities.Ville;
 import com.stage.repositories.DemandeStageRepository;
+import com.stage.repositories.DocumentAdministratifRepository;
 import com.stage.repositories.NotificationRepository;
 import com.stage.repositories.PaysRepository;
 import com.stage.repositories.ResponsableDomaineRepository;
@@ -54,6 +56,9 @@ public class DemandeStageService {
 
 	@Autowired
 	private NotificationRepository notificationRepository;
+
+	@Autowired
+	private DocumentAdministratifRepository documentAdministartifRepository;
 
 
 	public Utilisateur findbyUsername(String email) {
@@ -189,14 +194,14 @@ public class DemandeStageService {
 		if(messageSeparateurDuTraitement==("NouvelleDemandeAffectee")) {
 			notification=new Notification("A new request has been assigned to you", request,user);
 
-			msg="<div align='center' style='color:black;'><h2>\"A new request has been received\"</h2><h3><strong>Domain: </strong>"+request.getDomaine()+"</h3><div>--"+LocalDate.now()+"--</div><br/><div><a href='http://localhost:9090/home'><button style='background-color:#51A4FD;border:1px solid #51A4FD;border-radius:5px;box-shadow:0 0 10px rgba(0,0,0,0.3);font-size:25px;'>Click Here</button></a></div><div>";
+			msg="<div align='center' style='color:black;'><h2>A new request has been assigned to you</h2><h3><strong>Domain: </strong>"+request.getDomaine()+"</h3><div>--"+LocalDate.now()+"--</div><br/><div><a href='http://localhost:9090/home'><button style='background-color:#51A4FD;border:1px solid #51A4FD;border-radius:5px;box-shadow:0 0 10px rgba(0,0,0,0.3);font-size:25px;'>Click Here</button></a></div><div>";
 
 		}
 
 		if(messageSeparateurDuTraitement==("DecisionPrise")) {
-			notification=new Notification("Check The status of your  request", request,user);
+			notification=new Notification("Check The status of your request", request,user);
 
-			msg="<div align='center' style='color:black;'><h2>A new request has been received</h2><h3><strong>Domain: </strong>"+request.getDomaine()+"</h3><div>--"+LocalDate.now()+"--</div><br/><div><a href='http://localhost:9090/home'><button style='background-color:#51A4FD;border:1px solid #51A4FD;border-radius:5px;box-shadow:0 0 10px rgba(0,0,0,0.3);font-size:25px;'>Click Here</button></a></div><div>";
+			msg="<div align='center' style='color:black;'><h2>Check The status of your request</h2><h3><strong>Domain: </strong>"+request.getDomaine()+"</h3><div>--"+LocalDate.now()+"--</div><br/><div><a href='http://localhost:9090/home'><button style='background-color:#51A4FD;border:1px solid #51A4FD;border-radius:5px;box-shadow:0 0 10px rgba(0,0,0,0.3);font-size:25px;'>Click Here</button></a></div><div>";
 
 		}
 
@@ -246,6 +251,43 @@ public class DemandeStageService {
 	public void  setPaysVille(DemandeStage request, String pays, Long ville) {
 		request.getEtatCivile().setPays(paysRepository.getOne(pays));
 		request.getEtatCivile().setVille(villeRepository.getOne(ville));
+	}
+
+	public void updateMultipartFiles(DemandeStage request, String dirPhotoIdentity, MultipartFile photo, String oldPic,
+			String dirDocumentAdministratif, List<MultipartFile> titreDoc, String dirLettreMotivation, MultipartFile titre, String oldletter) throws IllegalStateException, IOException {
+
+		if(photo.isEmpty()) {
+			request.getEtatCivile().setPhoto(oldPic);
+		}
+		else {
+			request.getEtatCivile().setPhoto(photo.getOriginalFilename());
+			request.updatePhoto(dirPhotoIdentity,photo);
+		}
+
+
+		if(titre.isEmpty()) {
+			request.getLettreMotivation().setTitre(oldletter);
+
+		}
+		else {
+			request.getLettreMotivation().setTitre(titre.getOriginalFilename());
+			request.updateLetter(dirLettreMotivation,titre);
+		}
+		
+		
+		if(titreDoc.get(0).isEmpty()) {
+			request.setDocumentAdministratif(documentAdministartifRepository.findByRequestId(request.getId()));
+		}
+		else {
+
+			for (int i = 0; i<titreDoc.size();i++) {
+				DocumentAdministratif doc=new DocumentAdministratif();
+				doc.setTitre(titreDoc.get(i).getOriginalFilename());
+				request.getDocumentAdministratif().add(doc);
+			}
+			request.updateDocs(dirDocumentAdministratif,titreDoc);
+
+		}
 	}
 
 

@@ -208,7 +208,7 @@ var AdministrativeDocSection=1;
 
 	$(document).ready(function(){
 		$("#addEducationSection").on('click',function(){
-			$("#EducationSection").append('<div id="RemoveEducationSection'+EducationSection+'">&nbsp;<hr><div class="RemoveEducationSection" onclick="$(\'#RemoveEducationSection'+EducationSection+'\').remove()" data-toggle="tooltip" data-placement="top" title="Remove This Section"><i class="fa fa-close"></i></div>&nbsp;<div class="row form-group">'+
+			$("#EducationSection").append('<div id="RemoveEducationSection'+EducationSection+'">&nbsp;<hr><div class="RemoveEducationSection" onclick="if(confirm(\'Do you really want to delete this section ?\')){$(\'#RemoveEducationSection'+EducationSection+'\').remove();}" data-toggle="tooltip" data-placement="top" title="Remove This Section"><i class="fa fa-close"></i></div>&nbsp;<div class="row form-group">'+
 					'<div class="col-lg-6 col-md-6">'+
 					'<label for="titre'+EducationSection+'">Title <small class="important">*</small></label>'+
 					'<input type="text" class="form-control p-3" id="titre'+EducationSection+'"  name="formations['+EducationSection+'].titre" placeholder="Title" required="required">'+
@@ -240,7 +240,7 @@ var AdministrativeDocSection=1;
 		});
 
 		$("#addExperienceSection").on('click',function(){
-			$("#ExperienceSection").append('<div id="RemoveExperienceSection'+ExperienceSection+'">&nbsp;<hr><div class="RemoveExperienceSection" onclick="$(\'#RemoveExperienceSection'+ExperienceSection+'\').remove()" data-toggle="tooltip" data-placement="top" title="Remove This Section"><i class="fa fa-close"></i></div>&nbsp;<div class="row form-group">'+
+			$("#ExperienceSection").append('<div id="RemoveExperienceSection'+ExperienceSection+'">&nbsp;<hr><div class="RemoveExperienceSection" onclick="if(confirm(\'Do you really want to delete this section ?\')){$(\'#RemoveExperienceSection'+ExperienceSection+'\').remove();}" data-toggle="tooltip" data-placement="top" title="Remove This Section"><i class="fa fa-close"></i></div>&nbsp;<div class="row form-group">'+
 					'<div class="col-lg-6 col-md-6">'+
 					'<label for="experienceTitle'+ExperienceSection+'">Title <small class="important">*</small></label>'+
 					'<input type="text" class="form-control p-3" id="experienceTitle'+ExperienceSection+'"  name="experiences['+ExperienceSection+'].titre" placeholder="Title" required="required">'+
@@ -358,6 +358,25 @@ $(document).on('change', '#pays', function(){
 
 
 
+$(document).ready(function() {
+	
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-
-
+            reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+   
+    $(".file-upload").on('change', function(){
+        readURL(this);
+    });
+    
+    $(".upload-button").on('click', function() {
+       $(".file-upload").click();
+    });
+});

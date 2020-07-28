@@ -62,6 +62,8 @@ public class DemandeStageController {
 	private String dirDocumentAdministratif;
 
 
+
+
 	@RequestMapping(value="getPhoto",produces = MediaType.IMAGE_JPEG_VALUE)
 	@ResponseBody
 	public byte[] getPhoto(Long request) throws FileNotFoundException, IOException {
@@ -171,6 +173,7 @@ public class DemandeStageController {
 
 	@PostMapping(value="update")
 	public String update(Model model,@ModelAttribute("request") DemandeStage request,
+			@RequestParam(value="oldpic") String oldPic,@RequestParam(value="oldletter") String oldletter,
 			@RequestParam(value="etatCivile.pays.code") String pays,@RequestParam(value="etatCivile.ville.id") Long ville,
 			@RequestParam(value="photo") MultipartFile photo,
 			@RequestParam(value="titreDoc") List<MultipartFile> titreDoc,
@@ -178,13 +181,10 @@ public class DemandeStageController {
 
 
 		requestService.setPaysVille(request,pays,ville);
-		System.out.println(request.getFormations().get(0).getTitre());
-		//		
-		//		
-		//		
-		//		requestService.setMultipartFiles(request,photo,titreDoc,titre);
-		//
-		//
+
+		requestService.updateMultipartFiles(request,dirPhotoIdentity,photo,oldPic,dirDocumentAdministratif,titreDoc,dirLettreMotivation,titre,oldletter);
+
+
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
 		Utilisateur user =  requestService.findbyUsername(auth.getName().toString());
 		request.setStagiaire((Stagiaire) user);
@@ -192,16 +192,13 @@ public class DemandeStageController {
 
 		request.setFormations();
 		request.setExperiences();
-		if(!titreDoc.get(0).getOriginalFilename().isEmpty()) {
+		if(!titreDoc.get(0).isEmpty()) {
 			request.setDocumentsAdministratifs();
 		}
 		requestService.save(request);
-		
-		//		requestService.createAndSaveFile(photo,dirPhotoIdentity,titre,dirLettreMotivation,titreDoc,dirDocumentAdministratif,request);
-		//		requestService.addNotification(request,"NouvelleDemandeAjoutee","ChoukriAnwar@gmail.com");
 
 
-		return "redirect:/Edit?id="+request.getId()+"&requestAdded";
+		return "redirect:/Edit?id="+request.getId()+"&requestUpdated";
 	}
 
 

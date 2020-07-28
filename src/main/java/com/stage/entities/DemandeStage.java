@@ -1,6 +1,10 @@
 package com.stage.entities;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,7 @@ import org.apache.commons.collections.FactoryUtils;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.collections.list.LazyList;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class DemandeStage implements Cloneable {
@@ -311,6 +316,53 @@ public class DemandeStage implements Cloneable {
 		}
 		else {
 			this.getCommentaire().setContenu(comment.getContenu());
+		}
+		
+	}
+
+	public void updatePhoto(String dirPhotoIdentity, MultipartFile photo) throws IllegalStateException, IOException {
+		File f=new File(dirPhotoIdentity+this.getId());
+		if(f.exists()) {
+			byte[] bytes=photo.getBytes();
+			Path path=Paths.get(dirPhotoIdentity+this.getId());
+			Files.write(path, bytes);		
+		}
+		else 
+		{
+
+			photo.transferTo(new File(dirPhotoIdentity+this.getId()));
+		}
+		
+	}
+
+	public void updateLetter(String dirLettreMotivation, MultipartFile titre) throws IOException {
+		File f=new File(dirLettreMotivation+this.getId());
+		if(f.exists()) {
+			byte[] bytes=titre.getBytes();
+			Path path=Paths.get(dirLettreMotivation+this.getId());
+			Files.write(path, bytes);		
+		}
+		else 
+		{
+
+			titre.transferTo(new File(dirLettreMotivation+this.getId()));
+		}
+		
+	}
+
+	public void updateDocs(String dirDocumentAdministratif, List<MultipartFile> titreDoc) throws IOException {
+		for (MultipartFile doc : titreDoc) {
+			File f=new File(dirDocumentAdministratif+this.getId()+"_"+titreDoc.indexOf(doc));
+			if(f.exists()) {
+				byte[] bytes=doc.getBytes();
+				Path path=Paths.get(dirDocumentAdministratif+this.getId()+"_"+titreDoc.indexOf(doc));
+				Files.write(path, bytes);		
+			}
+			else 
+			{
+
+				doc.transferTo(new File(dirDocumentAdministratif+this.getId()+"_"+titreDoc.indexOf(doc)));
+			}
 		}
 		
 	}

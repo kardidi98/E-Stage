@@ -432,9 +432,24 @@
 				</div>
 			</div>
 		</section>
+		<section class="  pt-2" th:if="${param.requestUpdated}">
+			<div>
+				<div class="row justify-content-center">
+					<div
+						class="container col-lg-8 col-md-8 alert alert-success alert-dismissible fade show"
+						role="alert">
+						Your request has been updated successfully.
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
 		<section class="pt-4" data-aos="fade-up">
 			<div class="container"
-				style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); padding: 20px; width: 75%;">
+				 style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); padding: 20px; width: 75%;">
 				<div class="row">
 					<div class="col-lg-3 col-md-3" align="center">
 						<div th:if="${demandStage.EtatCivile.photo==''}" id="userPic">
