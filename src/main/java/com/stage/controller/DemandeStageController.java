@@ -179,7 +179,7 @@ public class DemandeStageController {
 			@RequestParam(value="titreDoc") List<MultipartFile> titreDoc,
 			@RequestParam(value="titre") MultipartFile titre) throws IllegalStateException, IOException { 
 
-
+		requestService.findNotifications(request);
 		requestService.setPaysVille(request,pays,ville);
 
 		requestService.updateMultipartFiles(request,dirPhotoIdentity,photo,oldPic,dirDocumentAdministratif,titreDoc,dirLettreMotivation,titre,oldletter);
@@ -228,8 +228,7 @@ public class DemandeStageController {
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
 		Utilisateur utilisateur=requestService.findbyUsername(auth.getName().toString());
 		session.setAttribute("user",utilisateur);
-
-		List<DemandeStage> demandesStages = requestService.FindByFilters(domain,dateStart,dateFin,entretien,Status,decision);
+		List<DemandeStage> demandesStages =requestService.FindByFilters(domain,dateStart,dateFin,entretien,Status,decision);
 		model.addAttribute("demandesStages",demandesStages);
 
 		model.addAttribute("notifications", utilisateur.getNotifivations());

@@ -137,9 +137,27 @@ public class DemandeStageService {
 	public List<DemandeStage> FindByFilters(Domaine domain, String dateStart, String dateFin, String entretien,
 			Statut status, DecisionFinale decision) {
 		List<DemandeStage> demandesStage=new ArrayList<DemandeStage>();
+
 		for (DemandeStage demandeStage : findByDomaine(domain)) {
-			if((demandeStage.getDateDeb().compareTo(LocalDate.parse(dateStart.toString()))<=0 && demandeStage.getDateFin().compareTo(LocalDate.parse(dateFin.toString()))>=0) || demandeStage.getStatut().equals(status) || demandeStage.getEntretien().getDate().compareTo(LocalDate.parse(entretien.toString()))==0 || demandeStage.getFinalDecision().equals(decision)) {
-				demandesStage.add(demandeStage);
+
+			if(demandeStage.getEntretien()!=null) {
+				if((demandeStage.getDateDeb().compareTo(LocalDate.parse(dateStart.toString()))<=0 && demandeStage.getDateFin().compareTo(LocalDate.parse(dateFin.toString()))>=0) || (demandeStage.getEntretien().getDate().compareTo(LocalDate.parse(entretien.toString()))==0) || (demandeStage.getStatut()==status)  || (demandeStage.getFinalDecision()==decision)) {
+					demandesStage.add(demandeStage);
+				}
+			}
+			else if(demandeStage.getFinalDecision()!=null){
+
+				if((demandeStage.getDateDeb().compareTo(LocalDate.parse(dateStart.toString()))<=0 && demandeStage.getDateFin().compareTo(LocalDate.parse(dateFin.toString()))>=0) || (demandeStage.getStatut()==status)  || (demandeStage.getFinalDecision()==decision)) {
+
+					demandesStage.add(demandeStage);
+				}
+
+			}
+			else {
+				if((demandeStage.getDateDeb().compareTo(LocalDate.parse(dateStart.toString()))<=0 && demandeStage.getDateFin().compareTo(LocalDate.parse(dateFin.toString()))>=0) || (demandeStage.getStatut()==status)) {
+
+					demandesStage.add(demandeStage);
+				}
 			}
 		}
 
@@ -273,8 +291,8 @@ public class DemandeStageService {
 			request.getLettreMotivation().setTitre(titre.getOriginalFilename());
 			request.updateLetter(dirLettreMotivation,titre);
 		}
-		
-		
+
+
 		if(titreDoc.get(0).isEmpty()) {
 			request.setDocumentAdministratif(documentAdministartifRepository.findByRequestId(request.getId()));
 		}
@@ -288,6 +306,11 @@ public class DemandeStageService {
 			request.updateDocs(dirDocumentAdministratif,titreDoc);
 
 		}
+	}
+
+	public List<Notification> findNotifications(DemandeStage request) {
+		return notificationRepository.findByRequestId(request.getId());
+		
 	}
 
 

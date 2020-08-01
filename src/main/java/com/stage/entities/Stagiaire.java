@@ -59,7 +59,7 @@ public class Stagiaire extends Utilisateur {
 		List<DemandeStage> demandesStage=new ArrayList<DemandeStage>();
 		for (DemandeStage demandeStage : getDemandeStagesByDomaine(domain)) {
 			
-			if((demandeStage.getDateDeb().compareTo(LocalDate.parse(dateStart.toString()))<=0 && demandeStage.getDateFin().compareTo(LocalDate.parse(dateFin.toString()))>=0) || demandeStage.getStatut().equals(status)) {
+			if((demandeStage.getDateDeb().compareTo(LocalDate.parse(dateStart.toString()))<=0 && demandeStage.getDateFin().compareTo(LocalDate.parse(dateFin.toString()))>=0) || demandeStage.getStatut()==status) {
 				demandesStage.add(demandeStage);
 			}
 		}

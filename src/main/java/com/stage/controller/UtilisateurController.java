@@ -40,6 +40,15 @@ public class UtilisateurController {
 
 
 	@GetMapping("login")
+	public String login(Model model) {
+
+		
+
+
+		return "login";
+	}
+	
+	@PostMapping("login")
 	public String login(Model model,HttpServletRequest hsr) {
 
 		HttpSession session = hsr.getSession(true);
@@ -55,7 +64,7 @@ public class UtilisateurController {
 		}
 
 
-		return "login";
+		return "redirect:home";
 	}
 
 	@GetMapping("register")

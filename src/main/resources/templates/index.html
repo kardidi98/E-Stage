@@ -117,7 +117,9 @@
 							</a></li>
 
 
-						</ul></li>
+						</ul> 
+						
+						</li>
 					<li sec:authorize="isAuthenticated()"
 						class="drop-down notification rounded"
 						style="border: 2px solid #1545B3; box-shadow: 0 0 10px rgba(21, 69, 179, 0.4); background-color: #1545B3;">
@@ -503,12 +505,7 @@
 	<!--  Main JS File -->
 	<script th:src="@{assets/js/main.js}" src="../static/assets/js/main.js"></script>
 
-	<script type="text/javascript">
-		
-		if([[${notifications.empty==false}]]>0){
-			SendNotification();
-		}
-	</script>
+
 
 </body>
 

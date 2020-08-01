@@ -37,7 +37,7 @@ public class HomeController {
 		return "index";
 	}
 
-	@GetMapping("")
+	@GetMapping("/")
 	public String home(Model model,HttpServletRequest hsr) {
 
 		return "redirect:home";
