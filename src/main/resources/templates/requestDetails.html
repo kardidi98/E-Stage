@@ -449,7 +449,7 @@
 		</section>
 		<section class="pt-4" data-aos="fade-up">
 			<div class="container"
-				 style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); padding: 20px; width: 75%;">
+				style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); padding: 20px; width: 75%;">
 				<div class="row">
 					<div class="col-lg-3 col-md-3" align="center">
 						<div th:if="${demandStage.EtatCivile.photo==''}" id="userPic">
@@ -460,8 +460,12 @@
 							alt="picture">
 					</div>
 					<div class="col-lg-9 col-md-9">
-						<div th:if="${demandStage.finalDecision==null}" style="float: right; color: #218838;" title="Update">
-							<a th:href="@{update(id=${demandStage.id})}" style="color: #1646B3;"><i class="fa fa-edit faa-pulse animated fa-2x"></i></a>
+						<div sec:authorize="hasAnyAuthority('Role_Stagiaire')"
+							th:if="${demandStage.finalDecision==null}"
+							style="float: right; color: #218838;" title="Update">
+							<a th:href="@{update(id=${demandStage.id})}"
+								style="color: #1646B3;"><i
+								class="fa fa-edit faa-pulse animated fa-2x"></i></a>
 						</div>
 						<div>
 							<h1
@@ -664,14 +668,13 @@
 					<div class="col-lg-2 col-md-6 footer-links">
 						<h4>Useful Links</h4>
 						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="index.html">Services</a></li>
-							<li><a href="contact_us.html">Contact us</a></li>
-							<li><a href="about_us.html">About us</a></li>
+							<li><a th:href="@{home}">Home</a></li>
+							<li><a th:href="@{about}">Contact us</a></li>
+							<li><a th:href="@{contact}">About us</a></li>
 						</ul>
 					</div>
 					<div class="col-lg-1 col-md-6 "></div>
-					<div class="col-lg-3 col-md-6 footer-contact">
+					<div class="col-lg-4 col-md-6 footer-contact">
 						<h4>Contact Us</h4>
 						<p>
 							A108 Adam Street, NY 535022<br> <strong>Phone:</strong> +212
@@ -704,7 +707,7 @@
 			</div>
 			<div class="credits">
 
-				<a href="#">internship Team</a>
+				By <a href="#">internship Team, at KERES</a>
 			</div>
 		</div>
 	</footer>

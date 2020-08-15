@@ -153,7 +153,19 @@
 
 
 
-
+		<section class="pt-3" th:if="${param.sendSuccessfully}">
+			<div class="row justify-content-center">
+				<div
+					class="container col-lg-8 col-md-8 alert alert-success alert-dismissible fade show"
+					role="alert">
+					Your message has been send successfully. Thank you !
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+		</section>
 
 		<!-- ======= Contact Section ======= -->
 		<section class="pt-4" id="contact">
@@ -191,39 +203,35 @@
 						</div>
 
 						<div class="form">
-							<form action="" method="post" role="form" class="contactUs-form">
+							<form th:action="@{contact}" method="post" role="form"
+								class="contactUs-form">
 								<div class="form-row">
 									<div class="form-group col-lg-6">
 										<input type="text" name="name" class="form-control" id="name"
 											placeholder="Your Name" data-rule="minlen:4"
-											data-msg="Please enter at least 4 chars" />
-										<div class="validate"></div>
+											required="required" />
+
 									</div>
 									<div class="form-group col-lg-6">
 										<input type="email" class="form-control" name="email"
 											id="email" placeholder="Your Email" data-rule="email"
-											data-msg="Please enter a valid email" />
-										<div class="validate"></div>
+											required="required" />
+
 									</div>
 								</div>
 								<div class="form-group">
 									<input type="text" class="form-control" name="subject"
 										id="subject" placeholder="Subject" data-rule="minlen:4"
-										data-msg="Please enter at least 8 chars of subject" />
-									<div class="validate"></div>
+										required="required" />
+
 								</div>
 								<div class="form-group">
 									<textarea class="form-control" name="message" rows="5"
 										data-rule="required" data-msg="Please write something for us"
-										placeholder="Message"></textarea>
-									<div class="validate"></div>
+										placeholder="Message" required="required"></textarea>
+
 								</div>
-								<div class="mb-3">
-									<div class="loading">Loading</div>
-									<div class="error-message"></div>
-									<div class="sent-message">Your message has been sent.
-										Thank you!</div>
-								</div>
+
 								<div class="text-center">
 									<button type="submit" title="Send Message">Send
 										Message</button>
@@ -259,14 +267,13 @@
 					<div class="col-lg-2 col-md-6 footer-links">
 						<h4>Useful Links</h4>
 						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="index.html">Services</a></li>
-							<li><a href="contact_us.html">Contact us</a></li>
-							<li><a href="about_us.html">About us</a></li>
+							<li><a th:href="@{home}">Home</a></li>
+							<li><a th:href="@{about}">Contact us</a></li>
+							<li><a th:href="@{contact}">About us</a></li>
 						</ul>
 					</div>
 					<div class="col-lg-1 col-md-6 "></div>
-					<div class="col-lg-3 col-md-6 footer-contact">
+					<div class="col-lg-4 col-md-6 footer-contact">
 						<h4>Contact Us</h4>
 						<p>
 							A108 Adam Street, NY 535022<br> <strong>Phone:</strong> +212
@@ -298,7 +305,7 @@
 			</div>
 			<div class="credits">
 
-				<a href="#">internship Team</a>
+				By <a href="#">internship Team, at KERES</a>
 			</div>
 		</div>
 	</footer>
